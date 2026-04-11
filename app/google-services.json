@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "670942216984",
+    "project_id": "vibic-c65cd",
+    "storage_bucket": "vibic-c65cd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670942216984:android:ff9c865044c61bffe3946d",
+        "android_client_info": {
+          "package_name": "com.example.vibic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIrS77gcyww9ciKvk12OSALyg2rsVqhd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

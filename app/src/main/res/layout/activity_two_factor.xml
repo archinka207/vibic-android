@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_auth_gradient"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Двухфакторная аутентификация"
+        android:textSize="28sp"
+        android:textColor="#B366FF"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="40dp"/>
+
+    <EditText
+        android:id="@+id/passwordTextField"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Введите облачный пароль"
+        android:textColorHint="#666666"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_backround"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginBottom="30dp"/>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="Подтвердить"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#B366FF"
+        app:cornerRadius="12dp"
+        android:textStyle="bold"/>
+
+</LinearLayout>

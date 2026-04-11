@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_auth_gradient"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vibic"
+                android:textSize="34sp"
+                android:textColor="#9933CC"
+                android:textStyle="bold"
+                android:layout_marginBottom="40dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatarCard"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
+                app:cardCornerRadius="60dp"
+                app:cardBackgroundColor="#8033CC80"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/avatarText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="А"
+                    android:textSize="48sp"
+                    android:textColor="#B366FF"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/avatarImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/addPhotoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Нажмите чтобы добавить фото"
+                android:textColor="#B366FF"
+                android:alpha="0.7"
+                android:textSize="14sp"
+                android:layout_marginBottom="24dp"/>
+
+            <EditText
+                android:id="@+id/nicknameInput"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Как к вам обращаться?"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#666666"
+                android:background="@drawable/edittext_backround"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Настройка 2FA -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Настроить двухфакторную аутентификацию (рекомендуется)"
+                android:textColor="#AAAAAA"
+                android:textSize="13sp"
+                android:textAlignment="center"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/twoFaPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Облачный пароль (опционально)"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#666666"
+                android:background="@drawable/edittext_backround"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:gravity="center_vertical"
+                android:inputType="textPassword"
+                android:layout_marginBottom="30dp"/>
+
+            <Button
+                android:id="@+id/continueButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Готово"
+                android:textSize="17sp"
+                android:textColor="#FFFF"
+                android:backgroundTint="#8026CC"
+                app:cornerRadius="12dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</ScrollView>

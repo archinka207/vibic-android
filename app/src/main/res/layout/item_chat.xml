@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Аватарка -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/avatarCard"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="12dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#B366FF">
+
+        <ImageView
+            android:id="@+id/avatarImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_chat_avatar"
+            android:scaleType="centerCrop"/>
+
+        <!-- ДОБАВЛЕН ID -->
+        <TextView
+            android:id="@+id/avatarText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Информация о чате -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <!-- Верхняя строка с именем и временем -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/chatName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Имя контакта"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <!-- ДОБАВЛЕН ID -->
+            <TextView
+                android:id="@+id/unreadBadge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:textColor="@android:color/white"
+                android:background="#FF0000"
+                android:visibility="gone"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/lastMessageTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Последнее сообщение -->
+        <TextView
+            android:id="@+id/lastMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Последнее сообщение"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+    </LinearLayout>
+
+</LinearLayout>

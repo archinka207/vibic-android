@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_auth_gradient"
+    android:padding="24dp">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Введите код"
+            android:textSize="34sp"
+            android:textColor="#B366FF"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/phoneNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+7 (999) ***-**-67"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/changeNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#B366FF"
+            android:text="Изменить номер"
+            android:textSize="15sp"
+            android:layout_marginBottom="40dp"/>
+
+        <!-- Контейнер для ячеек и прозрачного инпута -->
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <!-- 4 визуальные ячейки (теперь это TextView) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/code1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/code_cell_background"/>
+
+                <TextView
+                    android:id="@+id/code2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/code_cell_background"/>
+
+                <TextView
+                    android:id="@+id/code3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/code_cell_background"/>
+
+                <TextView
+                    android:id="@+id/code4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/code_cell_background"/>
+
+                <!-- Ячейки 5 и 6 удалены, так как код состоит из 4 цифр -->
+                <TextView android:id="@+id/code5" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
+                <TextView android:id="@+id/code6" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
+            </LinearLayout>
+
+            <!-- Скрытый прозрачный EditText, который перехватывает ввод -->
+            <EditText
+                android:id="@+id/hiddenCodeInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/transparent"
+                android:cursorVisible="false"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="0dp"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/timerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Отправить снова через "
+                android:textSize="15sp"
+                android:textColor="#B366FF"
+                android:alpha="0.8"/>
+
+            <TextView
+                android:id="@+id/timerDigits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:30"
+                android:textSize="15sp"
+                android:textColor="#B366FF"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/resendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Отправить код заново"
+            android:textSize="16sp"
+            android:textColor="#B366FF"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

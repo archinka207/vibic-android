@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Верхний отступ - гибкий -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_weight="1"/>
+
+        <!-- Контент по центру -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+            <!-- CardView с круглой аватаркой -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatarCard"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
+                app:cardCornerRadius="50dp"
+                app:cardBackgroundColor="#B366FF"
+                app:cardElevation="0dp">
+
+                <!-- TextView для буквы (виден когда нет фото) -->
+                <TextView
+                    android:id="@+id/avatarText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="А"
+                    android:textSize="40sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:visibility="visible"/>
+
+                <!-- ImageView для фото (скрыт пока нет фото) -->
+                <ImageView
+                    android:id="@+id/avatarImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/nicknameInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Алексей Петров"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Телефон -->
+            <TextView
+                android:id="@+id/phoneNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="+7 (999) 123-45-67"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+
+        <!-- Раздел Аккаунт -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Аккаунт"
+            android:textColor="#6A11CB"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"/>
+
+        <!-- Серый блок Аккаунт -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp">
+
+            <!-- Кнопка Уведомления -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_notifications"
+                    android:tint="#6A11CB"
+                    android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Уведомления"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Звуки, вибрация"
+                        android:textColor="#666666"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="#666666"/>
+            </LinearLayout>
+
+            <!-- Разделитель -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#333333"/>
+
+            <!-- Кнопка Конфиденциальность -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_privacy"
+                    android:tint="#6A11CB"
+                    android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Конфиденциальность"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Блокировка, скрытие"
+                        android:textColor="#666666"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="#666666"/>
+            </LinearLayout>
+
+            <!-- Разделитель -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#333333"/>
+
+            <!-- Кнопка О приложении -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_info"
+                    android:tint="#6A11CB"
+                    android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="О приложении"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Версия, информация"
+                        android:textColor="#666666"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="#666666"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Раздел Поддержка -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Поддержка"
+            android:textColor="#6A11CB"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"/>
+
+        <!-- Серый блок Поддержка -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp">
+
+            <!-- Кнопка Помощь -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_help"
+                    android:tint="#6A11CB"
+                    android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Помощь"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Часто задаваемые вопросы"
+                        android:textColor="#666666"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="#666666"/>
+            </LinearLayout>
+
+            <!-- Разделитель -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#333333"/>
+
+            <!-- Кнопка Оценить приложение -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star"
+                    android:tint="#6A11CB"
+                    android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Оценить приложение"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RuStore"
+                        android:textColor="#666666"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="#666666"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Кнопка Выйти -->
+        <LinearLayout
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/rounded_background"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_logout"
+                android:tint="#FF4444"
+                android:layout_marginEnd="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Выйти"
+                android:textColor="#FF4444"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- ОТСТУП ПОД ПЛАВАЮЩУЮ ПАНЕЛЬ (110dp достаточно, чтобы кнопка Выйти была видна) -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="110dp"/>
+
+    </LinearLayout>
+</ScrollView>
