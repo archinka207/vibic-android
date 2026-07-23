@@ -18,14 +18,14 @@
             android:layout_height="52dp"
             app:cardCornerRadius="26dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#B366FF">
+            app:cardBackgroundColor="?attr/vibicBrand">
 
             <TextView
                 android:id="@+id/chipAvatarText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
         </androidx.cardview.widget.CardView>
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="✕"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="10sp"
                 android:textStyle="bold"/>
         </FrameLayout>
@@ -57,7 +57,7 @@
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="#AAAAAA"
+        android:textColor="?attr/vibicTextSecondary"
         android:textSize="10sp"
         android:gravity="center"
         android:maxLines="1"

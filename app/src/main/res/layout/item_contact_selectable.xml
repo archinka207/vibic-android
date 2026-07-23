@@ -22,7 +22,7 @@
             android:layout_height="52dp"
             app:cardCornerRadius="26dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#B366FF"
+            app:cardBackgroundColor="?attr/vibicBrand"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <TextView
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
         </androidx.cardview.widget.CardView>
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="✓"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
         </FrameLayout>
@@ -65,7 +65,7 @@
             android:id="@+id/contactName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -73,7 +73,7 @@
             android:id="@+id/contactPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="13sp"/>
     </LinearLayout>
 

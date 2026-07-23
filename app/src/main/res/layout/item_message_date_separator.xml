@@ -15,7 +15,7 @@
         android:paddingEnd="14dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/vibicTextPrimary"
         android:textSize="12sp"
         android:textStyle="bold"
         tools:text="Сегодня"

@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="M"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="40sp"
                 android:textStyle="bold"/>
 
@@ -61,7 +61,7 @@
                     android:layout_height="16dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_check_done"
-                    app:tint="#FFFFFF"/>
+                    app:tint="?attr/vibicTextPrimary"/>
             </FrameLayout>
         </FrameLayout>
     </FrameLayout>
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Вайб создан!"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/vibicTextPrimary"
         android:textSize="22sp"
         android:textStyle="bold"/>
 

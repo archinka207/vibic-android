@@ -35,7 +35,7 @@
             <View
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"
+                android:background="?attr/vibicTextPrimary"
                 android:layout_marginEnd="8dp"/>
 
             <LinearLayout
@@ -47,7 +47,7 @@
                     android:id="@+id/replySenderName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="12sp"
                     android:textStyle="bold"/>
 

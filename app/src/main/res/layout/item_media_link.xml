@@ -22,7 +22,7 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:src="@android:drawable/ic_menu_share"
-            app:tint="#FFFFFF"/>
+            app:tint="?attr/vibicTextPrimary"/>
     </FrameLayout>
 
     <!-- URL + дата -->
@@ -36,7 +36,7 @@
             android:id="@+id/linkUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textSize="14sp"
             android:maxLines="2"
             android:ellipsize="end"/>
@@ -45,7 +45,7 @@
             android:id="@+id/linkDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="11sp"
             android:layout_marginTop="2dp"/>
     </LinearLayout>
@@ -55,7 +55,7 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@android:drawable/ic_menu_more"
-        app:tint="#555555"
+        app:tint="?attr/vibicTextTertiary"
         android:layout_marginStart="8dp"/>
 
 </LinearLayout>

@@ -27,7 +27,7 @@
         android:padding="8dp"
         android:src="@drawable/ic_back"
         android:background="@drawable/bg_close_button"
-        android:tint="#FFFFFF"/>
+        android:tint="?attr/vibicTextPrimary"/>
 
     <!-- Подсказка -->
     <TextView
@@ -37,7 +37,7 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="80dp"
         android:text="Наведите камеру на QR-код профиля"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/vibicTextPrimary"
         android:textSize="15sp"
         android:background="#66000000"
         android:paddingHorizontal="20dp"

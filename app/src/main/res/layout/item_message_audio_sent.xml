@@ -29,7 +29,7 @@
                 android:src="@drawable/ic_play_audio"
                 android:background="?selectableItemBackgroundBorderless"
                 android:padding="4dp"
-                app:tint="#FFFFFF"/>
+                app:tint="?attr/vibicTextPrimary"/>
 
             <SeekBar
                 android:id="@+id/audioProgress"
@@ -38,8 +38,8 @@
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
-                android:progressTint="#FFFFFF"
-                android:thumbTint="#FFFFFF"
+                android:progressTint="?attr/vibicTextPrimary"
+                android:thumbTint="?attr/vibicTextPrimary"
                 android:max="100"/>
 
             <TextView

@@ -14,7 +14,7 @@
         android:layout_height="56dp"
         android:layout_marginEnd="12dp"
         app:cardCornerRadius="28dp"
-        app:cardBackgroundColor="#B366FF">
+        app:cardBackgroundColor="?attr/vibicBrand">
 
         <TextView
             android:id="@+id/avatarText"
@@ -38,7 +38,7 @@
             android:id="@+id/contactName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="16sp"
             android:textStyle="bold"/>
 

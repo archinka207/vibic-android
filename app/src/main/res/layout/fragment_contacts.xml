@@ -15,15 +15,15 @@
         android:layout_marginBottom="12dp"
         app:cardCornerRadius="28dp"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="#2A2A2A">
+        app:cardBackgroundColor="?attr/vibicSurface">
 
         <EditText
             android:id="@+id/searchInput"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="Поиск"
-            android:textColorHint="#888888"
-            android:textColor="#FFFFFF"
+            android:textColorHint="?attr/vibicTextSecondary"
+            android:textColor="?attr/vibicTextPrimary"
             android:background="@drawable/search_background"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
@@ -59,7 +59,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/ic_contacts"
-            app:tint="#B366FF"
+            app:tint="?attr/vibicBrand"
             android:alpha="0.5"
             android:layout_marginBottom="16dp"/>
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Введите имя или номер для поиска"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="14sp"
             android:gravity="center"/>
     </LinearLayout>

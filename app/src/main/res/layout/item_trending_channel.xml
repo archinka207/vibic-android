@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="K"/>
@@ -48,7 +48,7 @@
                 android:id="@+id/channelName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -76,7 +76,7 @@
         android:id="@+id/growth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#34D399"
+        android:textColor="?attr/vibicSuccess"
         android:textSize="13sp"
         android:textStyle="bold"
         android:text="↗ +6.7K"/>

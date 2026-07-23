@@ -28,7 +28,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"/>
+                app:tint="?attr/vibicTextPrimary"/>
         </FrameLayout>
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"

@@ -41,7 +41,7 @@
             <View
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
-                android:background="#B366FF"
+                android:background="?attr/vibicBrand"
                 android:layout_marginEnd="8dp"/>
 
             <LinearLayout
@@ -53,7 +53,7 @@
                     android:id="@+id/replySenderName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#B366FF"
+                    android:textColor="?attr/vibicBrand"
                     android:textSize="12sp"
                     android:textStyle="bold"/>
 
@@ -61,7 +61,7 @@
                     android:id="@+id/replyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#888888"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="12sp"
                     android:maxLines="2"
                     android:ellipsize="end"
@@ -73,7 +73,7 @@
             android:id="@+id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="14sp"
             android:lineSpacingExtra="2dp"/>
 
@@ -81,7 +81,7 @@
             android:id="@+id/messageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="10sp"
             android:layout_marginTop="4dp"/>
     </LinearLayout>

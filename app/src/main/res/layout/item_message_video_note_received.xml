@@ -40,7 +40,7 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_play_audio"
-                    app:tint="#FFFFFFFF"/>
+                    app:tint="?attr/vibicTextPrimary"/>
             </FrameLayout>
         </androidx.cardview.widget.CardView>
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="10sp"/>
     </LinearLayout>
 </LinearLayout>

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Звонки"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/vibicTextPrimary"
         android:textSize="24sp"
         android:layout_marginBottom="16dp"/>
 
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Здесь будет список звонков"
-        android:textColor="#666666"
+        android:textColor="?attr/vibicTextTertiary"
         android:textSize="16sp"/>
 
 </LinearLayout>

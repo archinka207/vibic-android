@@ -31,7 +31,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"/>
+                app:tint="?attr/vibicTextPrimary"/>
         </FrameLayout>
 
         <LinearLayout
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Закрытый вайб"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -126,7 +126,7 @@
             android:layout_width="120dp"
             android:layout_height="56dp"
             android:text="Пропустить"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="15sp"
             android:gravity="center"
             android:background="@drawable/bg_skip_button"
@@ -141,7 +141,7 @@
             android:layout_weight="1"
             android:layout_height="56dp"
             android:text="Далее"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="17sp"
             android:textStyle="bold"
             android:gravity="center"
