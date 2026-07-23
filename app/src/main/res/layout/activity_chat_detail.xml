@@ -30,7 +30,7 @@
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"
+                app:tint="?attr/vibicIcon"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?selectableItemBackgroundBorderless"/>
@@ -54,7 +54,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="12dp"
                     app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="#B366FF"
+                    app:cardBackgroundColor="?attr/vibicBrand"
                     app:cardElevation="0dp">
                     <ImageView
                         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                         android:id="@+id/chatUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:singleLine="true"
@@ -143,13 +143,13 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:src="@android:drawable/ic_menu_revert"
-                                app:tint="#B366FF"
+                                app:tint="?attr/vibicBrand"
                                 android:layout_marginEnd="8dp"/>
 
                             <View
                                 android:layout_width="2dp"
                                 android:layout_height="32dp"
-                                android:background="#B366FF"
+                                android:background="?attr/vibicBrand"
                                 android:layout_marginEnd="8dp"/>
 
                             <LinearLayout
@@ -162,7 +162,7 @@
                                     android:id="@+id/replyBarSenderName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="#B366FF"
+                                    android:textColor="?attr/vibicBrand"
                                     android:textSize="12sp"
                                     android:textStyle="bold"
                                     android:maxLines="1"
@@ -172,7 +172,7 @@
                                     android:id="@+id/replyBarText"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="#888888"
+                                    android:textColor="?attr/vibicTextSecondary"
                                     android:textSize="12sp"
                                     android:maxLines="1"
                                     android:ellipsize="end"/>
@@ -192,7 +192,7 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@android:drawable/ic_menu_close_clear_cancel"
-                                app:tint="#888888"
+                                app:tint="?attr/vibicTextSecondary"
                                 android:padding="8dp"
                                 android:background="?selectableItemBackgroundBorderless"/>
                         </LinearLayout>
@@ -227,7 +227,7 @@
                                 android:layout_weight="1"
                                 android:hint="Type your message..."
                                 android:textColorHint="#6B6A78"
-                                android:textColor="#FFFFFF"
+                                android:textColor="?attr/vibicTextPrimary"
                                 android:background="@null"
                                 android:paddingHorizontal="12dp"
                                 android:paddingVertical="12dp"
@@ -248,7 +248,7 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/ic_camera"
-                                app:tint="#B366FF"
+                                app:tint="?attr/vibicBrand"
                                 android:padding="4dp"
                                 android:background="?selectableItemBackgroundBorderless"
                                 android:layout_marginEnd="4dp"/>
@@ -262,7 +262,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/ic_send"
-                                    app:tint="#B366FF"
+                                    app:tint="?attr/vibicBrand"
                                     android:padding="6dp"
                                     android:background="?selectableItemBackgroundBorderless"
                                     android:visibility="gone"/>
@@ -272,7 +272,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/ic_mic"
-                                    app:tint="#B366FF"
+                                    app:tint="?attr/vibicBrand"
                                     android:padding="6dp"
                                     android:background="?selectableItemBackgroundBorderless"/>
                             </FrameLayout>
@@ -295,7 +295,7 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:padding="8dp"
-                        android:background="#1A1A1A">
+                        android:background="?attr/vibicSurface">
 
                         <EditText
                             android:id="@+id/emojiSearchInput"
@@ -306,8 +306,8 @@
                             android:drawableStart="@drawable/ic_search"
                             android:drawablePadding="8dp"
                             android:hint="Поиск смайликов..."
-                            android:textColorHint="#888888"
-                            android:textColor="#FFFFFF"
+                            android:textColorHint="?attr/vibicTextSecondary"
+                            android:textColor="?attr/vibicTextPrimary"
                             android:textSize="14sp"
                             android:paddingHorizontal="12dp"
                             android:maxLines="1"
@@ -320,7 +320,7 @@
                             android:layout_marginStart="8dp"
                             android:padding="6dp"
                             android:src="@drawable/ic_keyboard"
-                            app:tint="#B366FF"
+                            app:tint="?attr/vibicBrand"
                             android:background="?selectableItemBackgroundBorderless"/>
                     </LinearLayout>
 
@@ -367,7 +367,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="0:00"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:minWidth="40dp"/>
@@ -383,7 +383,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="◀"
-                            android:textColor="#666666"
+                            android:textColor="?attr/vibicTextTertiary"
                             android:textSize="11sp"/>
                         <TextView
                             android:id="@+id/slideToCancelText"
@@ -391,7 +391,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:text="Сдвиньте для отмены"
-                            android:textColor="#666666"
+                            android:textColor="?attr/vibicTextTertiary"
                             android:textSize="12sp"/>
                     </LinearLayout>
 
@@ -429,7 +429,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_delete"
-                    app:tint="#FF453A"
+                    app:tint="?attr/vibicDanger"
                     android:padding="12dp"
                     android:background="?selectableItemBackgroundBorderless"/>
 
@@ -455,7 +455,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="0:00"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:minWidth="40dp"/>
@@ -471,7 +471,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:text="1"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -487,7 +487,7 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@android:drawable/ic_media_pause"
-                        app:tint="#B366FF"
+                        app:tint="?attr/vibicBrand"
                         android:background="?selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"/>
@@ -503,7 +503,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_send"
-                        app:tint="#FFFFFF"
+                        app:tint="?attr/vibicTextPrimary"
                         android:padding="12dp"/>
                 </FrameLayout>
             </LinearLayout>
@@ -554,7 +554,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="0:00"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="invisible"/>
@@ -596,7 +596,7 @@
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:src="@drawable/ic_camera"
-                    app:tint="#FFFFFF"
+                    app:tint="?attr/vibicTextPrimary"
                     android:background="@drawable/bg_record_button_inner"
                     android:padding="12dp"/>
             </LinearLayout>
@@ -655,12 +655,12 @@
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_revert"
                         android:layout_marginEnd="14dp"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicTextPrimary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ответить"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"/>
                 </LinearLayout>
 
@@ -677,12 +677,12 @@
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_view"
                         android:layout_marginEnd="14dp"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicTextPrimary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Копировать"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"/>
                 </LinearLayout>
 
@@ -699,12 +699,12 @@
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_share"
                         android:layout_marginEnd="14dp"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicTextPrimary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Переслать"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"/>
                 </LinearLayout>
 
@@ -721,12 +721,12 @@
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_upload"
                         android:layout_marginEnd="14dp"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicTextPrimary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Закрепить"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"/>
                 </LinearLayout>
 
@@ -744,19 +744,19 @@
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:layout_marginEnd="14dp"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicTextPrimary"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Редактировать"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"/>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#2C2C2E"
+                    android:background="?attr/vibicDivider"
                     android:layout_marginVertical="4dp"/>
 
                 <LinearLayout
@@ -772,12 +772,12 @@
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_delete"
                         android:layout_marginEnd="14dp"
-                        app:tint="#FF453A"/>
+                        app:tint="?attr/vibicDanger"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Удалить"
-                        android:textColor="#FF453A"
+                        android:textColor="?attr/vibicDanger"
                         android:textSize="15sp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -821,7 +821,7 @@
                         android:layout_gravity="center"
                         android:src="@drawable/ic_chevron_right"
                         android:rotation="90"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicTextPrimary"/>
                 </FrameLayout>
             </LinearLayout>
 
