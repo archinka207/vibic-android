@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Цвет когда вкладка нажата/выбрана (Твой фиолетовый) -->
-    <item android:state_checked="true" android:color="#B366FF" />
-    <!-- Цвет для всех остальных неактивных вкладок -->
-    <item android:color="#808080" />
-</selector>

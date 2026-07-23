@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Превью фото/видео -->
+    <ImageView
+        android:id="@+id/mediaThumb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="@drawable/bg_chat_input_capsule"/>
+
+    <!-- Иконка видео (кружочек) -->
+    <ImageView
+        android:id="@+id/videoIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="6dp"
+        android:src="@android:drawable/ic_media_play"
+        android:visibility="gone"/>
+
+    <!-- Длительность голосового -->
+    <TextView
+        android:id="@+id/audioDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="6dp"
+        android:textColor="#FFFFFF"
+        android:textSize="11sp"
+        android:visibility="gone"/>
+
+</FrameLayout>

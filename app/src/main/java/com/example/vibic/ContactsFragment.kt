@@ -9,6 +9,7 @@ import android.provider.ContactsContract
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -25,6 +26,7 @@ import com.example.vibic.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import java.util.UUID
 
 class ContactsFragment : Fragment() {
@@ -90,9 +92,39 @@ class ContactsFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
             override fun afterTextChanged(s: Editable?) {
-                filterContacts(s?.toString().orEmpty())
+                val text = s?.toString().orEmpty()
+                updateClearIcon(text.isNotEmpty())
+                filterContacts(text)
             }
         })
+
+        // Клик по правому крестику — очистить поле.
+        searchInput.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableEnd = searchInput.compoundDrawablesRelative[2] ?: return@setOnTouchListener false
+                val touchX = event.x
+                val fieldWidth = searchInput.width
+                val drawableWidth = drawableEnd.bounds.width()
+                val paddingEnd = searchInput.paddingEnd
+                if (touchX >= fieldWidth - paddingEnd - drawableWidth - 16) {
+                    if (searchInput.text.isNotEmpty()) {
+                        searchInput.setText("")
+                        v.performClick()
+                        return@setOnTouchListener true
+                    }
+                }
+            }
+            false
+        }
+
+        updateClearIcon(false)
+    }
+
+    private fun updateClearIcon(visible: Boolean) {
+        val startIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search)
+        val endIcon = if (visible) ContextCompat.getDrawable(requireContext(), R.drawable.ic_clear)
+        else null
+        searchInput.setCompoundDrawablesRelativeWithIntrinsicBounds(startIcon, null, endIcon, null)
     }
 
     private fun checkContactsPermissionAndLoad() {
@@ -109,12 +141,22 @@ class ContactsFragment : Fragment() {
     }
 
     private fun loadPhoneContacts() {
+        // Если контакты уже прочитаны и закешированы в репозитории — берём их
+        // синхронно, без плейсхолдера "Загрузка...". Это убирает микро-вспышку
+        // при повторном открытии вкладки.
+        val cached = ContactsRepository.cachedOrNull()
+        if (cached != null) {
+            allContacts.clear()
+            allContacts.addAll(cached)
+            filterContacts(searchInput.text?.toString().orEmpty())
+            return
+        }
+
+        // Первая загрузка — показываем плейсхолдер только пока кеша нет.
         showPlaceholder("Загрузка контактов...")
 
         lifecycleScope.launch {
-            val contacts = withContext(Dispatchers.IO) {
-                readContactsFromPhone()
-            }
+            val contacts = ContactsRepository.getContacts(requireContext().applicationContext)
 
             allContacts.clear()
             allContacts.addAll(contacts)
@@ -182,25 +224,41 @@ class ContactsFragment : Fragment() {
     }
 
     private fun filterContacts(query: String) {
-        val trimmedQuery = query.trim().lowercase()
+        val trimmedQuery = query.trim()
 
         filteredContacts.clear()
 
         if (trimmedQuery.isEmpty()) {
             filteredContacts.addAll(allContacts)
         } else {
+            val nameNeedle  = trimmedQuery.lowercase(LOCALE_RU)
+            val digitNeedle = trimmedQuery.filter { it.isDigit() }
+
             filteredContacts.addAll(
                 allContacts.filter { contact ->
-                    val fullName = buildFullName(contact).lowercase()
-                    val phone = (contact.phone ?: "").lowercase()
+                    val nameMatch = buildFullName(contact).lowercase(LOCALE_RU).contains(nameNeedle)
 
-                    fullName.contains(trimmedQuery) || phone.contains(trimmedQuery)
+                    // Поиск по номеру — только если в запросе есть цифры. Сравниваем
+                    // голые цифры обеих сторон, чтобы "+7 (999) 111-22-33" находился
+                    // и по "9991112233", и по "111-22-33".
+                    val phoneMatch = digitNeedle.isNotEmpty() &&
+                            (contact.phone ?: "")
+                                .filter { it.isDigit() }
+                                .contains(digitNeedle)
+
+                    nameMatch || phoneMatch
                 }
             )
         }
 
+        adapter.setHighlightQuery(trimmedQuery)
+
         if (filteredContacts.isEmpty()) {
-            showPlaceholder("Контакты не найдены")
+            // Если у пользователя вообще ещё нет контактов — другой текст,
+            // чем при пустом результате поиска.
+            val message = if (allContacts.isEmpty()) "Введите имя или номер для поиска"
+            else "Контакты не найдены"
+            showPlaceholder(message)
             adapter.submitList(emptyList())
         } else {
             hidePlaceholder()
@@ -216,14 +274,13 @@ class ContactsFragment : Fragment() {
             return
         }
 
+        val searchPhone = phoneToDbFormat(phone)
+
         lifecycleScope.launch {
             try {
-                showPlaceholder("Проверяем контакт...")
-
-                val response = ApiClient.apiService.searchUsers(phone)
+                val response = ApiClient.apiService.searchUsers(searchPhone)
 
                 if (!response.isSuccessful) {
-                    hidePlaceholder()
                     Toast.makeText(
                         requireContext(),
                         "Ошибка поиска: ${response.code()}",
@@ -235,7 +292,6 @@ class ContactsFragment : Fragment() {
                 val usersFromApi = response.body().orEmpty()
 
                 if (usersFromApi.isEmpty()) {
-                    hidePlaceholder()
                     Toast.makeText(
                         requireContext(),
                         "Этот контакт ещё не зарегистрирован в Vibic",
@@ -244,41 +300,52 @@ class ContactsFragment : Fragment() {
                     return@launch
                 }
 
-                val matchedUser = usersFromApi.firstOrNull()
-                if (matchedUser == null) {
-                    hidePlaceholder()
-                    Toast.makeText(
-                        requireContext(),
-                        "Пользователь не найден",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                val matchedUser = usersFromApi.firstOrNull() ?: run {
+                    Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_SHORT).show()
                     return@launch
                 }
 
-                hidePlaceholder()
-                createChatWithUser(matchedUser)
+                createChatAndOpen(matchedUser)
 
             } catch (e: Exception) {
-                hidePlaceholder()
-                Toast.makeText(
-                    requireContext(),
-                    "Ошибка: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Ошибка: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun createChatWithUser(user: UserResponse) {
+    /**
+     * Приводит номер телефона к формату, в котором он хранится в БД: только цифры, начиная с 7.
+     *
+     * Примеры:
+     *   +7 (999) 111-11-11  →  79991111111
+     *   +79991111111        →  79991111111
+     *   89991111111         →  79991111111  (8 → 7 для российских номеров)
+     *   79991111111         →  79991111111
+     */
+    private fun phoneToDbFormat(phone: String): String {
+        // Убираем всё кроме цифр
+        val digitsOnly = phone.replace("[^0-9]".toRegex(), "")
+
+        return when {
+            // +7xxxxxxxxxx или 7xxxxxxxxxx → 7xxxxxxxxxx
+            digitsOnly.length == 11 && digitsOnly.startsWith("7") -> digitsOnly
+            // 8xxxxxxxxxx (российский формат) → 7xxxxxxxxxx
+            digitsOnly.length == 11 && digitsOnly.startsWith("8") -> "7${digitsOnly.drop(1)}"
+            // 10-значный без кода страны → добавляем 7
+            digitsOnly.length == 10 -> "7$digitsOnly"
+            // иначе отдаём как есть (только цифры)
+            else -> digitsOnly
+        }
+    }
+
+    private fun createChatAndOpen(user: UserResponse) {
         lifecycleScope.launch {
             try {
-                val request = CreateChatRequest(
-                    type = "private",
-                    name = null,
-                    user_ids = listOf(user.id)
+                val request = CreatePrivateChatRequest(
+                    target_user_id = user.id
                 )
 
-                val response = ApiClient.apiService.createChat(request)
+                val response = ApiClient.apiService.createPrivateChat(request)
 
                 if (response.isSuccessful) {
                     val chat = response.body()
@@ -289,11 +356,7 @@ class ContactsFragment : Fragment() {
                         }
                         startActivity(intent)
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Не удалось открыть чат",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Не удалось открыть чат", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(
@@ -303,15 +366,10 @@ class ContactsFragment : Fragment() {
                     ).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(
-                    requireContext(),
-                    "Ошибка: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Ошибка: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
     private fun buildFullName(user: UserResponse): String {
         return listOfNotNull(
             user.first_name?.trim()?.takeIf { it.isNotEmpty() },
@@ -344,5 +402,9 @@ class ContactsFragment : Fragment() {
     private fun hidePlaceholder() {
         placeholder.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
+    }
+
+    companion object {
+        private val LOCALE_RU = Locale("ru")
     }
 }

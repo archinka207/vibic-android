@@ -1,0 +1,164 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="180dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Хвост -->
+    <path
+        android:fillColor="#7C4DFF"
+        android:pathData="M148,150
+            C168,148 176,130 170,116
+            C166,107 156,108 158,120
+            C160,132 150,138 142,136
+            C136,134 138,150 148,150 Z" />
+
+    <!-- Тело -->
+    <path
+        android:fillColor="#9575FF"
+        android:pathData="M100,92
+            C72,92 56,112 56,138
+            C56,158 74,168 100,168
+            C126,168 144,158 144,138
+            C144,112 128,92 100,92 Z" />
+
+    <!-- Светлый животик -->
+    <path
+        android:fillColor="#C9B8FF"
+        android:pathData="M100,120
+            C86,120 78,130 78,144
+            C78,158 88,166 100,166
+            C112,166 122,158 122,144
+            C122,130 114,120 100,120 Z" />
+
+    <!-- Голова -->
+    <path
+        android:fillColor="#9575FF"
+        android:pathData="M100,38
+            C74,38 58,56 58,80
+            C58,104 76,118 100,118
+            C124,118 142,104 142,80
+            C142,56 126,38 100,38 Z" />
+
+    <!-- Левое ухо (опущено - грустный) -->
+    <path
+        android:fillColor="#7C4DFF"
+        android:pathData="M64,58
+            C56,46 52,36 58,32
+            C64,28 74,38 78,50
+            C72,52 67,54 64,58 Z" />
+
+    <!-- Правое ухо (опущено - грустный) -->
+    <path
+        android:fillColor="#7C4DFF"
+        android:pathData="M136,58
+            C144,46 148,36 142,32
+            C136,28 126,38 122,50
+            C128,52 133,54 136,58 Z" />
+
+    <!-- Внутреннее левое ухо -->
+    <path
+        android:fillColor="#C9B8FF"
+        android:pathData="M66,52
+            C62,46 60,40 63,38
+            C66,36 71,42 73,49
+            C70,50 68,51 66,52 Z" />
+
+    <!-- Внутреннее правое ухо -->
+    <path
+        android:fillColor="#C9B8FF"
+        android:pathData="M134,52
+            C138,46 140,40 137,38
+            C134,36 129,42 127,49
+            C130,50 132,51 134,52 Z" />
+
+    <!-- Левый глаз (грустный, прикрытый) -->
+    <path
+        android:fillColor="#2D2240"
+        android:pathData="M82,76
+            m-7,0
+            a7,7 0 1,0 14,0
+            a7,7 0 1,0 -14,0 Z" />
+
+    <!-- Блик в левом глазу -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M85,73
+            m-2,0
+            a2,2 0 1,0 4,0
+            a2,2 0 1,0 -4,0 Z" />
+
+    <!-- Правый глаз (грустный, прикрытый) -->
+    <path
+        android:fillColor="#2D2240"
+        android:pathData="M118,76
+            m-7,0
+            a7,7 0 1,0 14,0
+            a7,7 0 1,0 -14,0 Z" />
+
+    <!-- Блик в правом глазу -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M121,73
+            m-2,0
+            a2,2 0 1,0 4,0
+            a2,2 0 1,0 -4,0 Z" />
+
+    <!-- Грустные бровки -->
+    <path
+        android:strokeColor="#2D2240"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M72,64 L84,68" />
+    <path
+        android:strokeColor="#2D2240"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M128,64 L116,68" />
+
+    <!-- Носик -->
+    <path
+        android:fillColor="#FF8AB0"
+        android:pathData="M100,86
+            L96,90 L104,90 Z" />
+
+    <!-- Грустный ротик -->
+    <path
+        android:strokeColor="#2D2240"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M100,90 L100,95
+            M100,95 Q94,101 89,98
+            M100,95 Q106,101 111,98" />
+
+    <!-- Усы левые -->
+    <path
+        android:strokeColor="#C9B8FF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M78,88 L60,85
+            M78,93 L61,94" />
+
+    <!-- Усы правые -->
+    <path
+        android:strokeColor="#C9B8FF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M122,88 L140,85
+            M122,93 L139,94" />
+
+    <!-- Лапки -->
+    <path
+        android:fillColor="#C9B8FF"
+        android:pathData="M86,166
+            m-6,0
+            a6,6 0 1,0 12,0
+            a6,6 0 1,0 -12,0 Z" />
+    <path
+        android:fillColor="#C9B8FF"
+        android:pathData="M114,166
+            m-6,0
+            a6,6 0 1,0 12,0
+            a6,6 0 1,0 -12,0 Z" />
+
+</vector>

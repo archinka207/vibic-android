@@ -1,19 +1,28 @@
 package com.example.vibic
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.example.vibic.network.TokenManager
 import com.example.vibic.network.WebSocketManager
-import kotlinx.coroutines.*
+import com.google.firebase.FirebaseApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class VibicApp : Application() {
 
     companion object {
+        private const val TAG = "VibicApp"
         private var instance: VibicApp? = null
 
         fun getInstance(): VibicApp {
@@ -23,25 +32,88 @@ class VibicApp : Application() {
         fun getAppContext(): Context = getInstance().applicationContext
     }
 
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
+
+    // Текущая видимая Activity — нужна, чтобы показывать оверлей с котом поверх неё
+    private var currentActivity: Activity? = null
 
     override fun onCreate() {
         super.onCreate()
         instance = this
 
-        Log.d("VibicApp", "=== VibicApp onCreate ===")
+        FirebaseApp.initializeApp(this)
+        Log.d(TAG, "=== VibicApp onCreate ===")
 
         val token = TokenManager.getAccessToken()
         val userId = TokenManager.getUserId()
-        Log.d("VibicApp", "Токен: ${token?.take(50)}...")
-        Log.d("VibicApp", "UserId: $userId")
+        Log.d(TAG, "Токен: ${token?.take(50)}...")
+        Log.d(TAG, "UserId: $userId")
 
-        // Регистрируем мониторинг сети
         registerNetworkMonitoring()
+        registerLifecycleMonitoring()
+        registerActivityTracking()
+        observeErrors()
+    }
 
-        // Фоновый сервис WebSocketService.start() удален!
-        // Теперь уведомление висеть не будет.
+    /**
+     * Следим за тем, какая Activity сейчас на экране, чтобы знать,
+     * поверх чего рисовать оверлей с котом при ошибке.
+     */
+    private fun registerActivityTracking() {
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            override fun onActivityResumed(activity: Activity) {
+                currentActivity = activity
+            }
+
+            override fun onActivityPaused(activity: Activity) {
+                if (currentActivity == activity) currentActivity = null
+            }
+
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityStopped(activity: Activity) {}
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
+    }
+
+    /**
+     * Слушаем глобальную шину ошибок. Когда сетевой слой репортит ошибку
+     * (400/404/500/нет сети и т.д.), показываем кота поверх текущего экрана.
+     */
+    private fun observeErrors() {
+        CoroutineScope(Dispatchers.Main).launch {
+            ErrorBus.errors.collect { error ->
+                currentActivity?.let { activity ->
+                    CatErrorOverlay.show(activity, error)
+                }
+            }
+        }
+    }
+
+    /**
+     * Слушаем переходы всего процесса foreground ↔ background.
+     * ON_START — пользователь открыл приложение (или переключился обратно из другого).
+     * ON_STOP  — приложение ушло в фон (все Activity не видны).
+     */
+    private fun registerLifecycleMonitoring() {
+        ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onStart(owner: LifecycleOwner) {
+                Log.d(TAG, "▶️ App foreground")
+                if (TokenManager.getAccessToken() != null) {
+                    // forceReconnect: рвём старый сокет (если он мог зависнуть, пока спали)
+                    // и подключаемся заново — это даёт быстрый "живой" WS при возврате в чат.
+                    WebSocketManager.shared.forceReconnect()
+                }
+            }
+
+            override fun onStop(owner: LifecycleOwner) {
+                Log.d(TAG, "⏸ App background")
+                // Отключаемся — пока приложение в фоне, держать WS смысла нет
+                // (для пушей Firebase используется FCM, который работает независимо).
+                WebSocketManager.shared.disconnect()
+            }
+        })
     }
 
     private fun registerNetworkMonitoring() {
@@ -55,25 +127,24 @@ class VibicApp : Application() {
 
         networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
-                Log.d("VibicApp", "🌐 Сеть доступна: $network")
-                // При появлении сети пробуем восстановить WebSocket-соединение
+                Log.d(TAG, "🌐 Сеть доступна: $network")
+                // Уведомляем менеджер, он сам решит — подключаться или нет
+                // (только если есть токен и приложение в активном состоянии)
                 if (TokenManager.getAccessToken() != null) {
-                    scope.launch {
-                        delay(1000)
-                        WebSocketManager.shared.connect()
-                    }
+                    WebSocketManager.shared.onNetworkAvailable()
                 }
             }
 
             override fun onLost(network: Network) {
-                Log.d("VibicApp", "⚠️ Сеть потеряна: $network")
+                Log.d(TAG, "⚠️ Сеть потеряна: $network")
+                WebSocketManager.shared.onNetworkLost()
             }
         }
 
         try {
             connectivityManager.registerNetworkCallback(networkRequest, networkCallback!!)
         } catch (e: Exception) {
-            Log.e("VibicApp", "Ошибка регистрации сетевого мониторинга", e)
+            Log.e(TAG, "Ошибка регистрации сетевого мониторинга", e)
         }
     }
 
@@ -81,12 +152,11 @@ class VibicApp : Application() {
         super.onTerminate()
         networkCallback?.let {
             try {
-                val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                connectivityManager.unregisterNetworkCallback(it)
+                val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                cm.unregisterNetworkCallback(it)
             } catch (e: Exception) {
-                Log.e("VibicApp", "Ошибка отмены сетевого мониторинга", e)
+                Log.e(TAG, "Ошибка отмены сетевого мониторинга", e)
             }
         }
-        scope.cancel()
     }
 }

@@ -7,20 +7,50 @@
     android:background="@drawable/bg_gradient"
     android:fitsSystemWindows="false">
 
-    <!-- Заголовок -->
-    <TextView
-        android:id="@+id/Vibic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Чаты"
-        android:textSize="32sp"
-        android:textColor="#6A11CB"
-        android:textStyle="bold"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp" />
+    <!-- Заголовок + кнопка нового чата -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/vibic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Чаты"
+            android:textSize="32sp"
+            android:textColor="#6A11CB"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="8dp"/>
+
+        <!-- Кнопка новый чат — фиолетовый круг с + -->
+        <FrameLayout
+            android:id="@+id/btnNewChat"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_new_chat_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="+"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:includeFontPadding="false"
+                android:paddingBottom="2dp"/>
+        </FrameLayout>
+    </FrameLayout>
 
     <!-- Поиск -->
     <EditText
@@ -52,174 +82,150 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <!-- НИЖНЯЯ ПАНЕЛЬ -->
+        <!-- НИЖНЯЯ ПАНЕЛЬ (капсула по центру) -->
         <FrameLayout
             android:id="@+id/bottomNavigationContainer"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="14dp"
+            android:paddingHorizontal="6dp"
             android:background="@drawable/bg_floating_nav"
             android:elevation="8dp">
-
-            <!-- ПЛАВАЮЩАЯ КАПСУЛА -->
-            <View
-                android:id="@+id/tabIndicator"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:background="@drawable/bg_tab_capsule"/>
 
             <!-- Сами вкладки -->
             <LinearLayout
                 android:id="@+id/bottomNavigation"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="4dp">
+                android:orientation="horizontal">
 
                 <!-- Чаты -->
                 <LinearLayout
                     android:id="@+id/chatsTab"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
+                    android:minWidth="76dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:paddingHorizontal="10dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:orientation="vertical">
-
                     <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/chatIcon"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:layout_margin="2dp"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
                             android:src="@drawable/ic_chat"
                             app:tint="#6A11CB"/>
                         <TextView
                             android:id="@+id/chatBadge"
-                            android:layout_width="16dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="16dp"
+                            android:minWidth="16dp"
                             android:layout_gravity="top|end"
                             android:background="@drawable/bg_badge_purple"
                             android:gravity="center"
+                            android:paddingHorizontal="4dp"
                             android:text="1"
                             android:textColor="#FFFFFF"
                             android:textSize="9sp"
                             android:textStyle="bold"
-                            android:visibility="visible"/>
+                            android:visibility="gone"/>
                     </FrameLayout>
                     <TextView
                         android:id="@+id/chatText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:text="Чаты"
                         android:textColor="#6A11CB"
                         android:textSize="11sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
                 </LinearLayout>
 
                 <!-- Контакты -->
                 <LinearLayout
                     android:id="@+id/contactsTab"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
+                    android:minWidth="76dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:paddingHorizontal="10dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
                         android:id="@+id/contactsIcon"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_margin="2dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:src="@drawable/ic_contacts"
                         app:tint="#808080"/>
                     <TextView
                         android:id="@+id/contactsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:text="Контакты"
                         android:textColor="#808080"
-                        android:textSize="11sp"/>
-                </LinearLayout>
-
-                <!-- Настройки -->
-                <LinearLayout
-                    android:id="@+id/callTab"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/callIcon"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_margin="2dp"
-                        android:src="@drawable/ic_settings"
-                        app:tint="#808080"/>
-                    <TextView
-                        android:id="@+id/callText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Настройки"
-                        android:textColor="#808080"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
                 </LinearLayout>
 
                 <!-- Профиль -->
                 <LinearLayout
                     android:id="@+id/profileTab"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
+                    android:minWidth="76dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:paddingHorizontal="10dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:orientation="vertical">
                     <androidx.cardview.widget.CardView
                         android:id="@+id/profileAvatarCard"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_margin="2dp"
-                        app:cardCornerRadius="11dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        app:cardCornerRadius="13dp"
                         app:cardBackgroundColor="#808080"
                         app:cardElevation="0dp">
-
                         <TextView
                             android:id="@+id/profileAvatarText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="А"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
                             android:gravity="center"
                             android:visibility="visible"/>
-
                         <ImageView
                             android:id="@+id/profileAvatarImage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
                             android:visibility="gone"/>
-
                     </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/profileText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:text="Профиль"
                         android:textColor="#808080"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
                 </LinearLayout>
 
             </LinearLayout>
         </FrameLayout>
     </RelativeLayout>
+
 </LinearLayout>

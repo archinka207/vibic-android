@@ -1,10 +1,57 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Vibic" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.Vibic" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+
+        <item name="colorPrimary">@color/brand</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:windowBackground">@color/dark_bg</item>
+
+        <item name="vibicBackground">@color/dark_bg</item>
+        <item name="vibicSurface">@color/dark_surface</item>
+        <item name="vibicSurfaceElevated">@color/dark_surface_elev</item>
+        <item name="vibicSheet">@color/dark_surface_elev</item>
+
+        <item name="vibicDivider">@color/dark_divider</item>
+        <item name="vibicStroke">@color/dark_divider</item>
+
+        <item name="vibicTextPrimary">@color/text_primary</item>
+        <item name="vibicTextSecondary">@color/text_secondary</item>
+        <item name="vibicTextTertiary">@color/text_tertiary</item>
+        <item name="vibicTextOnBrand">@color/white</item>
+
+        <item name="vibicBrand">@color/brand</item>
+        <item name="vibicBrandPressed">@color/brand_pressed</item>
+        <item name="vibicBrandSubtle">@color/brand_subtle</item>
+
+        <item name="vibicDanger">@color/danger</item>
+        <item name="vibicSuccess">@color/success</item>
+        <item name="vibicWarning">@color/warning</item>
+
+        <item name="vibicBubbleIn">@color/dark_bubble_in</item>
+        <item name="vibicBubbleOut">@color/brand</item>
+        <item name="vibicBubbleInText">@color/text_primary</item>
+        <item name="vibicBubbleOutText">@color/white</item>
+
+        <item name="vibicInputCapsule">@color/dark_surface_elev</item>
+        <item name="vibicIcon">@color/text_primary</item>
+        <item name="vibicIconMuted">@color/text_secondary</item>
+        <item name="vibicRipple">@color/brand_subtle</item>
+        <item name="vibicScrim">@android:color/black</item>
     </style>
-        <style name="Theme.Vibic" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-            <item name="android:windowSoftInputMode">adjustResize</item>
-        </style>
+
+    <style name="Theme.Vibic.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/dark_bg</item>
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="postSplashScreenTheme">@style/Theme.Vibic</item>
+    </style>
+
+    <style name="BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

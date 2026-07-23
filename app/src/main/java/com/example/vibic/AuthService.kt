@@ -44,11 +44,14 @@ class AuthService private constructor() {
 
                 when (body.status) {
                     "success" -> {
-                        body.userId?.let { TokenManager.saveUserId(it) } // Явное сохранение
+                        body.userId?.let { TokenManager.saveUserId(it) }
                         body.accessToken?.let { accessToken ->
                             body.refreshToken?.let { refreshToken ->
                                 TokenManager.saveTokens(accessToken, refreshToken)
                                 Log.d("AuthService", "✅ Токен сохранен")
+
+                                // ИСПРАВЛЕНИЕ: Отправляем отложенный FCM токен на сервер
+                                PushTokenSyncManager.syncPendingToken()
                             }
                         }
 
@@ -86,10 +89,13 @@ class AuthService private constructor() {
             val body = response.body()
 
             if (response.isSuccessful && body != null) {
-                body.userId?.let { TokenManager.saveUserId(it) } // Явное сохранение
+                body.userId?.let { TokenManager.saveUserId(it) }
                 body.accessToken?.let { accessToken ->
                     body.refreshToken?.let { refreshToken ->
                         TokenManager.saveTokens(accessToken, refreshToken)
+
+                        // ИСПРАВЛЕНИЕ: Отправляем отложенный FCM токен на сервер
+                        PushTokenSyncManager.syncPendingToken()
                     }
                 }
 

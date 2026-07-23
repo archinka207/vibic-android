@@ -6,11 +6,17 @@ data class ChatDto(
     @SerializedName("id") val id: String,
     @SerializedName("name") val name: String? = null,
     @SerializedName("type") val type: String = "private",
-    @SerializedName("avatarUrl") val avatarUrl: String? = null,
+    @SerializedName("avatar_url") val avatarUrl: String? = null,
     @SerializedName("created_at") val createdAt: String? = null,
     @SerializedName("updated_at") val updatedAt: String? = null,
     @SerializedName("last_message") val lastMessage: LastMessage? = null,
-    @SerializedName("unread_count") val unreadCount: Int = 0
+    @SerializedName("unread_count") val unreadCount: Int = 0,
+
+    // ── Поля группы ───────────────────────────────────────────────────────────
+    // description и participants_count приходят из GET api/chats/{chatId}
+    // (бэкенд отдаёт ChatDetailResponse с этими полями).
+    @SerializedName("description") val description: String? = null,
+    @SerializedName("participants_count") val participantsCount: Int? = null
 )
 
 data class LastMessage(

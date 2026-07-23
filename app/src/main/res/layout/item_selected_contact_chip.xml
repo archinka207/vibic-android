@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="64dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginEnd="8dp"
+    android:paddingBottom="4dp">
+
+    <!-- Аватар + крестик -->
+    <FrameLayout
+        android:layout_width="52dp"
+        android:layout_height="52dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:cardCornerRadius="26dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#B366FF">
+
+            <TextView
+                android:id="@+id/chipAvatarText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Крестик удалить -->
+        <FrameLayout
+            android:id="@+id/chipRemove"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="top|end"
+            android:background="@drawable/bg_chip_remove"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="✕"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"/>
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Имя под аватаром -->
+    <TextView
+        android:id="@+id/chipName"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="#AAAAAA"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+</LinearLayout>

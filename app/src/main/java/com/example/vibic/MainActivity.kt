@@ -26,10 +26,14 @@ class MainActivity : AppCompatActivity() {
 
         // Если уже авторизованы -> идем в чаты
         if (AuthService.shared.isAuthenticated) {
-            startActivity(Intent(this, MainActivityApp::class.java))
+            val appIntent = Intent(this, MainActivityApp::class.java)
+            // ОБЯЗАТЕЛЬНО: Пробрасываем все данные (в т.ч. chat_id) из системного пуша дальше
+            intent.extras?.let { appIntent.putExtras(it) }
+            startActivity(appIntent)
             finish()
             return
         }
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

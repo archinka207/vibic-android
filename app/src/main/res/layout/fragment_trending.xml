@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="160dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp">
+
+            <!-- ШАПКА (как на макете) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="16dp">
+                <FrameLayout
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/bg_header_logo">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:text="🔥"/>
+                </FrameLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:text="В тренде"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#9A8CB8"
+                        android:textSize="13sp"
+                        android:text="Публичные вайбы"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ПОДИУМ ТОП-3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_trending_card"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="28dp"
+                android:paddingBottom="20dp">
+
+                <!-- 2 место -->
+                <LinearLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <FrameLayout android:layout_width="64dp" android:layout_height="64dp">
+                        <FrameLayout android:id="@+id/p2Avatar"
+                            android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_gravity="center">
+                            <TextView android:id="@+id/p2Letter"
+                                android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:gravity="center" android:textColor="#FFFFFF"
+                                android:textSize="22sp" android:textStyle="bold" android:text="K"/>
+                        </FrameLayout>
+                        <TextView android:id="@+id/p2Badge"
+                            android:layout_width="22dp" android:layout_height="22dp"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:background="@drawable/bg_rank_badge"
+                            android:gravity="center" android:textColor="#FFFFFF"
+                            android:textSize="11sp" android:textStyle="bold" android:text="2"/>
+                    </FrameLayout>
+                    <TextView android:id="@+id/p2Name"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" android:textColor="#FFFFFF"
+                        android:textSize="13sp" android:textStyle="bold" android:maxLines="1"
+                        android:ellipsize="end" android:text="Криптошум"/>
+                    <TextView android:id="@+id/p2Subs"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="#A78BFA" android:textSize="14sp"
+                        android:textStyle="bold" android:text="212K"/>
+                    <TextView android:id="@+id/p2Growth"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="#34D399" android:textSize="11sp" android:text="↗ +9.8K"/>
+                </LinearLayout>
+
+                <!-- 1 место -->
+                <LinearLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <ImageView android:layout_width="26dp" android:layout_height="26dp"
+                        android:src="@drawable/ic_crown"/>
+                    <FrameLayout android:layout_width="80dp" android:layout_height="80dp"
+                        android:layout_marginTop="2dp">
+                        <FrameLayout android:id="@+id/p1Avatar"
+                            android:layout_width="74dp" android:layout_height="74dp"
+                            android:layout_gravity="center">
+                            <TextView android:id="@+id/p1Letter"
+                                android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:gravity="center" android:textColor="#FFFFFF"
+                                android:textSize="26sp" android:textStyle="bold" android:text="Д"/>
+                        </FrameLayout>
+                        <TextView android:id="@+id/p1Badge"
+                            android:layout_width="24dp" android:layout_height="24dp"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:background="@drawable/bg_rank_badge"
+                            android:gravity="center" android:textColor="#FFC83A"
+                            android:textSize="12sp" android:textStyle="bold" android:text="1"/>
+                    </FrameLayout>
+                    <TextView android:id="@+id/p1Name"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" android:textColor="#FFFFFF"
+                        android:textSize="14sp" android:textStyle="bold" android:maxLines="1"
+                        android:ellipsize="end" android:text="Дизайн ка..."/>
+                    <TextView android:id="@+id/p1Subs"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="#A78BFA" android:textSize="15sp"
+                        android:textStyle="bold" android:text="248K"/>
+                    <TextView android:id="@+id/p1Growth"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="#34D399" android:textSize="11sp" android:text="↗ +12K"/>
+                </LinearLayout>
+
+                <!-- 3 место -->
+                <LinearLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <FrameLayout android:layout_width="64dp" android:layout_height="64dp">
+                        <FrameLayout android:id="@+id/p3Avatar"
+                            android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_gravity="center">
+                            <TextView android:id="@+id/p3Letter"
+                                android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:gravity="center" android:textColor="#FFFFFF"
+                                android:textSize="22sp" android:textStyle="bold" android:text="K"/>
+                        </FrameLayout>
+                        <TextView android:id="@+id/p3Badge"
+                            android:layout_width="22dp" android:layout_height="22dp"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:background="@drawable/bg_rank_badge"
+                            android:gravity="center" android:textColor="#FFFFFF"
+                            android:textSize="11sp" android:textStyle="bold" android:text="3"/>
+                    </FrameLayout>
+                    <TextView android:id="@+id/p3Name"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" android:textColor="#FFFFFF"
+                        android:textSize="13sp" android:textStyle="bold" android:maxLines="1"
+                        android:ellipsize="end" android:text="Кино по п..."/>
+                    <TextView android:id="@+id/p3Subs"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="#A78BFA" android:textSize="14sp"
+                        android:textStyle="bold" android:text="187K"/>
+                    <TextView android:id="@+id/p3Growth"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="#34D399" android:textSize="11sp" android:text="↗ +8.1K"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- СПИСОК ОСТАЛЬНЫХ -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trendingList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ТВОЯ ПОЗИЦИЯ -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="92dp"
+        android:background="@drawable/bg_your_position"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:elevation="10dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="#FFFFFF" android:textSize="15sp"
+            android:textStyle="bold" android:text="#42"/>
+
+        <FrameLayout android:id="@+id/myAvatar"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:layout_marginStart="12dp">
+            <TextView
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center" android:textColor="#FFFFFF"
+                android:textSize="16sp" android:textStyle="bold" android:text="K"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="#FFFFFF" android:textSize="15sp"
+                android:textStyle="bold" android:text="Кофе и код"/>
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="#D6C8FF" android:textSize="12sp"
+                android:text="ещё +800 до #41"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="#A7F3D0" android:textSize="13sp"
+            android:textStyle="bold" android:text="↗ +540"/>
+    </LinearLayout>
+</FrameLayout>

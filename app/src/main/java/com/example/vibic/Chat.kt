@@ -9,5 +9,10 @@ data class Chat(
     val unreadCount: Int = 0,
     val isOnline: Boolean = false,
     val type: String = "private",
-    val otherUserId: String? = null
+    val otherUserId: String? = null,
+    // ── Локальные флаги действий со списком чатов ──
+    // Хранятся в том же кэше SharedPreferences ("chats"), парсятся Gson'ом.
+    // Значения по умолчанию => старый закэшированный JSON без этих полей читается без ошибок.
+    val isMuted: Boolean = false,
+    val isPinned: Boolean = false
 )

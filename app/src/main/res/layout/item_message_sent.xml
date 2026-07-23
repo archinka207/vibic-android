@@ -15,6 +15,54 @@
         android:background="@drawable/bg_message_sent"
         android:padding="10dp">
 
+        <!-- Цитата (видна только если это ответ) -->
+        <LinearLayout
+            android:id="@+id/replyContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_reply_quote"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="6dp"
+            android:minWidth="80dp"
+            android:maxWidth="260dp"
+            android:visibility="gone">
+
+            <!-- Вертикальная полоска -->
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:layout_marginEnd="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/replySenderName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/replyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="12sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:maxWidth="220dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
         <!-- Текст сообщения -->
         <TextView
             android:id="@+id/messageText"
@@ -22,19 +70,16 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:maxWidth="260dp" />
+            android:maxWidth="260dp"/>
 
         <!-- Время -->
         <TextView
             android:id="@+id/messageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15:42"
             android:textSize="11sp"
             android:textColor="#CCFFFFFF"
             android:layout_gravity="end"
-            android:layout_marginTop="4dp" />
-
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
-
 </FrameLayout>

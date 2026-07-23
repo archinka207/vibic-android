@@ -17,7 +17,7 @@ data class VerifyCodeResponse(
     @SerializedName("temp_token") val tempToken: String?,
     @SerializedName("expires_in") val expiresIn: Int?,
     @SerializedName("is_new_user") val isNewUser: Boolean?,
-    @SerializedName("user_id") val userId: String?  // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+    @SerializedName("user_id") val userId: String?  // ИСПРАВЛЕНИЕ: Ожидаем user_id с сервера
 )
 
 data class Verify2FARequest(
@@ -32,6 +32,13 @@ data class Setup2FARequest(
 
 data class RefreshRequest(@SerializedName("refresh_token") val refreshToken: String)
 data class LogoutRequest(@SerializedName("refresh_token") val refreshToken: String)
+
+// ИСПРАВЛЕНИЕ: Добавлена модель для обновления профиля
+data class UpdateProfileRequest(
+    @SerializedName("first_name") val firstName: String?,
+    @SerializedName("last_name") val lastName: String? = null,
+    @SerializedName("status") val status: String? = null
+)
 
 // MARK: - Error Model
 data class ErrorResponse(@SerializedName("error") val error: String)

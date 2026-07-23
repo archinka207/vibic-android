@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient">
+
+    <!-- Шапка -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="52dp"
+        android:paddingBottom="8dp"
+        android:paddingHorizontal="16dp">
+
+        <FrameLayout
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_send_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="8dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_back"
+                app:tint="#FFFFFF"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Создать группу"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <!-- Контент -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:paddingTop="40dp"
+        android:paddingHorizontal="32dp">
+
+        <!-- Аватар группы -->
+        <FrameLayout
+            android:id="@+id/groupAvatarContainer"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:background="@drawable/bg_group_avatar"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/groupAvatarLetter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="M"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/groupAvatarImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/btnSetPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Установить фото"
+            android:textColor="#B366FF"
+            android:textSize="15sp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Добавьте фото для группы"
+            android:textColor="#66FFFFFF"
+            android:textSize="13sp"/>
+
+        <!-- Поле имени без кастомного фона -->
+        <EditText
+            android:id="@+id/groupNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="36dp"
+            android:hint="Введите название группы"
+            android:textColorHint="#55FFFFFF"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:background="@null"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
+
+        <!-- Нижняя линия вместо bg_group_name_input -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#44FFFFFF"/>
+
+    </LinearLayout>
+
+    <!-- Нижняя часть: счётчик + кнопка -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="32dp">
+
+        <TextView
+            android:id="@+id/participantsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="1 участников выбрано"
+            android:textColor="#B366FF"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/btnCreateGroup"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Создать группу"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/bg_next_button"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+
+</LinearLayout>

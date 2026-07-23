@@ -1,27 +1,38 @@
 package com.example.vibic
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.vibic.databinding.ActivityMainAppBinding
-import com.example.vibic.network.ApiClient
-import com.example.vibic.network.FcmTokenRequest
 import com.example.vibic.network.WebSocketManager
-import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.launch
 
 class MainActivityApp : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainAppBinding
+
+    private val notificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                Log.d("MainActivityApp", "✅ Разрешение на уведомления выдано")
+                PushTokenSyncManager.syncCurrentToken()
+            } else {
+                Log.d("MainActivityApp", "⚠️ Разрешение на уведомления отклонено")
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +40,7 @@ class MainActivityApp : AppCompatActivity() {
         binding = ActivityMainAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Нормальный edge-to-edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        // Цвета системных баров
         window.statusBarColor = android.graphics.Color.TRANSPARENT
         window.navigationBarColor = android.graphics.Color.TRANSPARENT
 
@@ -40,116 +48,104 @@ class MainActivityApp : AppCompatActivity() {
         controller.isAppearanceLightStatusBars = false
         controller.isAppearanceLightNavigationBars = false
 
-        // Фоны
-        binding.mainLayout.setBackgroundResource(0)
-        binding.mainLayout.setBackgroundColor(android.graphics.Color.parseColor("#1E1E1E"))
-        binding.contentFrame.setBackgroundResource(R.drawable.bg_gradient)
-
-        // Запрос разрешения на уведомления
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (
-                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    1001
-                )
-            } else {
-                getFcmToken()
-            }
-        } else {
-            getFcmToken()
-        }
-
         if (savedInstanceState == null) {
             showFragment(MainFragment())
         }
-    }
 
-    // --- УПРАВЛЕНИЕ ЖИЗНЕННЫМ ЦИКЛОМ WEBSOCKET ---
+        requestNotificationPermissionIfNeeded()
+        openChatFromPushIfNeeded(intent)
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("MainActivityApp", "✅ Приложение на экране - подключаем WebSocket")
-        // Подключаем сокеты, когда приложение развернуто
-        WebSocketManager.shared.connect()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("MainActivityApp", "💤 Приложение свернуто - отключаем WebSocket")
-        // Отключаем сокеты, когда приложение свернуто,
-        // чтобы экономить батарею. Уведомления придут через FCM.
-        WebSocketManager.shared.disconnect()
-    }
-
-    // ----------------------------------------------
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == 1001) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("MainActivityApp", "✅ Разрешение на уведомления получено")
-                getFcmToken()
-            } else {
-                Log.d("MainActivityApp", "❌ Разрешение на уведомления отклонено")
+        // ИСПРАВЛЕНИЕ: Ждем завершения отправки FCM токена
+        PushTokenSyncManager.syncCurrentToken {
+            try {
+                // Вызываем в UI-потоке, чтобы безопасно запустить сокеты
+                runOnUiThread {
+                    Log.d("MainActivityApp", "Токен синхронизирован. Подключаем сокет.")
+                    WebSocketManager.shared.forceReconnect()
+                }
+            } catch (e: Exception) {
+                Log.e("MainActivityApp", "Ошибка подключения WebSocket", e)
             }
         }
     }
 
-    private fun getFcmToken() {
-        Log.d("MainActivityApp", "🚀 Запрашиваем токен FCM у Google Services...")
-
-        // Показываем на экране, что процесс пошел
-        android.widget.Toast.makeText(this, "Запрос токена...", android.widget.Toast.LENGTH_SHORT).show()
-
-        FirebaseMessaging.getInstance().token
-            .addOnSuccessListener { token ->
-                Log.d("MainActivityApp", "🔥 FCM токен получен: $token")
-
-                // Показываем на экране, что токен получен от Google
-                android.widget.Toast.makeText(this, "Токен от Google ПОЛУЧЕН!", android.widget.Toast.LENGTH_LONG).show()
-
-                lifecycleScope.launch {
-                    try {
-                        val response = ApiClient.apiService.registerFcmToken(
-                            FcmTokenRequest(fcmToken = token, deviceType = "android")
-                        )
-
-                        if (response.isSuccessful) {
-                            Log.d("MainActivityApp", "✅ Токен успешно отправлен на бэкенд")
-
-                            // Показываем на экране, что токен улетел на твой Go-сервер
-                            runOnUiThread {
-                                android.widget.Toast.makeText(this@MainActivityApp, "Токен отправлен на сервер!", android.widget.Toast.LENGTH_LONG).show()
-                            }
-                        } else {
-                            runOnUiThread {
-                                android.widget.Toast.makeText(this@MainActivityApp, "Ошибка сервера: ${response.code()}", android.widget.Toast.LENGTH_LONG).show()
-                            }
-                        }
-                    } catch (e: Exception) {
-                        runOnUiThread {
-                            android.widget.Toast.makeText(this@MainActivityApp, "Нет связи с сервером", android.widget.Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
+    override fun onResume() {
+        super.onResume()
+        try {
+            if (!WebSocketManager.shared.isConnectedValue) {
+                Log.d("MainActivityApp", "⚡ Приложение развернуто, проверяем подключение WebSocket")
+                // ИСПРАВЛЕНИЕ: Используем connect() вместо forceReconnect().
+                // Так мы не обрываем только что начавшееся подключение из onCreate.
+                WebSocketManager.shared.connect()
             }
-            .addOnFailureListener { e ->
-                android.widget.Toast.makeText(this, "Ошибка Google: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
-            }
+        } catch (e: Exception) {
+            Log.e("MainActivityApp", "Ошибка старта WebSocket в onResume", e)
+        }
     }
 
-    fun showFragment(fragment: Fragment) {
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        openChatFromPushIfNeeded(intent)
+    }
+
+    private fun requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+
+        val granted = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!granted) {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
+    private fun openChatFromPushIfNeeded(intent: Intent?) {
+        val chatId = intent?.getStringExtra("chat_id") ?: return
+        if (chatId.isBlank()) return
+
+        val chatIntent = Intent(this, ChatDetailActivity::class.java).apply {
+            putExtra("chat_id", chatId)
+            putExtra("chat_name", "Чат")
+        }
+        startActivity(chatIntent)
+    }
+
+    private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.contentFrame, fragment)
             .commit()
+    }
+
+    // =======================================================
+    // МАГИЯ ЗДЕСЬ: Глобальное скрытие клавиатуры по клику вне
+    // =======================================================
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+
+                // Если клик был НЕ по полю ввода
+                if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+                    // hideSoftInputFromWindow возвращает true, если клавиатура реально была открыта
+                    val wasKeyboardOpen = imm.hideSoftInputFromWindow(v.windowToken, 0)
+
+                    // БЛОКИРУЕМ КЛИК:
+                    // Если клавиатура закрылась, мы "съедаем" это нажатие (return true),
+                    // чтобы кнопки под пальцем (например, вкладка Звонки) НЕ нажались!
+                    if (wasKeyboardOpen) {
+                        return true
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

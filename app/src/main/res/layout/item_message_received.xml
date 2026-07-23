@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingStart="8dp"
-    android:paddingEnd="8dp"
+    android:paddingEnd="60dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:gravity="start">
@@ -15,11 +15,59 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/bg_message_received"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:maxWidth="140dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:maxWidth="280dp">
+
+        <!-- Цитата (видна только если это ответ) -->
+        <LinearLayout
+            android:id="@+id/replyContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_reply_quote_received"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="6dp"
+            android:minWidth="80dp"
+            android:maxWidth="240dp"
+            android:visibility="gone">
+
+            <!-- Вертикальная полоска -->
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="#B366FF"
+                android:layout_marginEnd="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/replySenderName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#B366FF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/replyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#888888"
+                    android:textSize="12sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:maxWidth="200dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/messageText"
@@ -37,5 +85,4 @@
             android:textSize="10sp"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
-
 </LinearLayout>

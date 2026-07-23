@@ -10,12 +10,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
-    <!-- Для уведомлений и фоновой работы WebSocket -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:name=".VibicApp"
@@ -29,7 +28,10 @@
         android:theme="@style/Theme.Vibic"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <!-- Сервис для Push-уведомлений Firebase -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notifications" />
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
@@ -39,20 +41,107 @@
         </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.Vibic.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".CodeConfirmActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".TwoFactorActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".NicknameActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".MainActivityApp" android:exported="false" />
-        <activity android:name=".ChatDetailActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".MainActivityApp"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".ChatDetailActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".CodeConfirmActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".TwoFactorActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".NicknameActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        <activity
+            android:name=".GroupInfoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:name=".ChatMediaActivity" android:exported="false"/>
+        <activity android:name=".CreateGroupActivity" android:exported="false"/>
+        <activity android:name=".QrScannerActivity" android:exported="false"/>
+        <activity android:name=".MyQrActivity" android:exported="false"/>
+        <activity android:name=".EditContactActivity" android:exported="false" />
+
+        <activity
+            android:name=".EditGroupActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ContactProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GroupProfileActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".AddMembersActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".GroupAdminsActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".PrivacyActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".DevicesActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:name=".AboutActivity"       android:exported="false"/>
+        <activity android:name=".AboutDetailActivity" android:exported="false"/>
+
+        <activity
+            android:name=".CreateChannelActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
 
     </application>
 </manifest>

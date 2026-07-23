@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="vibicBackground" format="color" />
+    <attr name="vibicSurface" format="color" />
+    <attr name="vibicSurfaceElevated" format="color" />
+    <attr name="vibicSheet" format="color" />
+
+    <attr name="vibicDivider" format="color" />
+    <attr name="vibicStroke" format="color" />
+
+    <attr name="vibicTextPrimary" format="color" />
+    <attr name="vibicTextSecondary" format="color" />
+    <attr name="vibicTextTertiary" format="color" />
+    <attr name="vibicTextOnBrand" format="color" />
+
+    <attr name="vibicBrand" format="color" />
+    <attr name="vibicBrandPressed" format="color" />
+    <attr name="vibicBrandSubtle" format="color" />
+
+    <attr name="vibicDanger" format="color" />
+    <attr name="vibicSuccess" format="color" />
+    <attr name="vibicWarning" format="color" />
+
+    <attr name="vibicBubbleIn" format="color" />
+    <attr name="vibicBubbleOut" format="color" />
+    <attr name="vibicBubbleInText" format="color" />
+    <attr name="vibicBubbleOutText" format="color" />
+
+    <attr name="vibicInputCapsule" format="color" />
+    <attr name="vibicIcon" format="color" />
+    <attr name="vibicIconMuted" format="color" />
+    <attr name="vibicRipple" format="color" />
+    <attr name="vibicScrim" format="color" />
+</resources>

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.vibic.databinding.ActivityTwoFactorBinding
-import com.example.vibic.AuthService
 import kotlinx.coroutines.launch
 
 class TwoFactorActivity : AppCompatActivity() {
@@ -19,7 +18,18 @@ class TwoFactorActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
 
-        // Создай layout activity_two_factor.xml по аналогии с iOS
+        // Режим настроек 2FA (открывается из профиля) — показываем фрагмент.
+        if (intent.getBooleanExtra(EXTRA_SETTINGS_MODE, false)) {
+            setContentView(R.layout.activity_two_factor_host)
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.twoFactorContainer, TwoFactorFragment())
+                    .commit()
+            }
+            return
+        }
+
+        // Старый режим: ввод пароля 2FA при логине.
         binding = ActivityTwoFactorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -57,5 +67,9 @@ class TwoFactorActivity : AppCompatActivity() {
                 Toast.makeText(this@TwoFactorActivity, error.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    companion object {
+        const val EXTRA_SETTINGS_MODE = "settings_mode"
     }
 }

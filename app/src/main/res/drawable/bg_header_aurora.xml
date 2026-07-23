@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фиолетовое пятно слева сверху, rgba(179,102,255,.22) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="0.18"
+                android:centerY="0.1"
+                android:gradientRadius="240dp"
+                android:startColor="#38B366FF"
+                android:endColor="#00B366FF" />
+        </shape>
+    </item>
+    <!-- Едва заметное розовое справа сверху, rgba(255,110,199,.10) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="0.85"
+                android:centerY="0.05"
+                android:gradientRadius="200dp"
+                android:startColor="#1AFF6EC7"
+                android:endColor="#00FF6EC7" />
+        </shape>
+    </item>
+    <!-- Глубокий фиолет по центру-низу, rgba(106,17,203,.18) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="0.5"
+                android:centerY="0.95"
+                android:gradientRadius="260dp"
+                android:startColor="#2E6A11CB"
+                android:endColor="#006A11CB" />
+        </shape>
+    </item>
+</layer-list>

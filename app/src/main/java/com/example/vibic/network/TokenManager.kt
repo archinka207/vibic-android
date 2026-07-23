@@ -1,9 +1,11 @@
 package com.example.vibic.network
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Base64
 import android.util.Log
+import com.example.vibic.MainActivity
 import com.example.vibic.VibicApp
 import kotlinx.coroutines.delay
 import org.json.JSONObject
@@ -23,7 +25,7 @@ object TokenManager {
     private var isRefreshing = false
 
     fun saveTokens(accessToken: String, refreshToken: String) {
-        Log.d("TokenManager", "saveTokens: accessToken=${accessToken.take(50)}..., refreshToken=${refreshToken.take(20)}...")
+        Log.d("TokenManager", "saveTokens: accessToken=${accessToken.take(15)}..., refreshToken=${refreshToken.take(15)}...")
         prefs.edit().apply {
             putString(KEY_ACCESS_TOKEN, accessToken)
             putString(KEY_REFRESH_TOKEN, refreshToken)
@@ -38,49 +40,26 @@ object TokenManager {
     }
 
     fun saveTempToken(tempToken: String) {
-        Log.d("TokenManager", "saveTempToken: ${tempToken.take(50)}...")
         prefs.edit().putString(KEY_TEMP_TOKEN, tempToken).apply()
     }
 
-    fun getAccessToken(): String? {
-        val token = prefs.getString(KEY_ACCESS_TOKEN, null)
-        Log.d("TokenManager", "getAccessToken: ${if (token != null) "есть токен (${token.take(20)}...)" else "нет токена"}")
-        return token
-    }
+    fun getAccessToken(): String? = prefs.getString(KEY_ACCESS_TOKEN, null)
 
-    fun getRefreshToken(): String? {
-        val token = prefs.getString(KEY_REFRESH_TOKEN, null)
-        Log.d("TokenManager", "getRefreshToken: ${if (token != null) "есть токен (${token.take(20)}...)" else "нет токена"}")
-        return token
-    }
+    fun getRefreshToken(): String? = prefs.getString(KEY_REFRESH_TOKEN, null)
 
-    fun getTempToken(): String? {
-        val token = prefs.getString(KEY_TEMP_TOKEN, null)
-        Log.d("TokenManager", "getTempToken: ${if (token != null) "есть токен (${token.take(20)}...)" else "нет токена"}")
-        return token
-    }
+    fun getTempToken(): String? = prefs.getString(KEY_TEMP_TOKEN, null)
 
     fun saveUserId(userId: String) {
-        Log.d("TokenManager", "saveUserId: $userId")
         prefs.edit().putString(KEY_USER_ID, userId).apply()
     }
 
-    fun getUserId(): String? {
-        val userId = prefs.getString(KEY_USER_ID, null)
-        Log.d("TokenManager", "getUserId: $userId")
-        return userId
-    }
+    fun getUserId(): String? = prefs.getString(KEY_USER_ID, null)
 
     fun savePhone(phone: String) {
-        Log.d("TokenManager", "savePhone: $phone")
         prefs.edit().putString(KEY_PHONE, phone).apply()
     }
 
-    fun getPhone(): String? {
-        val phone = prefs.getString(KEY_PHONE, null)
-        Log.d("TokenManager", "getPhone: $phone")
-        return phone
-    }
+    fun getPhone(): String? = prefs.getString(KEY_PHONE, null)
 
     fun clearTokens() {
         Log.d("TokenManager", "clearTokens - очистка всех данных")
@@ -125,8 +104,9 @@ object TokenManager {
         val refreshToken = getRefreshToken()
 
         if (refreshToken.isNullOrBlank()) {
-            Log.e("TokenManager", "Нет refresh токена")
+            Log.e("TokenManager", "Нет refresh токена. Форсируем выход из аккаунта.")
             isRefreshing = false
+            forceLogout()
             return false
         }
 
@@ -137,14 +117,19 @@ object TokenManager {
                 if (body != null && body.accessToken != null && body.refreshToken != null) {
                     body.userId?.let { saveUserId(it) }
                     saveTokens(body.accessToken, body.refreshToken)
-                    WebSocketManager.shared.forceReconnect()
+                    Log.d("TokenManager", "✅ Токен успешно обновлен!")
                     true
                 } else {
-                    Log.e("TokenManager", "Пустой ответ при обновлении токена")
+                    Log.e("TokenManager", "Пустой ответ при обновлении токена. Форсируем выход.")
+                    forceLogout()
                     false
                 }
             } else {
-                Log.e("TokenManager", "Ошибка обновления токена: ${response.code()}")
+                Log.e("TokenManager", "❌ Ошибка обновления токена: ${response.code()}")
+                if (response.code() == 401) {
+                    Log.e("TokenManager", "Refresh Token протух. Форсируем выход из аккаунта.")
+                    forceLogout()
+                }
                 false
             }
         } catch (e: Exception) {
@@ -153,6 +138,24 @@ object TokenManager {
         } finally {
             isRefreshing = false
         }
+    }
+
+    // ИСПРАВЛЕНИЕ: Глобальный принудительный выход при мертвой сессии
+    private fun forceLogout() {
+        clearTokens()
+
+        try {
+            WebSocketManager.shared.disconnect()
+        } catch (e: Exception) {
+            Log.e("TokenManager", "Ошибка отключения сокетов при выходе", e)
+        }
+
+        val context = VibicApp.getAppContext()
+        val intent = Intent(context, MainActivity::class.java).apply {
+            // Очищаем историю экранов и запускаем окно логина как новое задание
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        context.startActivity(intent)
     }
 
     private fun extractUserIdFromToken(token: String) {

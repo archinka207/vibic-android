@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splashRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash_gradient">
+
+    <!-- Кольца-пульсы (за логотипом). Изначально невидимы, включаются кодом с задержкой -->
+    <View
+        android:id="@+id/ring1"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:alpha="0"
+        android:background="@drawable/splash_ring" />
+
+    <View
+        android:id="@+id/ring2"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:alpha="0"
+        android:background="@drawable/splash_ring" />
+
+    <View
+        android:id="@+id/ring3"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:alpha="0"
+        android:background="@drawable/splash_ring" />
+
+    <!-- Логотип VIBIC: PNG с альфа-каналом, БЕЗ чёрного фона -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:alpha="0"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/vibic_logo_cut" />
+
+</FrameLayout>

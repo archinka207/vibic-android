@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_delete_dialog"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="28dp"
+    android:paddingBottom="20dp">
+
+    <!-- Круглая иконка-корзина в мягком красном круге -->
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bg_delete_icon_circle">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_action_delete"
+            android:tint="#FF5A52"/>
+    </FrameLayout>
+
+    <!-- Заголовок -->
+    <TextView
+        android:id="@+id/deleteTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Удалить чат?"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <!-- Описание -->
+    <TextView
+        android:id="@+id/deleteMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Чат и вся история сообщений будут удалены."
+        android:textColor="#A9A4B3"
+        android:textSize="14sp"
+        android:lineSpacingExtra="2dp"/>
+
+    <!-- Кнопка Удалить -->
+    <TextView
+        android:id="@+id/btnConfirmDelete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        android:text="Удалить"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_delete_confirm_button"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!-- Кнопка Отмена -->
+    <TextView
+        android:id="@+id/btnCancelDelete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="Отмена"
+        android:textColor="#888888"
+        android:textSize="16sp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>

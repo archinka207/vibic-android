@@ -1,6 +1,7 @@
 package com.example.vibic.network
 
 import android.util.Log
+import com.example.vibic.ErrorBus
 import kotlinx.coroutines.runBlocking
 import okhttp3.ConnectionPool
 import okhttp3.Dns
@@ -14,8 +15,6 @@ import java.util.concurrent.TimeUnit
 object ApiClient {
     private const val TAG = "ApiClient"
 
-    // Пока сервер такой — оставляем.
-    // Но для нормальной работы с VPN желательно HTTPS + домен + 443
     private const val BASE_URL = "http://176.123.162.135:8080/"
 
     private var retrofitInstance: Retrofit? = null
@@ -42,24 +41,33 @@ object ApiClient {
             .addInterceptor(LoggingInterceptor())
             .dns(Dns.SYSTEM)
             .retryOnConnectionFailure(true)
-            .pingInterval(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .callTimeout(90, TimeUnit.SECONDS)
+            .pingInterval(20, TimeUnit.SECONDS) // Уменьшено для более быстрого обнаружения обрыва
+            .connectTimeout(15, TimeUnit.SECONDS) // Уменьшено (было 30)
+            .readTimeout(15, TimeUnit.SECONDS) // Уменьшено (было 60)
+            .writeTimeout(15, TimeUnit.SECONDS) // Уменьшено (было 60)
+            .callTimeout(30, TimeUnit.SECONDS) // Уменьшено (было 90)
             .connectionPool(ConnectionPool(5, 5, TimeUnit.MINUTES))
             .build()
     }
 
     class AuthInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
+            val originalRequest = chain.request()
+            val path = originalRequest.url.encodedPath
+
+            // ИСПРАВЛЕНИЕ: Мы НЕ должны отправлять протухший токен на эндпоинты авторизации
+            // (особенно на /auth/refresh), иначе сервер сразу выдаст 401.
+            if (path.contains("auth/")) {
+                return chain.proceed(originalRequest)
+            }
+
             val token = TokenManager.getAccessToken()
             val request = if (!token.isNullOrBlank()) {
-                chain.request().newBuilder()
+                originalRequest.newBuilder()
                     .header("Authorization", "Bearer $token")
                     .build()
             } else {
-                chain.request()
+                originalRequest
             }
 
             return chain.proceed(request)
@@ -69,26 +77,27 @@ object ApiClient {
     class UnauthorizedInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val originalRequest = chain.request()
+
+            // ИСПРАВЛЕНИЕ: Мы НЕ ДОЛЖНЫ перехватывать запрос на обновление токена,
+            // иначе получим мертвую петлю (SocketTimeoutException) и зависание.
+            if (originalRequest.url.encodedPath.contains("auth/refresh")) {
+                return chain.proceed(originalRequest)
+            }
+
             var response = chain.proceed(originalRequest)
 
-            var retryCount = 0
-            while (response.code == 401 && retryCount < 2) {
-                Log.d(TAG, "Получен 401, пробуем обновить токен... попытка ${retryCount + 1}")
+            if (response.code == 401) {
+                Log.d(TAG, "Получен 401, пробуем обновить токен...")
                 response.close()
 
                 val refreshed = runBlocking { TokenManager.refreshToken() }
-                if (!refreshed) {
-                    Log.e(TAG, "Не удалось обновить токен")
-                    break
+                if (refreshed) {
+                    val newToken = TokenManager.getAccessToken()
+                    val newRequest = originalRequest.newBuilder()
+                        .header("Authorization", "Bearer $newToken")
+                        .build()
+                    return chain.proceed(newRequest)
                 }
-
-                val newToken = TokenManager.getAccessToken()
-                val newRequest = originalRequest.newBuilder()
-                    .header("Authorization", "Bearer $newToken")
-                    .build()
-
-                response = chain.proceed(newRequest)
-                retryCount++
             }
 
             return response
@@ -108,6 +117,12 @@ object ApiClient {
 
                 Log.d(TAG, "<-- ${response.code} ${response.message} (${duration}ms)")
 
+                // 401 не показываем — он обрабатывается автоматическим рефрешем токена
+                // в UnauthorizedInterceptor, иначе кот будет мигать при каждом обновлении.
+                if (!response.isSuccessful && response.code != 401) {
+                    ErrorBus.report(response.code, response.message, request.url.encodedPath)
+                }
+
                 if (response.code != 401) {
                     val responseBody = response.peekBody(1024 * 1024)
                     Log.d(TAG, "Response body: ${responseBody.string().take(500)}")
@@ -121,6 +136,8 @@ object ApiClient {
                     "<-- HTTP FAILED (${duration}ms): ${e.javaClass.simpleName}: ${e.message}",
                     e
                 )
+                // 0 = нет соединения / таймаут (HTTP-кода в этом случае нет)
+                ErrorBus.report(0, e.javaClass.simpleName, request.url.encodedPath)
                 throw e
             }
         }

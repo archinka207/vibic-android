@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Кто сможет находить вайб?"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Это можно изменить позже в настройках канала."
+            android:textColor="#77FFFFFF"
+            android:textSize="13sp"/>
+
+        <!-- ПУБЛИЧНЫЙ -->
+        <LinearLayout
+            android:id="@+id/cardPublic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_type_card_unselected"
+            android:clickable="true"
+            android:focusable="true">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_type_icon_tile"
+                android:layout_marginEnd="14dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_globe"
+                    app:tint="#FFFFFF"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Публичный"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Любой может найти в поиске и подписаться. Постоянная ссылка."
+                    android:textColor="#88FFFFFF"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/radioPublic"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/bg_radio_unselected"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- ПРИВАТНЫЙ -->
+        <LinearLayout
+            android:id="@+id/cardPrivate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_type_card_selected"
+            android:clickable="true"
+            android:focusable="true">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_type_icon_tile_active"
+                android:layout_marginEnd="14dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lock_channel"
+                    app:tint="#FFFFFF"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Приватный"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Только по приглашению. Ссылку можно отозвать в любой момент."
+                    android:textColor="#88FFFFFF"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/radioPrivate"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/bg_radio_selected"
+                android:layout_marginStart="8dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_check_done"
+                    app:tint="#FFFFFF"/>
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- ИНВАЙТ-ССЫЛКА -->
+        <LinearLayout
+            android:id="@+id/inviteBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ПРИГЛАСИТЕЛЬНАЯ ССЫЛКА"
+                android:textColor="#88B366FF"
+                android:textSize="11sp"
+                android:letterSpacing="0.08"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_invite_link_field"
+                android:padding="6dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/inviteLinkText"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="vibic.app/+kF9xQ2zM"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:paddingHorizontal="10dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <FrameLayout
+                    android:id="@+id/btnCopyLink"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/bg_copy_button"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_copy"
+                        app:tint="#FFFFFF"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Делитесь ссылкой только с теми, кого хотите видеть в канале."
+                android:textColor="#66FFFFFF"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
