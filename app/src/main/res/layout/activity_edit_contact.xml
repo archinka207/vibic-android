@@ -29,7 +29,7 @@
                 android:layout_height="32dp"
                 android:padding="4dp"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"
+                app:tint="?attr/vibicTextPrimary"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"/>
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:text="Изменить"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 android:text="Готово"
-                android:textColor="#B366FF"
+                android:textColor="?attr/vibicBrand"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:background="?selectableItemBackgroundBorderless"
@@ -86,7 +86,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_contact_avatar"
                     android:gravity="center"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="44sp"
                     android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
@@ -99,7 +99,7 @@
             android:layout_marginHorizontal="28dp"
             android:layout_marginBottom="8dp"
             android:text="ИМЯ КОНТАКТА"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textSize="11sp"
             android:textStyle="bold"
             android:letterSpacing="0.06"/>
@@ -119,8 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#666666"
+                android:textColor="?attr/vibicTextPrimary"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textSize="17sp"
                 android:hint="Имя"
                 android:inputType="textPersonName"
@@ -134,7 +134,7 @@
             android:layout_marginHorizontal="28dp"
             android:layout_marginBottom="8dp"
             android:text="ИНФОРМАЦИЯ"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="11sp"
             android:textStyle="bold"
             android:letterSpacing="0.06"/>
@@ -162,7 +162,7 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_call"
-                    app:tint="#B366FF"
+                    app:tint="?attr/vibicBrand"
                     android:layout_marginEnd="14dp"/>
 
                 <LinearLayout
@@ -176,14 +176,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="+7 925 410-77-03"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="16sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Мобильный"
-                        android:textColor="#888888"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
@@ -193,7 +193,7 @@
                     android:layout_height="34dp"
                     android:padding="6dp"
                     android:src="@drawable/ic_copy"
-                    app:tint="#B366FF"
+                    app:tint="?attr/vibicBrand"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"/>
@@ -203,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="16dp"
-                android:background="#2A2A2A"/>
+                android:background="?attr/vibicDivider"/>
 
             <!-- Username row -->
             <LinearLayout
@@ -220,7 +220,7 @@
                     android:layout_height="22dp"
                     android:text="@"
                     android:gravity="center"
-                    android:textColor="#B366FF"
+                    android:textColor="?attr/vibicBrand"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginEnd="14dp"/>
@@ -236,14 +236,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@speedos"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="16sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Юзернейм"
-                        android:textColor="#888888"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
@@ -253,7 +253,7 @@
                     android:layout_height="34dp"
                     android:padding="6dp"
                     android:src="@drawable/ic_copy"
-                    app:tint="#B366FF"
+                    app:tint="?attr/vibicBrand"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"/>
@@ -267,7 +267,7 @@
             android:layout_marginHorizontal="28dp"
             android:layout_marginBottom="8dp"
             android:text="ЗАМЕТКА"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textSize="11sp"
             android:textStyle="bold"
             android:letterSpacing="0.06"/>
@@ -287,8 +287,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#666666"
+                android:textColor="?attr/vibicTextPrimary"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textSize="16sp"
                 android:hint="Добавьте заметку…"
                 android:inputType="textMultiLine|textCapSentences"
@@ -313,14 +313,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_trash"
-                app:tint="#FF5555"
+                app:tint="?attr/vibicDanger"
                 android:layout_marginEnd="14dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Удалить из контактов"
-                android:textColor="#FF5555"
+                android:textColor="?attr/vibicDanger"
                 android:textSize="16sp"/>
         </LinearLayout>
 

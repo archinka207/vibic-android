@@ -42,7 +42,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:text="В тренде"/>
@@ -77,28 +77,28 @@
                             android:layout_gravity="center">
                             <TextView android:id="@+id/p2Letter"
                                 android:layout_width="match_parent" android:layout_height="match_parent"
-                                android:gravity="center" android:textColor="#FFFFFF"
+                                android:gravity="center" android:textColor="?attr/vibicTextPrimary"
                                 android:textSize="22sp" android:textStyle="bold" android:text="K"/>
                         </FrameLayout>
                         <TextView android:id="@+id/p2Badge"
                             android:layout_width="22dp" android:layout_height="22dp"
                             android:layout_gravity="bottom|center_horizontal"
                             android:background="@drawable/bg_rank_badge"
-                            android:gravity="center" android:textColor="#FFFFFF"
+                            android:gravity="center" android:textColor="?attr/vibicTextPrimary"
                             android:textSize="11sp" android:textStyle="bold" android:text="2"/>
                     </FrameLayout>
                     <TextView android:id="@+id/p2Name"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:textColor="#FFFFFF"
+                        android:layout_marginTop="8dp" android:textColor="?attr/vibicTextPrimary"
                         android:textSize="13sp" android:textStyle="bold" android:maxLines="1"
                         android:ellipsize="end" android:text="Криптошум"/>
                     <TextView android:id="@+id/p2Subs"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textColor="#A78BFA" android:textSize="14sp"
+                        android:textColor="?attr/vibicBrand" android:textSize="14sp"
                         android:textStyle="bold" android:text="212K"/>
                     <TextView android:id="@+id/p2Growth"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textColor="#34D399" android:textSize="11sp" android:text="↗ +9.8K"/>
+                        android:textColor="?attr/vibicSuccess" android:textSize="11sp" android:text="↗ +9.8K"/>
                 </LinearLayout>
 
                 <!-- 1 место -->
@@ -115,7 +115,7 @@
                             android:layout_gravity="center">
                             <TextView android:id="@+id/p1Letter"
                                 android:layout_width="match_parent" android:layout_height="match_parent"
-                                android:gravity="center" android:textColor="#FFFFFF"
+                                android:gravity="center" android:textColor="?attr/vibicTextPrimary"
                                 android:textSize="26sp" android:textStyle="bold" android:text="Д"/>
                         </FrameLayout>
                         <TextView android:id="@+id/p1Badge"
@@ -127,16 +127,16 @@
                     </FrameLayout>
                     <TextView android:id="@+id/p1Name"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:textColor="#FFFFFF"
+                        android:layout_marginTop="8dp" android:textColor="?attr/vibicTextPrimary"
                         android:textSize="14sp" android:textStyle="bold" android:maxLines="1"
                         android:ellipsize="end" android:text="Дизайн ка..."/>
                     <TextView android:id="@+id/p1Subs"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textColor="#A78BFA" android:textSize="15sp"
+                        android:textColor="?attr/vibicBrand" android:textSize="15sp"
                         android:textStyle="bold" android:text="248K"/>
                     <TextView android:id="@+id/p1Growth"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textColor="#34D399" android:textSize="11sp" android:text="↗ +12K"/>
+                        android:textColor="?attr/vibicSuccess" android:textSize="11sp" android:text="↗ +12K"/>
                 </LinearLayout>
 
                 <!-- 3 место -->
@@ -150,28 +150,28 @@
                             android:layout_gravity="center">
                             <TextView android:id="@+id/p3Letter"
                                 android:layout_width="match_parent" android:layout_height="match_parent"
-                                android:gravity="center" android:textColor="#FFFFFF"
+                                android:gravity="center" android:textColor="?attr/vibicTextPrimary"
                                 android:textSize="22sp" android:textStyle="bold" android:text="K"/>
                         </FrameLayout>
                         <TextView android:id="@+id/p3Badge"
                             android:layout_width="22dp" android:layout_height="22dp"
                             android:layout_gravity="bottom|center_horizontal"
                             android:background="@drawable/bg_rank_badge"
-                            android:gravity="center" android:textColor="#FFFFFF"
+                            android:gravity="center" android:textColor="?attr/vibicTextPrimary"
                             android:textSize="11sp" android:textStyle="bold" android:text="3"/>
                     </FrameLayout>
                     <TextView android:id="@+id/p3Name"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:textColor="#FFFFFF"
+                        android:layout_marginTop="8dp" android:textColor="?attr/vibicTextPrimary"
                         android:textSize="13sp" android:textStyle="bold" android:maxLines="1"
                         android:ellipsize="end" android:text="Кино по п..."/>
                     <TextView android:id="@+id/p3Subs"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textColor="#A78BFA" android:textSize="14sp"
+                        android:textColor="?attr/vibicBrand" android:textSize="14sp"
                         android:textStyle="bold" android:text="187K"/>
                     <TextView android:id="@+id/p3Growth"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textColor="#34D399" android:textSize="11sp" android:text="↗ +8.1K"/>
+                        android:textColor="?attr/vibicSuccess" android:textSize="11sp" android:text="↗ +8.1K"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -200,7 +200,7 @@
 
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:textColor="#FFFFFF" android:textSize="15sp"
+            android:textColor="?attr/vibicTextPrimary" android:textSize="15sp"
             android:textStyle="bold" android:text="#42"/>
 
         <FrameLayout android:id="@+id/myAvatar"
@@ -208,7 +208,7 @@
             android:layout_marginStart="12dp">
             <TextView
                 android:layout_width="match_parent" android:layout_height="match_parent"
-                android:gravity="center" android:textColor="#FFFFFF"
+                android:gravity="center" android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp" android:textStyle="bold" android:text="K"/>
         </FrameLayout>
 
@@ -218,7 +218,7 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:textColor="#FFFFFF" android:textSize="15sp"
+                android:textColor="?attr/vibicTextPrimary" android:textSize="15sp"
                 android:textStyle="bold" android:text="Кофе и код"/>
             <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"

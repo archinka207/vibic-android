@@ -23,7 +23,7 @@
             android:layout_height="40dp"
             android:padding="8dp"
             android:src="@drawable/ic_back"
-            android:tint="#FFFFFF"
+            android:tint="?attr/vibicTextPrimary"
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="Назад"/>
 
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Двухфакторная защита"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="17sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -78,7 +78,7 @@
                         android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_shield"
-                        android:tint="#FFFFFF"/>
+                        android:tint="?attr/vibicTextPrimary"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Защита активна"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
 
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="СПОСОБЫ ВХОДА"
-                android:textColor="#9E96B8"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="12sp"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="8dp"
@@ -151,7 +151,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_key"
-                            android:tint="#B366FF"/>
+                            android:tint="?attr/vibicBrand"/>
                     </FrameLayout>
 
                     <LinearLayout
@@ -164,7 +164,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PIN-код"
-                            android:textColor="#FFFFFF"
+                            android:textColor="?attr/vibicTextPrimary"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -173,7 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Не задан"
-                            android:textColor="#7E7691"
+                            android:textColor="?attr/vibicTextSecondary"
                             android:textSize="12sp"/>
                     </LinearLayout>
 
@@ -181,7 +181,7 @@
                         android:id="@+id/pinSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:thumbTint="#FFFFFF"
+                        android:thumbTint="?attr/vibicTextPrimary"
                         android:trackTint="@drawable/track_2fa_switch"/>
                 </LinearLayout>
 
@@ -216,7 +216,7 @@
                             android:layout_height="22dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_face_id"
-                            android:tint="#B366FF"/>
+                            android:tint="?attr/vibicBrand"/>
                     </FrameLayout>
 
                     <LinearLayout
@@ -229,7 +229,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Face ID / отпечаток"
-                            android:textColor="#FFFFFF"
+                            android:textColor="?attr/vibicTextPrimary"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -237,7 +237,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Биометрия как альтернатива PIN"
-                            android:textColor="#7E7691"
+                            android:textColor="?attr/vibicTextSecondary"
                             android:textSize="12sp"/>
                     </LinearLayout>
 
@@ -245,7 +245,7 @@
                         android:id="@+id/biometricSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:thumbTint="#FFFFFF"
+                        android:thumbTint="?attr/vibicTextPrimary"
                         android:trackTint="@drawable/track_2fa_switch"/>
                 </LinearLayout>
             </LinearLayout>
@@ -255,7 +255,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ВОССТАНОВЛЕНИЕ"
-                android:textColor="#9E96B8"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="12sp"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="8dp"
@@ -289,7 +289,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Резервный email"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -297,7 +297,7 @@
                         android:id="@+id/backupEmailValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#7E7691"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="14sp"
                         android:layout_marginEnd="8dp"
                         tools:text="o***@gmail.com"/>
@@ -306,7 +306,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_chevron_right"
-                        android:tint="#7E7691"/>
+                        android:tint="?attr/vibicIcon"/>
                 </LinearLayout>
 
                 <View
@@ -340,7 +340,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Коды восстановления"
-                            android:textColor="#FFFFFF"
+                            android:textColor="?attr/vibicTextPrimary"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -349,7 +349,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10 одноразовых кодов · сохранены"
-                            android:textColor="#7E7691"
+                            android:textColor="?attr/vibicTextSecondary"
                             android:textSize="12sp"/>
                     </LinearLayout>
 
@@ -357,14 +357,14 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@android:drawable/checkbox_on_background"
-                        android:tint="#4CAF50"
+                        android:tint="?attr/vibicSuccess"
                         android:layout_marginEnd="6dp"/>
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_chevron_right"
-                        android:tint="#7E7691"/>
+                        android:tint="?attr/vibicIcon"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -373,7 +373,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Если потеряете доступ к телефону — войдёте через email и резервный код."
-                android:textColor="#9E96B8"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="13sp"
                 android:lineSpacingExtra="2dp"
                 android:layout_marginStart="8dp"
