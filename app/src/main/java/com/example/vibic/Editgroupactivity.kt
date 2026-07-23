@@ -81,7 +81,6 @@ class EditGroupActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
-        window.setBackgroundDrawableResource(R.drawable.bg_gradient)
         setContentView(R.layout.activity_edit_group)
 
         chatId = intent.getStringExtra(EXTRA_CHAT_ID) ?: ""

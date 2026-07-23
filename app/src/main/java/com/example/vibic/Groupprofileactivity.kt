@@ -103,7 +103,6 @@ class GroupProfileActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
-        window.setBackgroundDrawableResource(R.drawable.bg_gradient)
 
         setContentView(R.layout.activity_group_profile)
 
