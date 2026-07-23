@@ -39,7 +39,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_qr_top"
-                    android:tint="#FFFFFF"/>
+                    android:tint="?attr/vibicTextPrimary"/>
             </FrameLayout>
 
             <FrameLayout
@@ -56,7 +56,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_edit_top"
-                    android:tint="#FFFFFF"/>
+                    android:tint="?attr/vibicTextPrimary"/>
             </FrameLayout>
         </LinearLayout>
 
@@ -78,7 +78,7 @@
                 android:focusable="true"
                 android:foreground="?selectableItemBackgroundBorderless"
                 app:cardCornerRadius="48dp"
-                app:cardBackgroundColor="#B366FF"
+                app:cardBackgroundColor="?attr/vibicBrand"
                 app:cardElevation="0dp">
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="match_parent"
                     android:text="О"
                     android:textSize="38sp"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:visibility="visible"/>
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Пользователь"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp"/>
@@ -116,7 +116,7 @@
                 android:id="@+id/statusText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_marginBottom="6dp"
@@ -136,14 +136,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@user"
-                    android:textColor="#9E96B8"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="14sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="  ·  "
-                    android:textColor="#9E96B8"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="14sp"/>
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+7 (999) 000-00-00"
-                    android:textColor="#9E96B8"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="14sp"/>
             </LinearLayout>
 
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="АККАУНТ"
-            android:textColor="#9E96B8"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="12sp"
             android:letterSpacing="0.08"
             android:layout_marginBottom="8dp"
@@ -201,7 +201,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_notifications"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -214,7 +214,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Уведомления"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -222,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Звуки, вибрация"
-                        android:textColor="#7E7691"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -230,7 +230,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
             <View
@@ -264,7 +264,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_privacy"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -277,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Конфиденциальность"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -285,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Блокировка, скрытие"
-                        android:textColor="#7E7691"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -293,7 +293,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
             <View
@@ -327,7 +327,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_devices"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <TextView
@@ -335,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Подключённые устройства"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
@@ -344,7 +344,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textColor="#7E7691"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="14sp"
                     android:layout_marginEnd="8dp"/>
 
@@ -352,7 +352,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
             <View
@@ -386,7 +386,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_shield"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <TextView
@@ -394,7 +394,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Двухфакторная защита"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
@@ -403,7 +403,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Вкл"
-                    android:textColor="#7E7691"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="14sp"
                     android:layout_marginEnd="8dp"/>
 
@@ -411,7 +411,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
             <View
@@ -445,7 +445,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_info"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -458,7 +458,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="О приложении"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -467,7 +467,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Версия 2.4.1"
-                        android:textColor="#7E7691"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -475,7 +475,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -485,7 +485,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ПОДДЕРЖКА"
-            android:textColor="#9E96B8"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="12sp"
             android:letterSpacing="0.08"
             android:layout_marginBottom="8dp"
@@ -524,7 +524,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_help"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -537,7 +537,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Помощь"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -545,7 +545,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Часто задаваемые вопросы"
-                        android:textColor="#7E7691"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -553,7 +553,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
             <View
@@ -587,7 +587,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_star"
-                        android:tint="#B366FF"/>
+                        android:tint="?attr/vibicBrand"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -600,7 +600,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Оценить Vibic"
-                        android:textColor="#FFFFFF"
+                        android:textColor="?attr/vibicTextPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
@@ -608,7 +608,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="RuStore"
-                        android:textColor="#7E7691"
+                        android:textColor="?attr/vibicTextSecondary"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
@@ -616,7 +616,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="#7E7691"/>
+                    android:tint="?attr/vibicIcon"/>
             </LinearLayout>
 
         </LinearLayout>
