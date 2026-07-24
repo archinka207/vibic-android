@@ -22,21 +22,21 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_action_folder"
-            android:tint="#FFFFFF" />
+            android:tint="?attr/vibicIcon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="В папку"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2A2A2A" />
+        android:background="?attr/vibicSurface" />
 
     <!-- Непрочитанным -->
     <LinearLayout
@@ -51,21 +51,21 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_action_unread"
-            android:tint="#FFFFFF" />
+            android:tint="?attr/vibicIcon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="Непрочитанным"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2A2A2A" />
+        android:background="?attr/vibicSurface" />
 
     <!-- Закрепить -->
     <LinearLayout
@@ -80,7 +80,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_action_pin"
-            android:tint="#FFFFFF" />
+            android:tint="?attr/vibicIcon" />
 
         <TextView
             android:id="@+id/actionPinText"
@@ -88,14 +88,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="Закрепить"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2A2A2A" />
+        android:background="?attr/vibicSurface" />
 
     <!-- Без звука / Включить звук (меняется в рантайме) -->
     <LinearLayout
@@ -111,7 +111,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_action_mute"
-            android:tint="#FFFFFF" />
+            android:tint="?attr/vibicIcon" />
 
         <TextView
             android:id="@+id/actionMuteText"
@@ -119,14 +119,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="Без звука"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2A2A2A" />
+        android:background="?attr/vibicSurface" />
 
     <!-- Удалить (опасное) -->
     <LinearLayout
@@ -141,14 +141,14 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_action_delete"
-            android:tint="#FF5A52" />
+            android:tint="?attr/vibicDanger" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="Удалить"
-            android:textColor="#FF5A52"
+            android:textColor="?attr/vibicDanger"
             android:textSize="18sp" />
     </LinearLayout>
 

@@ -15,7 +15,7 @@
         android:layout_height="46dp"
         app:cardCornerRadius="23dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#B366FF"
+        app:cardBackgroundColor="?attr/vibicBrand"
         android:layout_marginEnd="12dp">
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="17sp"
             android:textStyle="bold"/>
     </androidx.cardview.widget.CardView>
@@ -51,7 +51,7 @@
                 android:id="@+id/adminName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="13sp"
             android:maxLines="1"
             android:ellipsize="end"/>
@@ -87,5 +87,5 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/ic_chevron_right"
-        app:tint="#555555"/>
+        app:tint="?attr/vibicIcon"/>
 </LinearLayout>

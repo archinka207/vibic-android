@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Новый чат"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="22sp"
             android:textStyle="bold"
             android:gravity="center"/>
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="✕"
-                android:textColor="#B366FF"
+                android:textColor="?attr/vibicBrand"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
         </FrameLayout>
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="Создай группу "
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="12sp"
                 android:gravity="center"/>
         </LinearLayout>
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="Создай вайб"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="12sp"
                 android:gravity="center"/>
         </LinearLayout>
@@ -127,8 +127,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Поиск контактов..."
-        android:textColorHint="#666666"
-        android:textColor="#FFFFFF"
+        android:textColorHint="?attr/vibicTextTertiary"
+        android:textColor="?attr/vibicTextPrimary"
         android:background="@drawable/search_background"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"

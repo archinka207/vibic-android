@@ -36,7 +36,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_back"
-                    android:tint="#FFFFFF"/>
+                    android:tint="?attr/vibicIcon"/>
             </FrameLayout>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Мой QR-код"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:gravity="center"/>
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Копировать"
-                android:textColor="#B366FF"
+                android:textColor="?attr/vibicBrand"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:padding="8dp"
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Пользователь"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="\@user · Vibic"
-                android:textColor="#E5D6FF"
+                android:textColor="?attr/vibicBrand"
                 android:textSize="14sp"/>
         </LinearLayout>
 
@@ -150,7 +150,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_info"
-                android:tint="#7E7691"
+                android:tint="?attr/vibicIcon"
                 android:layout_marginEnd="10dp"/>
 
             <TextView
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Этот код может быть отсканирован с любого устройства для добавления вас в Vibic."
-                android:textColor="#9E96B8"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="13sp"
                 android:lineSpacingExtra="2dp"/>
         </LinearLayout>
@@ -181,14 +181,14 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_qr_scan"
-                android:tint="#FFFFFF"
+                android:tint="?attr/vibicIcon"
                 android:layout_marginEnd="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Сканировать чужой QR"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
         </LinearLayout>

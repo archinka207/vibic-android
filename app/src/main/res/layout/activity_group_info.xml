@@ -29,7 +29,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"/>
+                app:tint="?attr/vibicIcon"/>
         </FrameLayout>
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Создать группу"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"/>
@@ -70,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="M"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="36sp"
                 android:textStyle="bold"/>
 
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Установить фото"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textSize="15sp"
             android:clickable="true"
             android:focusable="true"/>
@@ -109,7 +109,7 @@
             android:layout_marginTop="36dp"
             android:hint="Введите название группы"
             android:textColorHint="#55FFFFFF"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="17sp"
             android:gravity="center"
             android:background="@null"
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:text="1 участников выбрано"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textSize="14sp"/>
 
         <TextView
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Создать группу"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"

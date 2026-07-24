@@ -44,7 +44,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Чат и вся история сообщений будут удалены."
-        android:textColor="#A9A4B3"
+        android:textColor="?attr/vibicTextSecondary"
         android:textSize="14sp"
         android:lineSpacingExtra="2dp"/>
 

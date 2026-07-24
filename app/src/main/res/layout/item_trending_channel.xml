@@ -12,7 +12,7 @@
         android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="#6B6B7B"
+        android:textColor="?attr/vibicTextTertiary"
         android:textSize="16sp"
         android:textStyle="bold"
         android:text="4"/>
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="#7A7A8C"
+            android:textColor="?attr/vibicTextTertiary"
             android:textSize="13sp"
             android:text="143K подписчиков"/>
     </LinearLayout>

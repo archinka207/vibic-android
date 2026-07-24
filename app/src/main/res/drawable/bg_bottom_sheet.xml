@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:startColor="#1A0828"
-        android:centerColor="#200D35"
-        android:endColor="#160620"
-        android:angle="270"
-        android:type="linear"/>
+    <solid android:color="?attr/vibicSheet"/>
     <corners android:topLeftRadius="24dp" android:topRightRadius="24dp"/>
 </shape>

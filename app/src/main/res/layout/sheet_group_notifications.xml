@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Уведомления"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/vibicTextPrimary"
         android:textSize="22sp"
         android:textStyle="bold"
         android:paddingHorizontal="20dp"/>
@@ -30,7 +30,7 @@
         android:id="@+id/sheetSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#888888"
+        android:textColor="?attr/vibicTextSecondary"
         android:textSize="14sp"
         android:paddingHorizontal="20dp"
         android:paddingTop="2dp"
@@ -58,7 +58,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_notifications"
-                app:tint="#B366FF"
+                app:tint="?attr/vibicBrand"
                 android:layout_marginEnd="16dp"/>
 
             <LinearLayout
@@ -71,14 +71,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Уведомления"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Получать сообщения из группы"
-                    android:textColor="#888888"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="13sp"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="16dp"
-            android:background="#2A2A2A"/>
+            android:background="?attr/vibicSurface"/>
 
         <!-- Показывать текст -->
         <LinearLayout
@@ -110,7 +110,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_chat"
-                app:tint="#B366FF"
+                app:tint="?attr/vibicBrand"
                 android:layout_marginEnd="16dp"/>
 
             <LinearLayout
@@ -123,14 +123,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Показывать текст"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Превью сообщения в шторке"
-                    android:textColor="#888888"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="13sp"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="16dp"
-            android:background="#2A2A2A"/>
+            android:background="?attr/vibicSurface"/>
 
         <!-- Вибрация -->
         <LinearLayout
@@ -162,7 +162,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_vibration"
-                app:tint="#B366FF"
+                app:tint="?attr/vibicBrand"
                 android:layout_marginEnd="16dp"/>
 
             <TextView
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Вибрация"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"/>
 
             <androidx.appcompat.widget.SwitchCompat
@@ -187,7 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ЗВУК"
-        android:textColor="#888888"
+        android:textColor="?attr/vibicTextSecondary"
         android:textSize="12sp"
         android:letterSpacing="0.06"
         android:paddingHorizontal="20dp"
@@ -238,7 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="По умолчанию"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -246,7 +246,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="16dp"
-            android:background="#2A2A2A"/>
+            android:background="?attr/vibicSurface"/>
 
         <!-- Колокольчик -->
         <LinearLayout
@@ -284,7 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Колокольчик"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -292,7 +292,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="16dp"
-            android:background="#2A2A2A"/>
+            android:background="?attr/vibicSurface"/>
 
         <!-- Без звука -->
         <LinearLayout
@@ -330,7 +330,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Без звука"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"/>
         </LinearLayout>
     </LinearLayout>
@@ -352,14 +352,14 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_notifications"
-            app:tint="#FF5C7A"
+            app:tint="?attr/vibicDanger"
             android:layout_marginEnd="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Отключить на 1 час"
-            android:textColor="#FF5C7A"
+            android:textColor="?attr/vibicDanger"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>

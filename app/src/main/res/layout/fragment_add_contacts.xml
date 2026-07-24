@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Добавить контакт"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -39,7 +39,7 @@
             android:padding="4dp"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             android:background="@drawable/bg_close_button"
-            app:tint="#FFFFFF"/>
+            app:tint="?attr/vibicIcon"/>
 
     </FrameLayout>
 
@@ -51,7 +51,7 @@
         android:layout_marginTop="16dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#1A1A2E">
+        app:cardBackgroundColor="?attr/vibicSurface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,13 +72,13 @@
                     android:layout_height="26dp"
                     android:src="@drawable/ic_call"
                     android:layout_marginEnd="10dp"
-                    app:tint="#B366FF"/>
+                    app:tint="?attr/vibicBrand"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="По номеру телефона"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+7"
-                    android:textColor="#B366FF"
+                    android:textColor="?attr/vibicBrand"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginEnd="8dp"/>
@@ -105,7 +105,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="24dp"
-                    android:background="#333355"
+                    android:background="?attr/vibicSurfaceElevated"
                     android:layout_marginEnd="12dp"/>
 
                 <EditText
@@ -114,8 +114,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="900 000-00-00"
-                    android:textColorHint="#555577"
-                    android:textColor="#FFFFFF"
+                    android:textColorHint="?attr/vibicSurfaceElevated"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="18sp"
                     android:background="@null"
                     android:inputType="phone"
@@ -130,7 +130,7 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="16dp"
                 android:text="Добавить"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -154,13 +154,13 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#2A2A3A"/>
+            android:background="?attr/vibicSurface"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="или"
-            android:textColor="#666680"
+            android:textColor="?attr/vibicTextTertiary"
             android:textSize="13sp"
             android:paddingHorizontal="16dp"/>
 
@@ -168,7 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#2A2A3A"/>
+            android:background="?attr/vibicSurface"/>
 
     </LinearLayout>
 
@@ -181,7 +181,7 @@
         android:layout_marginBottom="32dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#1A1A2E">
+        app:cardBackgroundColor="?attr/vibicSurface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -202,13 +202,13 @@
                     android:layout_height="26dp"
                     android:src="@drawable/ic_camera"
                     android:layout_marginEnd="10dp"
-                    app:tint="#B366FF"/>
+                    app:tint="?attr/vibicBrand"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Через QR-код"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -229,13 +229,13 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_camera"
                     android:layout_marginEnd="10dp"
-                    app:tint="#FFFFFF"/>
+                    app:tint="?attr/vibicIcon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Сканировать QR-код"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -245,7 +245,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Наведите камеру на QR-код профиля вашего друга, чтобы быстро добавить его в контакты."
-                android:textColor="#666680"
+                android:textColor="?attr/vibicTextTertiary"
                 android:textSize="13sp"
                 android:lineSpacingMultiplier="1.4"/>
 

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <gradient
-        android:startColor="#6A11CB"
-        android:endColor="#B366FF"
-        android:angle="135"
-        android:type="linear"/>
+    <solid android:color="?attr/vibicBrand"/>
 </shape>

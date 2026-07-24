@@ -82,7 +82,7 @@
                     android:layout_height="120dp"
                     app:cardCornerRadius="60dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="#8E44FF">
+                    app:cardBackgroundColor="?attr/vibicBrand">
 
                     <ImageView
                         android:id="@+id/editAvatarImage"
@@ -263,14 +263,14 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@drawable/ic_logout"
-                    android:tint="#FF5C5C"
+                    android:tint="?attr/vibicDanger"
                     android:layout_marginEnd="12dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Выйти"
-                    android:textColor="#FF5C5C"
+                    android:textColor="?attr/vibicDanger"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
             </LinearLayout>

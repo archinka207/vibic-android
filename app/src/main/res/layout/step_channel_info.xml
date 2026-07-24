@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="M"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="40sp"
                 android:textStyle="bold"/>
 
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="+"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
             </FrameLayout>
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Мой вайб"
                 android:textColorHint="#55FFFFFF"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="17sp"
                 android:background="@null"
                 android:inputType="textCapSentences"
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:hint="О чём этот канал? Что подписчики здесь увидят?"
                 android:textColorHint="#55FFFFFF"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="15sp"
                 android:background="@null"
                 android:inputType="textMultiLine|textCapSentences"

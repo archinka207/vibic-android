@@ -21,7 +21,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_back"
-            app:tint="#FFFFFF"
+            app:tint="?attr/vibicIcon"
             android:background="?selectableItemBackgroundBorderless"/>
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:layout_marginStart="12dp"
             android:text="Контент"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -39,7 +39,7 @@
             android:id="@+id/mediaCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#888888"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="14sp"/>
     </LinearLayout>
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:text="Фото и Видео"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:paddingHorizontal="16dp"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:text="Голосовые"
-                android:textColor="#888888"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:paddingHorizontal="16dp"
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:text="Файлы"
-                android:textColor="#888888"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:paddingHorizontal="16dp"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:text="Ссылки"
-                android:textColor="#888888"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:paddingHorizontal="16dp"
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Нет медиафайлов"
-                android:textColor="#888888"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminateTint="#B366FF"
+            android:indeterminateTint="?attr/vibicBrand"
             android:visibility="visible"/>
     </FrameLayout>
 

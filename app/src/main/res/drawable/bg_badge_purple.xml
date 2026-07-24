@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
     <solid android:color="#3698F0"/> <!-- Синий, как на фото (или можешь поменять на свой #B366FF) -->
     <!-- Обводка цвета панели, чтобы бейджик красиво "вырезал" иконку -->
-    <stroke android:width="2dp" android:color="#1E1E1E" />
+    <stroke android:width="2dp" android:color="?attr/vibicSurface" />
 </shape>

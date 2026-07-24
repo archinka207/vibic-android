@@ -82,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="В сети"
-                        android:textColor="#4CAF50"
+                        android:textColor="?attr/vibicSuccess"
                         android:textSize="12sp"
                         android:singleLine="true"
                         android:ellipsize="end"/>
@@ -226,7 +226,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="Type your message..."
-                                android:textColorHint="#6B6A78"
+                                android:textColorHint="?attr/vibicTextTertiary"
                                 android:textColor="?attr/vibicTextPrimary"
                                 android:background="@null"
                                 android:paddingHorizontal="12dp"
@@ -286,7 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="320dp"
                     android:orientation="vertical"
-                    android:background="#121212"
+                    android:background="?attr/vibicSurface"
                     android:visibility="gone">
 
                     <LinearLayout

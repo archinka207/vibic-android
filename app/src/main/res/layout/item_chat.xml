@@ -20,7 +20,7 @@
         android:focusable="true"
         app:cardCornerRadius="28dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#B366FF">
+        app:cardBackgroundColor="?attr/vibicBrand">
 
         <ImageView
             android:id="@+id/avatarImage"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Имя контакта"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/vibicTextPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -73,7 +73,7 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="6dp"
                 android:src="@drawable/ic_chat_muted"
-                app:tint="#888888"
+                app:tint="?attr/vibicIcon"
                 android:visibility="gone"/>
         </LinearLayout>
 
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="Последнее сообщение"
-            android:textColor="#999999"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="14sp"
             android:maxLines="1"
             android:ellipsize="end"/>
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12:00"
-            android:textColor="#666666"
+            android:textColor="?attr/vibicTextTertiary"
             android:textSize="12sp"/>
 
         <TextView
@@ -126,7 +126,7 @@
             android:layout_marginEnd="3dp"
             android:rotation="45"
             android:src="@drawable/ic_action_pin"
-            app:tint="#9E8BC2"
+            app:tint="?attr/vibicTextSecondary"
             android:visibility="gone"/>
     </LinearLayout>
 

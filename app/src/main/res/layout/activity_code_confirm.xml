@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Введите код"
             android:textSize="34sp"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"/>
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="+7 (999) ***-**-67"
             android:textSize="18sp"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"/>
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:text="Изменить номер"
             android:textSize="15sp"
             android:layout_marginBottom="40dp"/>
@@ -71,7 +71,7 @@
                     android:gravity="center"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:background="@drawable/code_cell_background"/>
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:gravity="center"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:background="@drawable/code_cell_background"/>
 
                 <TextView
@@ -95,7 +95,7 @@
                     android:gravity="center"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:background="@drawable/code_cell_background"/>
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:gravity="center"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:background="@drawable/code_cell_background"/>
 
                 <!-- Ячейки 5 и 6 удалены, так как код состоит из 4 цифр -->
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:text="Отправить снова через "
                 android:textSize="15sp"
-                android:textColor="#B366FF"
+                android:textColor="?attr/vibicBrand"
                 android:alpha="0.8"/>
 
             <TextView
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:text="00:30"
                 android:textSize="15sp"
-                android:textColor="#B366FF"/>
+                android:textColor="?attr/vibicBrand"/>
         </LinearLayout>
 
         <TextView
@@ -159,7 +159,7 @@
             android:layout_height="wrap_content"
             android:text="Отправить код заново"
             android:textSize="16sp"
-            android:textColor="#B366FF"
+            android:textColor="?attr/vibicBrand"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:visibility="gone"/>

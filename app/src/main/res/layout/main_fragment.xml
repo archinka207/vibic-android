@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Чаты"
             android:textSize="32sp"
-            android:textColor="#6A11CB"
+            android:textColor="?attr/vibicBrand"
             android:textStyle="bold"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -58,8 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Поиск"
-        android:textColorHint="#666666"
-        android:textColor="#FFFFFF"
+        android:textColorHint="?attr/vibicTextTertiary"
+        android:textColor="?attr/vibicTextPrimary"
         android:background="@drawable/search_background"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -121,7 +121,7 @@
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:src="@drawable/ic_chat"
-                            app:tint="#6A11CB"/>
+                            app:tint="?attr/vibicBrand"/>
                         <TextView
                             android:id="@+id/chatBadge"
                             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                             android:gravity="center"
                             android:paddingHorizontal="4dp"
                             android:text="1"
-                            android:textColor="#FFFFFF"
+                            android:textColor="?attr/vibicTextPrimary"
                             android:textSize="9sp"
                             android:textStyle="bold"
                             android:visibility="gone"/>
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="Чаты"
-                        android:textColor="#6A11CB"
+                        android:textColor="?attr/vibicBrand"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:maxLines="1"
@@ -165,14 +165,14 @@
                         android:layout_width="26dp"
                         android:layout_height="26dp"
                         android:src="@drawable/ic_contacts"
-                        app:tint="#808080"/>
+                        app:tint="?attr/vibicIcon"/>
                     <TextView
                         android:id="@+id/contactsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="Контакты"
-                        android:textColor="#808080"
+                        android:textColor="?attr/vibicTextTertiary"
                         android:textSize="11sp"
                         android:maxLines="1"
                         android:singleLine="true"/>
@@ -193,7 +193,7 @@
                         android:layout_width="26dp"
                         android:layout_height="26dp"
                         app:cardCornerRadius="13dp"
-                        app:cardBackgroundColor="#808080"
+                        app:cardBackgroundColor="?attr/vibicTextTertiary"
                         app:cardElevation="0dp">
                         <TextView
                             android:id="@+id/profileAvatarText"
@@ -201,7 +201,7 @@
                             android:layout_height="match_parent"
                             android:text="А"
                             android:textSize="13sp"
-                            android:textColor="#FFFFFF"
+                            android:textColor="?attr/vibicTextPrimary"
                             android:textStyle="bold"
                             android:gravity="center"
                             android:visibility="visible"/>
@@ -218,7 +218,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="Профиль"
-                        android:textColor="#808080"
+                        android:textColor="?attr/vibicTextTertiary"
                         android:textSize="11sp"
                         android:maxLines="1"
                         android:singleLine="true"/>

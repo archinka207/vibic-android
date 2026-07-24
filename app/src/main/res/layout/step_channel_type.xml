@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Кто сможет находить вайб?"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="22sp"
             android:textStyle="bold"/>
 
@@ -53,7 +53,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_globe"
-                    app:tint="#FFFFFF"/>
+                    app:tint="?attr/vibicIcon"/>
             </FrameLayout>
 
             <LinearLayout
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Публичный"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -111,7 +111,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_lock_channel"
-                    app:tint="#FFFFFF"/>
+                    app:tint="?attr/vibicIcon"/>
             </FrameLayout>
 
             <LinearLayout
@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Приватный"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -149,7 +149,7 @@
                     android:layout_height="14dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_check_done"
-                    app:tint="#FFFFFF"/>
+                    app:tint="?attr/vibicIcon"/>
             </FrameLayout>
         </LinearLayout>
 
@@ -185,7 +185,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="vibic.app/+kF9xQ2zM"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/vibicTextPrimary"
                     android:textSize="15sp"
                     android:paddingHorizontal="10dp"
                     android:maxLines="1"
@@ -204,7 +204,7 @@
                         android:layout_height="18dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_copy"
-                        app:tint="#FFFFFF"/>
+                        app:tint="?attr/vibicIcon"/>
                 </FrameLayout>
             </LinearLayout>
 

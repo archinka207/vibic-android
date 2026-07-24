@@ -30,7 +30,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_back"
-                app:tint="#FFFFFF"/>
+                app:tint="?attr/vibicIcon"/>
         </FrameLayout>
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Создать группу"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/vibicTextPrimary"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"/>
@@ -53,8 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Поиск контактов"
-        android:textColorHint="#666666"
-        android:textColor="#FFFFFF"
+        android:textColorHint="?attr/vibicTextTertiary"
+        android:textColor="?attr/vibicTextPrimary"
         android:background="@drawable/search_background"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminateTint="#B366FF"
+            android:indeterminateTint="?attr/vibicBrand"
             android:visibility="gone"/>
     </FrameLayout>
 

@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="Vibic"
                 android:textSize="34sp"
-                android:textColor="#9933CC"
+                android:textColor="?attr/vibicBrand"
                 android:textStyle="bold"
                 android:layout_marginBottom="40dp"/>
 
@@ -52,7 +52,7 @@
                     android:layout_height="match_parent"
                     android:text="А"
                     android:textSize="48sp"
-                    android:textColor="#B366FF"
+                    android:textColor="?attr/vibicBrand"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:visibility="visible"/>
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Нажмите чтобы добавить фото"
-                android:textColor="#B366FF"
+                android:textColor="?attr/vibicBrand"
                 android:alpha="0.7"
                 android:textSize="14sp"
                 android:layout_marginBottom="24dp"/>
@@ -81,8 +81,8 @@
                 android:layout_height="60dp"
                 android:hint="Как к вам обращаться?"
                 android:textSize="18sp"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#666666"
+                android:textColor="?attr/vibicTextPrimary"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:background="@drawable/edittext_backround"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Настроить двухфакторную аутентификацию (рекомендуется)"
-                android:textColor="#AAAAAA"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="13sp"
                 android:textAlignment="center"
                 android:layout_marginBottom="10dp"/>
@@ -106,8 +106,8 @@
                 android:layout_height="50dp"
                 android:hint="Облачный пароль (опционально)"
                 android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#666666"
+                android:textColor="?attr/vibicTextPrimary"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:background="@drawable/edittext_backround"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
@@ -122,7 +122,7 @@
                 android:text="Готово"
                 android:textSize="17sp"
                 android:textColor="#FFFF"
-                android:backgroundTint="#8026CC"
+                android:backgroundTint="?attr/vibicBrand"
                 app:cornerRadius="12dp"
                 android:textStyle="bold"/>
         </LinearLayout>

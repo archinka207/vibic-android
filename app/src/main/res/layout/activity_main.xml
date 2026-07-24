@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:text="Регистрация"
         android:textSize="34sp"
-        android:textColor="#B366FF"
+        android:textColor="?attr/vibicBrand"
         android:textStyle="bold"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="8dp"/>
@@ -26,7 +26,7 @@
         android:text="Войдите в свой круг Vibic"
         android:layout_gravity="center"
         android:textSize="17sp"
-        android:textColor="#9966CC"
+        android:textColor="?attr/vibicBrand"
         android:layout_marginBottom="48dp"/>
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="Номер телефона"
         android:textSize="14sp"
-        android:textColor="#9966CC"
+        android:textColor="?attr/vibicBrand"
         android:layout_marginBottom="8dp"/>
 
     <EditText
@@ -43,8 +43,8 @@
         android:layout_height="60dp"
         android:hint="+7 (___) ___-__-__"
         android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#666666"
+        android:textColor="?attr/vibicTextPrimary"
+        android:textColorHint="?attr/vibicTextTertiary"
         android:background="@drawable/edittext_backround"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Мы отправим код подтверждения"
         android:textSize="15sp"
-        android:textColor="#9966CC"
+        android:textColor="?attr/vibicBrand"
         android:layout_marginBottom="32dp"/>
 
     <Button
@@ -67,7 +67,7 @@
         android:text="Продолжить"
         android:textSize="17sp"
         android:textColor="#FFFF"
-        android:backgroundTint="#6A11CB"
+        android:backgroundTint="?attr/vibicBrand"
         app:cornerRadius="12dp"
         android:textStyle="bold"/>
 
