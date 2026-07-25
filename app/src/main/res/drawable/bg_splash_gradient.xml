@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <!-- Аналог linear-gradient(160deg, #150026 0%, #1d0830 45%, #2a1040 100%) -->
-    <gradient
-        android:type="linear"
-        android:angle="315"
-        android:startColor="#150026"
-        android:centerColor="#1D0830"
-        android:endColor="#2A1040" />
+    <solid android:color="@color/dark_bg"/>
 </shape>

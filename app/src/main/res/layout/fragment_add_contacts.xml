@@ -114,7 +114,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="900 000-00-00"
-                    android:textColorHint="?attr/vibicSurfaceElevated"
+                    android:textColorHint="?attr/vibicTextTertiary"
                     android:textColor="?attr/vibicTextPrimary"
                     android:textSize="18sp"
                     android:background="@null"
