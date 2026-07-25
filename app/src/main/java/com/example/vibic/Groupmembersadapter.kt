@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.color.MaterialColors
 
 /**
  * Простая модель участника группы для UI.
@@ -83,7 +84,7 @@ class GroupMembersAdapter(
                     roleBadge.visibility = View.VISIBLE
                     roleBadge.text = "админ"
                     roleBadge.setBackgroundResource(R.drawable.bg_role_badge_admin)
-                    roleBadge.setTextColor(Color.parseColor("#B366FF"))
+                    roleBadge.setTextColor(MaterialColors.getColor(roleBadge, R.attr.vibicBrand))
                 }
                 else -> roleBadge.visibility = View.GONE
             }
@@ -96,8 +97,10 @@ class GroupMembersAdapter(
             }
             statusText.text = status
             statusText.setTextColor(
-                if (member.isOnline || status == "в сети") Color.parseColor("#B366FF")
-                else Color.parseColor("#888888")
+                MaterialColors.getColor(
+                    statusText,
+                    if (member.isOnline || status == "в сети") R.attr.vibicBrand else R.attr.vibicTextSecondary
+                )
             )
         }
     }

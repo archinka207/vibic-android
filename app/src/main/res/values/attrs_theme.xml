@@ -21,6 +21,7 @@
     <attr name="vibicSuccess" format="color" />
     <attr name="vibicWarning" format="color" />
 
+
     <attr name="vibicBubbleIn" format="color" />
     <attr name="vibicBubbleOut" format="color" />
     <attr name="vibicBubbleInText" format="color" />

@@ -2,12 +2,12 @@ package com.example.vibic
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.vibic.network.ApiClient
 import com.example.vibic.network.Setup2FARequest
@@ -24,8 +24,8 @@ class NicknameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nickname)
 
-        window.statusBarColor = Color.BLACK
-        window.navigationBarColor = Color.BLACK
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         nicknameInput = findViewById(R.id.nicknameInput)
         twoFaPasswordInput = findViewById(R.id.twoFaPasswordInput)
