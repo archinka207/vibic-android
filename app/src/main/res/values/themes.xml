@@ -10,10 +10,10 @@
         <item name="vibicBackground">@color/dark_bg</item>
         <item name="vibicSurface">@color/dark_surface</item>
         <item name="vibicSurfaceElevated">@color/dark_surface_elev</item>
-        <item name="vibicSheet">@color/dark_surface_elev</item>
 
         <item name="vibicDivider">@color/dark_divider</item>
         <item name="vibicStroke">@color/dark_divider</item>
+        <item name="vibicSheet">@color/dark_surface</item>
 
         <item name="vibicTextPrimary">@color/text_primary</item>
         <item name="vibicTextSecondary">@color/text_secondary</item>
@@ -52,9 +52,13 @@
     <style name="BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:navigationBarColor">@color/dark_surface</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@color/dark_surface</item>
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@color/dark_surface</item>
     </style>
 </resources>
