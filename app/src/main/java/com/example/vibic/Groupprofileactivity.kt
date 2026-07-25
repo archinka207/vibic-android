@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -101,8 +102,8 @@ class GroupProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         setContentView(R.layout.activity_group_profile)
 

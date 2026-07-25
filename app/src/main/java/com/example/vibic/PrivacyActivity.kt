@@ -2,6 +2,7 @@ package com.example.vibic
 
 import android.content.Context
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.widget.ImageView
 import android.content.Intent
@@ -34,8 +35,8 @@ class PrivacyActivity : AppCompatActivity() {
 
         // Прозрачный статус-бар
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         setContentView(R.layout.activity_privacy)
 

@@ -2,6 +2,7 @@ package com.example.vibic
 
 import android.content.Intent
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -69,8 +70,8 @@ class GroupInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor     = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor     = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
         setContentView(R.layout.activity_group_info)
 
         selectedPhones = intent.getStringArrayListExtra(EXTRA_SELECTED_PHONES) ?: arrayListOf()

@@ -1,6 +1,7 @@
 package com.example.vibic
 
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -20,8 +21,8 @@ class AboutDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor     = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor     = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
         setContentView(R.layout.activity_about_detail)
 
         findViewById<FrameLayout>(R.id.backButton).setOnClickListener { finish() }

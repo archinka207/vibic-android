@@ -66,8 +66,8 @@ class CreateGroupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor     = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor     = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
         setContentView(R.layout.activity_create_group)
 
         backButton             = findViewById(R.id.backButton)

@@ -2,6 +2,7 @@ package com.example.vibic
 
 import android.content.Context
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +25,8 @@ class NotificationsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Делаем статус-бар прозрачным, как во всем приложении
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         setContentView(R.layout.activity_notifications)
 

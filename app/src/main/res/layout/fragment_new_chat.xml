@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:text="Новый чат"
             android:textColor="?attr/vibicTextPrimary"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"/>
 
@@ -125,7 +125,7 @@
     <EditText
         android:id="@+id/searchInput"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:hint="Поиск контактов..."
         android:textColorHint="?attr/vibicTextTertiary"
         android:textColor="?attr/vibicTextPrimary"

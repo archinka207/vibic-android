@@ -14,6 +14,8 @@
 
         <item name="vibicDivider">@color/dark_divider</item>
         <item name="vibicStroke">@color/dark_divider</item>
+        <item name="android:statusBarColor">@color/dark_bg</item>
+        <item name="android:navigationBarColor">@color/dark_bg</item>
 
         <item name="vibicTextPrimary">@color/text_primary</item>
         <item name="vibicTextSecondary">@color/text_secondary</item>

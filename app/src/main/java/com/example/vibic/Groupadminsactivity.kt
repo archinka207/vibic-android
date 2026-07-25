@@ -2,6 +2,7 @@ package com.example.vibic
 
 import android.content.Intent
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,8 +58,8 @@ class GroupAdminsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
         setContentView(R.layout.activity_group_admins)
 
         chatId = intent.getStringExtra(EXTRA_CHAT_ID) ?: ""

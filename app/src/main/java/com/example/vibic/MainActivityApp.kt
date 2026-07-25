@@ -41,8 +41,8 @@ class MainActivityApp : AppCompatActivity() {
         setContentView(binding.root)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
-        window.navigationBarColor = android.graphics.Color.TRANSPARENT
+        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         val controller = WindowInsetsControllerCompat(window, window.decorView)
         controller.isAppearanceLightStatusBars = false

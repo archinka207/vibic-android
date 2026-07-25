@@ -20,6 +20,8 @@
         <item name="vibicTextTertiary">@color/text_tertiary</item>
         <item name="vibicTextOnBrand">@color/white</item>
 
+        <item name="android:statusBarColor">@color/dark_bg</item>
+        <item name="android:navigationBarColor">@color/dark_bg</item>
         <item name="vibicBrand">@color/brand</item>
         <item name="vibicBrandPressed">@color/brand_pressed</item>
         <item name="vibicBrandSubtle">@color/brand_subtle</item>
