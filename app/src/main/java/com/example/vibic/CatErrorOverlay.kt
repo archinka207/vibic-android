@@ -2,7 +2,6 @@ package com.example.vibic
 
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.android.material.color.MaterialColors
 
 /**
  * Глобальная полноэкранная заглушка с котом.
@@ -40,7 +40,7 @@ object CatErrorOverlay {
             // Полноэкранный непрозрачный контейнер, перекрывает весь экран
             val overlay = FrameLayout(activity).apply {
                 tag = OVERLAY_TAG
-                setBackgroundColor(Color.parseColor("#121018"))
+                setBackgroundColor(MaterialColors.getColor(this, R.attr.vibicBackground))
                 isClickable = true   // перехватываем клики, чтобы не проходили "сквозь"
                 isFocusable = true
                 layoutParams = FrameLayout.LayoutParams(
@@ -67,7 +67,7 @@ object CatErrorOverlay {
             val title = TextView(activity).apply {
                 tag = "cat_title"
                 text = catPhrase(error.code)
-                setTextColor(Color.WHITE)
+                setTextColor(MaterialColors.getColor(this, R.attr.vibicTextPrimary))
                 textSize = 22f
                 gravity = Gravity.CENTER
                 setPadding(0, dp(20), 0, 0)
@@ -76,7 +76,7 @@ object CatErrorOverlay {
             val sub = TextView(activity).apply {
                 tag = "cat_sub"
                 text = errorLabel(error)
-                setTextColor(Color.parseColor("#9E9E9E"))
+                setTextColor(MaterialColors.getColor(this, R.attr.vibicTextSecondary))
                 textSize = 15f
                 gravity = Gravity.CENTER
                 setPadding(0, dp(8), 0, 0)
@@ -85,8 +85,8 @@ object CatErrorOverlay {
             // Кнопка закрытия — пользователь может убрать кота и вернуться
             val closeBtn = Button(activity).apply {
                 text = "Закрыть"
-                setTextColor(Color.WHITE)
-                setBackgroundColor(Color.parseColor("#7C4DFF"))
+                setTextColor(MaterialColors.getColor(this, R.attr.vibicTextOnBrand))
+                setBackgroundColor(MaterialColors.getColor(this, R.attr.vibicBrand))
                 setPadding(dp(24), dp(12), dp(24), dp(12))
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,

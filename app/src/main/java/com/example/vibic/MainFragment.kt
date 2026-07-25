@@ -38,6 +38,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vibic.network.ApiClient
+import com.google.android.material.color.MaterialColors
 import com.example.vibic.network.MessageDto
 import com.example.vibic.network.TokenManager
 import com.example.vibic.network.ChatDto
@@ -232,7 +233,7 @@ class MainFragment : Fragment() {
             )
             gravity = Gravity.CENTER
             text = "Ничего не найдено"
-            setTextColor(Color.parseColor("#888888"))
+            setTextColor(MaterialColors.getColor(this, R.attr.vibicTextSecondary))
             textSize = 15f
             visibility = View.GONE
             val sidePadding = (32 * resources.displayMetrics.density).toInt()
@@ -627,7 +628,9 @@ class MainFragment : Fragment() {
         name.text = chat.name
         val online = WebSocketManager.shared.isConnectedValue && chat.isOnline
         status.text = if (online) "в сети" else "был(а) недавно"
-        status.setTextColor(Color.parseColor(if (online) "#B366FF" else "#888888"))
+        status.setTextColor(
+            MaterialColors.getColor(status, if (online) R.attr.vibicBrand else R.attr.vibicTextSecondary)
+        )
 
         container.removeAllViews()
 
@@ -670,7 +673,7 @@ class MainFragment : Fragment() {
 
         val msg = TextView(requireContext()).apply {
             this.text = text
-            setTextColor(Color.WHITE)
+            setTextColor(MaterialColors.getColor(this, R.attr.vibicTextOnBrand))
             textSize = 14f
             maxLines = 3
             ellipsize = android.text.TextUtils.TruncateAt.END
@@ -685,7 +688,9 @@ class MainFragment : Fragment() {
             val stamp = TextView(requireContext()).apply {
                 this.text = time
                 textSize = 11f
-                setTextColor(Color.parseColor(if (outgoing) "#D8C6F7" else "#8A8898"))
+                setTextColor(
+                    MaterialColors.getColor(this, if (outgoing) R.attr.vibicBubbleOutText else R.attr.vibicTextSecondary)
+                )
             }
             row.addView(stamp, LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -953,8 +958,8 @@ class MainFragment : Fragment() {
                 iconToBounce.animate().scaleX(1f).scaleY(1f).setDuration(150).start()
             }?.start()
 
-        val activeColor   = Color.parseColor("#6A11CB")
-        val inactiveColor = Color.parseColor("#808080")
+        val activeColor   = MaterialColors.getColor(selectedTab, R.attr.vibicBrand)
+        val inactiveColor = MaterialColors.getColor(selectedTab, R.attr.vibicTextTertiary)
 
         val tabs = listOf(
             Triple(chatsTab,    chatIcon     as View, chatText),
@@ -971,10 +976,14 @@ class MainFragment : Fragment() {
                 profileAvatarCard.alpha = if (isSelected) 1f else 0.85f
                 if (isSelected) {
                     profileAvatarCard.cardElevation = 4f
-                    profileAvatarCard.setCardBackgroundColor(Color.parseColor("#6A11CB"))
+                    profileAvatarCard.setCardBackgroundColor(
+                        MaterialColors.getColor(profileAvatarCard, R.attr.vibicBrand)
+                    )
                 } else {
                     profileAvatarCard.cardElevation = 0f
-                    profileAvatarCard.setCardBackgroundColor(Color.parseColor("#8E44FF"))
+                    profileAvatarCard.setCardBackgroundColor(
+                        MaterialColors.getColor(profileAvatarCard, R.attr.vibicBrand)
+                    )
                 }
             } else {
                 animateColorChange(tIcon as ImageView, tText, targetColor)

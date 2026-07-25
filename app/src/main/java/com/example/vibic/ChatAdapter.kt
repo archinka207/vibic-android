@@ -1,6 +1,5 @@
 package com.example.vibic
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import com.example.vibic.databinding.ItemChatBinding
 import java.util.Locale
 
@@ -108,7 +108,7 @@ class ChatAdapter(
                 (4 * density).toInt()
             )
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
-            setTextColor(Color.parseColor("#888888"))
+            setTextColor(MaterialColors.getColor(this, R.attr.vibicTextSecondary))
             gravity = Gravity.START
             typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
@@ -126,8 +126,8 @@ class ChatAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(chat: Chat) {
-            binding.chatName.text        = highlight(chat.name)
-            binding.lastMessage.text     = highlight(chat.lastMessage)
+            binding.chatName.text        = highlight(chat.name, binding.root)
+            binding.lastMessage.text     = highlight(chat.lastMessage, binding.root)
             binding.lastMessageTime.text = chat.lastMessageTime
             binding.lastMessageTime.visibility = View.VISIBLE
             binding.avatarText.text      = chat.name.take(1).uppercase(LOCALE_RU)
@@ -181,7 +181,7 @@ class ChatAdapter(
             ).joinToString(" ")
             val displayName = if (fullName.isNotBlank()) fullName else (user.phone ?: "Контакт")
 
-            binding.chatName.text        = highlight(displayName)
+            binding.chatName.text        = highlight(displayName, binding.root)
             binding.lastMessage.text     = user.phone ?: ""
             binding.lastMessageTime.text = ""
             binding.lastMessageTime.visibility = View.GONE
@@ -208,23 +208,26 @@ class ChatAdapter(
 
     // ── Подсветка совпадений ──────────────────────────────────────────────────
 
-    private fun highlight(text: String): CharSequence {
+    private fun highlight(text: String, view: View): CharSequence {
         if (highlightQuery.isEmpty()) return text
         val haystack = text.lowercase(LOCALE_RU)
         val needle   = highlightQuery.lowercase(LOCALE_RU)
         if (needle.isEmpty()) return text
+
+        val fg = MaterialColors.getColor(view, R.attr.vibicTextPrimary)
+        val bg = MaterialColors.getColor(view, R.attr.vibicBrandSubtle)
 
         val spannable = SpannableString(text)
         var start = haystack.indexOf(needle)
         while (start >= 0) {
             val end = start + needle.length
             spannable.setSpan(
-                ForegroundColorSpan(HIGHLIGHT_FG),
+                ForegroundColorSpan(fg),
                 start, end,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             spannable.setSpan(
-                BackgroundColorSpan(HIGHLIGHT_BG),
+                BackgroundColorSpan(bg),
                 start, end,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
@@ -239,7 +242,5 @@ class ChatAdapter(
         private const val TYPE_CONTACT = 2
 
         private val LOCALE_RU = Locale("ru")
-        private val HIGHLIGHT_FG = Color.parseColor("#FFFFFF")
-        private val HIGHLIGHT_BG = Color.parseColor("#556A11CB")
     }
 }

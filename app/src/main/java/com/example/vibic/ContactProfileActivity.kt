@@ -1,7 +1,6 @@
 package com.example.vibic
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.view.View
@@ -15,6 +14,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.vibic.network.ApiClient
 import com.example.vibic.network.WebSocketManager
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
 
 class ContactProfileActivity : AppCompatActivity() {
@@ -98,11 +98,11 @@ class ContactProfileActivity : AppCompatActivity() {
     private fun setOnlineStatus(online: Boolean) {
         if (online) {
             profileStatus.text = "в сети"
-            profileStatus.setTextColor(Color.parseColor("#B366FF"))
+            profileStatus.setTextColor(MaterialColors.getColor(profileStatus, R.attr.vibicBrand))
             onlineDot.visibility = View.VISIBLE
         } else {
             profileStatus.text = "офлайн"
-            profileStatus.setTextColor(Color.parseColor("#888888"))
+            profileStatus.setTextColor(MaterialColors.getColor(profileStatus, R.attr.vibicTextSecondary))
             onlineDot.visibility = View.GONE
         }
     }

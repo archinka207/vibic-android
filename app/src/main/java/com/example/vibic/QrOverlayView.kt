@@ -10,6 +10,7 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import com.google.android.material.color.MaterialColors
 
 class QrOverlayView @JvmOverloads constructor(
     context: Context,
@@ -25,7 +26,7 @@ class QrOverlayView @JvmOverloads constructor(
     }
 
     private val cornerPaint = Paint().apply {
-        color = Color.parseColor("#B366FF")
+        color = MaterialColors.getColor(this@QrOverlayView, R.attr.vibicBrand)
         strokeWidth = 6f
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND

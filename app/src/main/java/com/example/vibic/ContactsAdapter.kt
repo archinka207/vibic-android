@@ -1,6 +1,5 @@
 package com.example.vibic
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
@@ -10,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import java.util.Locale
 
 class ContactsAdapter(
@@ -61,12 +61,12 @@ class ContactsAdapter(
             val fullName = buildFullName(user)
             val displayName = if (fullName.isNotBlank()) fullName else "Пользователь"
 
-            nameText.text = highlightText(displayName)
+            nameText.text = highlightText(displayName, itemView)
 
             val phone = user.phone?.trim().orEmpty()
             if (phone.isNotEmpty()) {
                 phoneText.visibility = View.VISIBLE
-                phoneText.text = highlightPhone(phone)
+                phoneText.text = highlightPhone(phone, itemView)
             } else {
                 phoneText.visibility = View.VISIBLE
                 phoneText.text = "Нет номера"
@@ -93,17 +93,20 @@ class ContactsAdapter(
     }
 
     /** Подсветка в обычном тексте (имя). Поиск по всему запросу. */
-    private fun highlightText(text: String): CharSequence {
+    private fun highlightText(text: String, view: View): CharSequence {
         if (highlightQuery.isEmpty()) return text
         val haystack = text.lowercase(LOCALE_RU)
         val needle = highlightQuery.lowercase(LOCALE_RU)
         if (needle.isEmpty()) return text
 
+        val fg = MaterialColors.getColor(view, R.attr.vibicTextPrimary)
+        val bg = MaterialColors.getColor(view, R.attr.vibicBrandSubtle)
+
         val spannable = SpannableString(text)
         var start = haystack.indexOf(needle)
         while (start >= 0) {
             val end = start + needle.length
-            applyHighlightSpans(spannable, start, end)
+            applyHighlightSpans(spannable, start, end, fg, bg)
             start = haystack.indexOf(needle, end)
         }
         return spannable
@@ -114,7 +117,7 @@ class ContactsAdapter(
      * Если у юзера номер "+7 (999) 111-22-33", а запрос "9991112",
      * подсветится "999) 111-2" (исходные символы, соответствующие найденным цифрам).
      */
-    private fun highlightPhone(phone: String): CharSequence {
+    private fun highlightPhone(phone: String, view: View): CharSequence {
         if (highlightDigits.isEmpty()) return phone
 
         // Собираем массив "индексы цифр в исходной строке"
@@ -132,26 +135,29 @@ class ContactsAdapter(
         val needle = highlightDigits
         val spannable = SpannableString(phone)
 
+        val fg = MaterialColors.getColor(view, R.attr.vibicTextPrimary)
+        val bg = MaterialColors.getColor(view, R.attr.vibicBrandSubtle)
+
         var pos = haystack.indexOf(needle)
         while (pos >= 0) {
             val startInOriginal = digitPositions[pos]
             // Конец — позиция последней совпавшей цифры + 1 в исходной строке
             val lastDigitIdx = pos + needle.length - 1
             val endInOriginal = digitPositions[lastDigitIdx] + 1
-            applyHighlightSpans(spannable, startInOriginal, endInOriginal)
+            applyHighlightSpans(spannable, startInOriginal, endInOriginal, fg, bg)
             pos = haystack.indexOf(needle, pos + needle.length)
         }
         return spannable
     }
 
-    private fun applyHighlightSpans(spannable: SpannableString, start: Int, end: Int) {
+    private fun applyHighlightSpans(spannable: SpannableString, start: Int, end: Int, fg: Int, bg: Int) {
         spannable.setSpan(
-            ForegroundColorSpan(HIGHLIGHT_FG),
+            ForegroundColorSpan(fg),
             start, end,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spannable.setSpan(
-            BackgroundColorSpan(HIGHLIGHT_BG),
+            BackgroundColorSpan(bg),
             start, end,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -159,7 +165,5 @@ class ContactsAdapter(
 
     companion object {
         private val LOCALE_RU = Locale("ru")
-        private val HIGHLIGHT_FG = Color.parseColor("#FFFFFF")
-        private val HIGHLIGHT_BG = Color.parseColor("#556A11CB")
     }
 }

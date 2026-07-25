@@ -1,6 +1,6 @@
 package com.example.vibic
 
-import android.graphics.Color
+import com.google.android.material.color.MaterialColors
 import androidx.core.content.ContextCompat
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -133,10 +133,10 @@ class ChatMediaActivity : AppCompatActivity() {
         tabFiles.setBackgroundResource(if (tab == "files") selected else unselected)
         tabLinks.setBackgroundResource(if (tab == "links") selected else unselected)
 
-        tabPhoto.setTextColor(if (tab == "photo") Color.WHITE else Color.parseColor("#888888"))
-        tabVoice.setTextColor(if (tab == "voice") Color.WHITE else Color.parseColor("#888888"))
-        tabFiles.setTextColor(if (tab == "files") Color.WHITE else Color.parseColor("#888888"))
-        tabLinks.setTextColor(if (tab == "links") Color.WHITE else Color.parseColor("#888888"))
+        tabPhoto.setTextColor(MaterialColors.getColor(tabPhoto, if (tab == "photo") R.attr.vibicTextPrimary else R.attr.vibicTextSecondary))
+        tabVoice.setTextColor(MaterialColors.getColor(tabVoice, if (tab == "voice") R.attr.vibicTextPrimary else R.attr.vibicTextSecondary))
+        tabFiles.setTextColor(MaterialColors.getColor(tabFiles, if (tab == "files") R.attr.vibicTextPrimary else R.attr.vibicTextSecondary))
+        tabLinks.setTextColor(MaterialColors.getColor(tabLinks, if (tab == "links") R.attr.vibicTextPrimary else R.attr.vibicTextSecondary))
 
         showTab(tab)
     }

@@ -8,7 +8,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
@@ -48,6 +47,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vibic.network.ApiClient
 import com.example.vibic.network.SendMessageRequest
+import com.google.android.material.color.MaterialColors
 import com.example.vibic.network.TokenManager
 import com.example.vibic.network.WebSocketManager
 import com.google.gson.Gson
@@ -1543,7 +1543,9 @@ class ChatDetailActivity : AppCompatActivity() {
         val connected = WebSocketManager.shared.isConnectedValue
         runOnUiThread {
             chatUserStatus.text = if (connected) "В сети" else "Офлайн"
-            chatUserStatus.setTextColor(if (connected) Color.parseColor("#4CAF50") else Color.parseColor("#F44336"))
+            chatUserStatus.setTextColor(
+                MaterialColors.getColor(chatUserStatus, if (connected) R.attr.vibicSuccess else R.attr.vibicDanger)
+            )
         }
     }
 
@@ -1553,8 +1555,7 @@ class ChatDetailActivity : AppCompatActivity() {
             WebSocketManager.shared.connectionState.collect { connected ->
                 chatUserStatus.text = if (connected) "В сети" else "Офлайн"
                 chatUserStatus.setTextColor(
-                    if (connected) Color.parseColor("#4CAF50")
-                    else Color.parseColor("#F44336")
+                    MaterialColors.getColor(chatUserStatus, if (connected) R.attr.vibicSuccess else R.attr.vibicDanger)
                 )
             }
         }

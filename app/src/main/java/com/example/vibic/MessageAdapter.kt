@@ -14,6 +14,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import com.example.vibic.network.MessageDto
 import com.example.vibic.network.ReplyPreview
 import java.text.SimpleDateFormat
@@ -283,10 +284,10 @@ class MessageAdapter(
 
             // Визуальное выделение "разового" ГС
             if (message.type == "audio_once") {
-                duration.setTextColor(android.graphics.Color.parseColor("#FF453A"))
+                duration.setTextColor(MaterialColors.getColor(duration, R.attr.vibicDanger))
                 time.text = "1x • ${formatTime(message.createdAt)}"
             } else {
-                duration.setTextColor(android.graphics.Color.parseColor("#888888"))
+                duration.setTextColor(MaterialColors.getColor(duration, R.attr.vibicTextSecondary))
                 time.text = formatTime(message.createdAt)
             }
 
