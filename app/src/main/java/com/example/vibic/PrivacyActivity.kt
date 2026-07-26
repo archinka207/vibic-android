@@ -4,13 +4,16 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.content.Intent
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.WindowCompat
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class PrivacyActivity : AppCompatActivity() {
 
@@ -25,10 +28,17 @@ class PrivacyActivity : AppCompatActivity() {
     private lateinit var rowDevices: LinearLayout
     private lateinit var rowBlacklist: LinearLayout
 
+    // Значения видимости справа в строках
+    private lateinit var valLastSeen: TextView
+    private lateinit var valProfilePhoto: TextView
+    private lateinit var valBio: TextView
+    private lateinit var valPhoneVisibility: TextView
+
     // Переключатель
     private lateinit var switchReadReceipts: SwitchCompat
 
     private val PREFS_NAME = "privacy_prefs"
+    private val APP_PREFS_NAME = "app_prefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +63,11 @@ class PrivacyActivity : AppCompatActivity() {
         rowBio = findViewById(R.id.rowBio)
         rowPhoneVisibility = findViewById(R.id.rowPhoneVisibility)
 
+        valLastSeen = findViewById(R.id.valLastSeen)
+        valProfilePhoto = findViewById(R.id.valProfilePhoto)
+        valBio = findViewById(R.id.valBio)
+        valPhoneVisibility = findViewById(R.id.valPhoneVisibility)
+
         switchReadReceipts = findViewById(R.id.switchReadReceipts)
 
         rowTwoFactor = findViewById(R.id.rowTwoFactor)
@@ -64,6 +79,18 @@ class PrivacyActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         // На скриншоте переключатель включен
         switchReadReceipts.isChecked = prefs.getBoolean("read_receipts", true)
+
+        val appPrefs = getSharedPreferences(APP_PREFS_NAME, Context.MODE_PRIVATE)
+        valLastSeen.text = visibilityLabel(appPrefs.getString("vis_last_seen", "contacts"))
+        valProfilePhoto.text = visibilityLabel(appPrefs.getString("vis_photo", "all"))
+        valBio.text = visibilityLabel(appPrefs.getString("vis_bio", "all"))
+        valPhoneVisibility.text = visibilityLabel(appPrefs.getString("vis_phone", "contacts"))
+    }
+
+    private fun visibilityLabel(value: String?): String = when (value) {
+        "all" -> "Все"
+        "nobody" -> "Никто"
+        else -> "Контакты"
     }
 
     private fun setupListeners() {
@@ -75,15 +102,18 @@ class PrivacyActivity : AppCompatActivity() {
                 .edit().putBoolean("read_receipts", isChecked).apply()
         }
 
-        // Заглушки для пунктов меню, которые открывают другие экраны/popups
-        val soonClickListener = android.view.View.OnClickListener {
-            Toast.makeText(this, "Настройки видимости скоро появятся", Toast.LENGTH_SHORT).show()
+        rowLastSeen.setOnClickListener {
+            showVisibilityPicker("Был(а) в сети", "vis_last_seen", valLastSeen)
         }
-
-        rowLastSeen.setOnClickListener(soonClickListener)
-        rowProfilePhoto.setOnClickListener(soonClickListener)
-        rowBio.setOnClickListener(soonClickListener)
-        rowPhoneVisibility.setOnClickListener(soonClickListener)
+        rowProfilePhoto.setOnClickListener {
+            showVisibilityPicker("Фото профиля", "vis_photo", valProfilePhoto)
+        }
+        rowBio.setOnClickListener {
+            showVisibilityPicker("О себе", "vis_bio", valBio)
+        }
+        rowPhoneVisibility.setOnClickListener {
+            showVisibilityPicker("Номер телефона", "vis_phone", valPhoneVisibility)
+        }
 
         rowTwoFactor.setOnClickListener {
             Toast.makeText(this, "Двухфакторная защита в разработке", Toast.LENGTH_SHORT).show()
@@ -94,5 +124,49 @@ class PrivacyActivity : AppCompatActivity() {
         rowBlacklist.setOnClickListener {
             Toast.makeText(this, "Чёрный список в разработке", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showVisibilityPicker(title: String, prefKey: String, valueLabel: TextView) {
+        val appPrefs = getSharedPreferences(APP_PREFS_NAME, Context.MODE_PRIVATE)
+        val defaultValue = when (prefKey) {
+            "vis_photo", "vis_bio" -> "all"
+            else -> "contacts"
+        }
+        val current = appPrefs.getString(prefKey, defaultValue)
+
+        val dialog = BottomSheetDialog(this, R.style.BottomSheetTheme)
+        val view = layoutInflater.inflate(R.layout.sheet_visibility_picker, null)
+        dialog.setContentView(view)
+
+        view.findViewById<TextView>(R.id.sheetTitle).text = title
+
+        val optionAll = view.findViewById<LinearLayout>(R.id.optionAll)
+        val optionContacts = view.findViewById<LinearLayout>(R.id.optionContacts)
+        val optionNobody = view.findViewById<LinearLayout>(R.id.optionNobody)
+
+        val checkAll = view.findViewById<ImageView>(R.id.checkAll)
+        val checkContacts = view.findViewById<ImageView>(R.id.checkContacts)
+        val checkNobody = view.findViewById<ImageView>(R.id.checkNobody)
+
+        fun updateChecks(selected: String) {
+            checkAll.visibility = if (selected == "all") View.VISIBLE else View.GONE
+            checkContacts.visibility = if (selected == "contacts") View.VISIBLE else View.GONE
+            checkNobody.visibility = if (selected == "nobody") View.VISIBLE else View.GONE
+        }
+        updateChecks(current ?: defaultValue)
+
+        fun select(value: String) {
+            appPrefs.edit().putString(prefKey, value).apply()
+            valueLabel.text = visibilityLabel(value)
+            dialog.dismiss()
+        }
+
+        optionAll.setOnClickListener { select("all") }
+        optionContacts.setOnClickListener { select("contacts") }
+        optionNobody.setOnClickListener { select("nobody") }
+
+        view.findViewById<View>(R.id.btnCloseSheet).setOnClickListener { dialog.dismiss() }
+
+        dialog.show()
     }
 }
