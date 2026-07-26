@@ -59,4 +59,28 @@
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="VibicAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@color/dark_surface_elev</item>
+        <item name="colorSurface">@color/dark_surface_elev</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="colorControlHighlight">@color/brand_subtle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/VibicAlertButton.Danger</item>
+        <item name="buttonBarNegativeButtonStyle">@style/VibicAlertButton.Neutral</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/VibicAlertTitle</item>
+    </style>
+
+    <style name="VibicAlertTitle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="VibicAlertButton.Neutral" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/brand</item>
+    </style>
+
+    <style name="VibicAlertButton.Danger" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/danger</item>
+    </style>
 </resources>

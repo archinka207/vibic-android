@@ -149,7 +149,7 @@ class GroupAdminsActivity : AppCompatActivity() {
         if (member.id == myUserId) return
 
         val options = arrayOf("Все права (админ)", "Только сообщения", "Убрать из админов")
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.VibicAlertDialog)
             .setTitle(member.name)
             .setItems(options) { _, which ->
                 when (which) {

@@ -240,7 +240,7 @@ class EditProfileFragment : Fragment() {
     // ── Выход из аккаунта ─────────────────────────────────────────────────────
 
     private fun showLogoutConfirmDialog() {
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext(), R.style.VibicAlertDialog)
             .setTitle("Выход")
             .setMessage("Вы уверены, что хотите выйти?")
             .setPositiveButton("Выйти") { _, _ -> logout() }

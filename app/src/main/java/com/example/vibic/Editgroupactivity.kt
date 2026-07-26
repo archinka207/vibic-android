@@ -258,7 +258,7 @@ class EditGroupActivity : AppCompatActivity() {
     }
 
     private fun confirmDelete() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.VibicAlertDialog)
             .setTitle("Удалить группу")
             .setMessage("Группа будет удалена навсегда для всех участников. Это действие нельзя отменить.")
             .setPositiveButton("Удалить") { _, _ -> deleteGroup() }

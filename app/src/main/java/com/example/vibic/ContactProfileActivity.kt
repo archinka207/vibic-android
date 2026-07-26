@@ -154,7 +154,7 @@ class ContactProfileActivity : AppCompatActivity() {
         }
 
         rowBlock.setOnClickListener {
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(this, R.style.VibicAlertDialog)
                 .setTitle("Заблокировать")
                 .setMessage("Заблокировать пользователя ${profileName.text}?")
                 .setPositiveButton("Заблокировать") { _, _ ->
@@ -167,7 +167,7 @@ class ContactProfileActivity : AppCompatActivity() {
         }
 
         rowDeleteChat.setOnClickListener {
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(this, R.style.VibicAlertDialog)
                 .setTitle("Удалить чат")
                 .setMessage("Вы уверены, что хотите удалить чат с ${profileName.text}?")
                 .setPositiveButton("Удалить") { _, _ ->

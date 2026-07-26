@@ -378,7 +378,7 @@ class GroupProfileActivity : AppCompatActivity() {
         rowNotifications.setOnClickListener { openNotificationsSheet() }
 
         rowLeaveGroup.setOnClickListener {
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(this, R.style.VibicAlertDialog)
                 .setTitle("Покинуть группу")
                 .setMessage("Вы уверены, что хотите покинуть «${profileName.text}»?")
                 .setPositiveButton("Покинуть") { _, _ -> leaveGroup() }

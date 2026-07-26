@@ -115,7 +115,7 @@ class EditContactActivity : AppCompatActivity() {
     }
 
     private fun confirmDelete(name: String) {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.VibicAlertDialog)
             .setTitle("Удалить из контактов")
             .setMessage("Удалить $name из контактов?")
             .setPositiveButton("Удалить") { _, _ ->
