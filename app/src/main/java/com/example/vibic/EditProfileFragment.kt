@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.example.vibic.network.ApiClient
 import com.example.vibic.network.TokenManager
 import com.example.vibic.network.UpdateProfileRequest
@@ -280,22 +281,30 @@ class EditProfileFragment : Fragment() {
         val avatarPath = prefs.getString("avatar_path", null)
         val hasAvatar = avatarPath != null && File(avatarPath).exists()
 
-        val options = if (hasAvatar) {
-            arrayOf("Сделать фото", "Выбрать из галереи", "Удалить фото", "Отмена")
-        } else {
-            arrayOf("Сделать фото", "Выбрать из галереи", "Отмена")
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetTheme)
+        val view = layoutInflater.inflate(R.layout.sheet_photo_source, null)
+        dialog.setContentView(view)
+
+        val btnDeletePhoto = view.findViewById<View>(R.id.btnDeletePhoto)
+        btnDeletePhoto.visibility = if (hasAvatar) View.VISIBLE else View.GONE
+
+        view.findViewById<View>(R.id.tilePhotoCamera).setOnClickListener {
+            checkCameraPermissionAndLaunch()
+            dialog.dismiss()
+        }
+        view.findViewById<View>(R.id.tilePhotoGallery).setOnClickListener {
+            pickImageLauncher.launch("image/*")
+            dialog.dismiss()
+        }
+        btnDeletePhoto.setOnClickListener {
+            deleteAvatar()
+            dialog.dismiss()
+        }
+        view.findViewById<View>(R.id.btnClosePhoto).setOnClickListener {
+            dialog.dismiss()
         }
 
-        AlertDialog.Builder(requireContext())
-            .setTitle("Аватарка")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> checkCameraPermissionAndLaunch()
-                    1 -> pickImageLauncher.launch("image/*")
-                    2 -> if (hasAvatar) deleteAvatar()
-                }
-            }
-            .show()
+        dialog.show()
     }
 
     private fun checkCameraPermissionAndLaunch() {
