@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:gravity="center_vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/vibicBrand">
+
+        <TextView
+            android:id="@+id/letter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:textColor="?attr/vibicTextPrimary"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/btnUnblock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Разблок."
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:textColor="?attr/vibicBrand"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_unblock_button"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>

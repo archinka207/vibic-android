@@ -158,6 +158,8 @@ class ContactProfileActivity : AppCompatActivity() {
                 .setTitle("Заблокировать")
                 .setMessage("Заблокировать пользователя ${profileName.text}?")
                 .setPositiveButton("Заблокировать") { _, _ ->
+                    val blockedId = chatId.ifEmpty { profileName.text.toString() }
+                    BlockedStore.add(this, blockedId, profileName.text.toString())
                     Toast.makeText(this, "Пользователь заблокирован", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("Отмена", null)

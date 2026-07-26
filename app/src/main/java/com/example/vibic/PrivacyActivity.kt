@@ -27,6 +27,7 @@ class PrivacyActivity : AppCompatActivity() {
     private lateinit var rowTwoFactor: LinearLayout
     private lateinit var rowDevices: LinearLayout
     private lateinit var rowBlacklist: LinearLayout
+    private lateinit var valBlacklistCount: TextView
 
     // Значения видимости справа в строках
     private lateinit var valLastSeen: TextView
@@ -73,6 +74,7 @@ class PrivacyActivity : AppCompatActivity() {
         rowTwoFactor = findViewById(R.id.rowTwoFactor)
         rowDevices = findViewById(R.id.rowDevices)
         rowBlacklist = findViewById(R.id.rowBlacklist)
+        valBlacklistCount = findViewById(R.id.valBlacklistCount)
     }
 
     private fun loadSettings() {
@@ -91,6 +93,11 @@ class PrivacyActivity : AppCompatActivity() {
         "all" -> "Все"
         "nobody" -> "Никто"
         else -> "Контакты"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        valBlacklistCount.text = BlockedStore.getAll(this).size.toString()
     }
 
     private fun setupListeners() {
@@ -122,7 +129,7 @@ class PrivacyActivity : AppCompatActivity() {
             startActivity(Intent(this, DevicesActivity::class.java))
         }
         rowBlacklist.setOnClickListener {
-            Toast.makeText(this, "Чёрный список в разработке", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, BlacklistActivity::class.java))
         }
     }
 

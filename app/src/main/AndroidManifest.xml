@@ -94,6 +94,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
 
+        <activity android:name=".BlacklistActivity" android:exported="false"/>
         <activity android:name=".ChatMediaActivity" android:exported="false"/>
         <activity android:name=".CreateGroupActivity" android:exported="false"/>
         <activity android:name=".QrScannerActivity" android:exported="false"/>
