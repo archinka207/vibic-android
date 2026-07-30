@@ -133,6 +133,19 @@ class ProfileFragment : Fragment() {
         if (::nicknameText.isInitialized) {
             loadLocalUserData()
             updateTwoFactorStatus()
+            updateThemeModeLabel()
+        }
+    }
+
+    /** Подтягивает выбранный "theme_mode" из prefs и показывает его подписью под "Тема оформления". */
+    private fun updateThemeModeLabel() {
+        val themeModeText = view?.findViewById<TextView>(R.id.themeModeText) ?: return
+        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val mode = prefs.getString("theme_mode", "system")
+        themeModeText.text = when (mode) {
+            "light" -> "Светлая"
+            "dark" -> "Тёмная"
+            else -> "Как в системе"
         }
     }
 

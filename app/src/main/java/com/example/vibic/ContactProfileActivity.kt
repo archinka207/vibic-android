@@ -42,8 +42,6 @@ class ContactProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor   = ContextCompat.getColor(this, R.color.dark_bg)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         setContentView(R.layout.activity_contact_profile)
 

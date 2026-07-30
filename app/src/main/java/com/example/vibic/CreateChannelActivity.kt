@@ -141,8 +141,6 @@ class CreateChannelActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
         setContentView(R.layout.activity_create_channel)
 
         bindViews()

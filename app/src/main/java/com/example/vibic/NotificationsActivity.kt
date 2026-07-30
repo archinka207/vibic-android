@@ -25,8 +25,6 @@ class NotificationsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Делаем статус-бар прозрачным, как во всем приложении
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
 
         setContentView(R.layout.activity_notifications)
 

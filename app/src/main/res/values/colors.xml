@@ -9,6 +9,15 @@
     <color name="dark_divider">#241A2C</color>
     <color name="dark_bubble_in">#332640</color>
 
+    <color name="light_bg">#F3EDFA</color>
+    <color name="light_surface">#FFFFFF</color>
+    <color name="light_surface_elev">#EDE6F5</color>
+    <color name="light_divider">#E4DCEF</color>
+    <color name="light_bubble_in">#E9E0F3</color>
+    <color name="light_text_primary">#1A1424</color>
+    <color name="light_text_secondary">#8B8296</color>
+    <color name="light_text_tertiary">#B0A8BD</color>
+
     <color name="brand">#B366FF</color>
     <color name="brand_pressed">#9B4FE0</color>
     <color name="brand_subtle">#33B366FF</color>

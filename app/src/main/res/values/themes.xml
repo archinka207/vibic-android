@@ -1,27 +1,29 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.Vibic" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.Vibic" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowSoftInputMode">adjustResize</item>
 
         <item name="colorPrimary">@color/brand</item>
-        <item name="colorSurface">@color/dark_surface</item>
-        <item name="colorOnSurface">@color/text_primary</item>
-        <item name="android:windowBackground">@color/dark_bg</item>
+        <item name="colorSurface">@color/light_surface</item>
+        <item name="colorOnSurface">@color/light_text_primary</item>
+        <item name="android:windowBackground">@color/light_bg</item>
 
-        <item name="vibicBackground">@color/dark_bg</item>
-        <item name="vibicSurface">@color/dark_surface</item>
-        <item name="vibicSurfaceElevated">@color/dark_surface_elev</item>
+        <item name="vibicBackground">@color/light_bg</item>
+        <item name="vibicSurface">@color/light_surface</item>
+        <item name="vibicSurfaceElevated">@color/light_surface_elev</item>
 
-        <item name="vibicDivider">@color/dark_divider</item>
-        <item name="vibicStroke">@color/dark_divider</item>
-        <item name="vibicSheet">@color/dark_surface</item>
+        <item name="vibicDivider">@color/light_divider</item>
+        <item name="vibicStroke">@color/light_divider</item>
+        <item name="vibicSheet">@color/light_surface</item>
 
-        <item name="vibicTextPrimary">@color/text_primary</item>
-        <item name="vibicTextSecondary">@color/text_secondary</item>
-        <item name="vibicTextTertiary">@color/text_tertiary</item>
+        <item name="vibicTextPrimary">@color/light_text_primary</item>
+        <item name="vibicTextSecondary">@color/light_text_secondary</item>
+        <item name="vibicTextTertiary">@color/light_text_tertiary</item>
         <item name="vibicTextOnBrand">@color/white</item>
 
-        <item name="android:statusBarColor">@color/dark_bg</item>
-        <item name="android:navigationBarColor">@color/dark_bg</item>
+        <item name="android:statusBarColor">@color/light_bg</item>
+        <item name="android:navigationBarColor">@color/light_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="vibicBrand">@color/brand</item>
         <item name="vibicBrandPressed">@color/brand_pressed</item>
         <item name="vibicBrandSubtle">@color/brand_subtle</item>
@@ -30,16 +32,16 @@
         <item name="vibicSuccess">@color/success</item>
         <item name="vibicWarning">@color/warning</item>
 
-        <item name="vibicBubbleIn">@color/dark_bubble_in</item>
+        <item name="vibicBubbleIn">@color/light_bubble_in</item>
         <item name="vibicBubbleOut">@color/brand</item>
-        <item name="vibicBubbleInText">@color/text_primary</item>
+        <item name="vibicBubbleInText">@color/light_text_primary</item>
         <item name="vibicBubbleOutText">@color/white</item>
 
-        <item name="vibicInputCapsule">@color/dark_surface_elev</item>
-        <item name="vibicIcon">@color/text_primary</item>
-        <item name="vibicIconMuted">@color/text_secondary</item>
+        <item name="vibicInputCapsule">@color/light_surface_elev</item>
+        <item name="vibicIcon">@color/light_text_primary</item>
+        <item name="vibicIconMuted">@color/light_text_secondary</item>
         <item name="vibicRipple">@color/brand_subtle</item>
-        <item name="vibicScrim">#99000000</item>
+        <item name="vibicScrim">#66000000</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 

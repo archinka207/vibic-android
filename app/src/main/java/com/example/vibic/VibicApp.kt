@@ -9,6 +9,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -41,6 +42,8 @@ class VibicApp : Application() {
         super.onCreate()
         instance = this
 
+        applySavedThemeMode()
+
         FirebaseApp.initializeApp(this)
         Log.d(TAG, "=== VibicApp onCreate ===")
 
@@ -53,6 +56,18 @@ class VibicApp : Application() {
         registerLifecycleMonitoring()
         registerActivityTracking()
         observeErrors()
+    }
+
+    /** Применяет тему, сохранённую пользователем на экране выбора темы. */
+    private fun applySavedThemeMode() {
+        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val mode = prefs.getString("theme_mode", "system")
+        val nightMode = when (mode) {
+            "light" -> AppCompatDelegate.MODE_NIGHT_NO
+            "dark" -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 
     /**

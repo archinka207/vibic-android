@@ -24,9 +24,6 @@ class NicknameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nickname)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.dark_bg)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.dark_bg)
-
         nicknameInput = findViewById(R.id.nicknameInput)
         twoFaPasswordInput = findViewById(R.id.twoFaPasswordInput)
         continueButton = findViewById(R.id.continueButton)
