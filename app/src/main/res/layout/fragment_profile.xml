@@ -124,12 +124,19 @@
                 tools:text="Доступен в Vibic"
                 tools:visibility="visible"/>
 
-            <!-- @username и телефон в одной строке -->
+            <!-- @username + копирование -->
             <LinearLayout
+                android:id="@+id/usernameRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="2dp"
+                android:layout_marginBottom="4dp">
 
                 <TextView
                     android:id="@+id/usernameText"
@@ -139,21 +146,24 @@
                     android:textColor="?attr/vibicTextSecondary"
                     android:textSize="14sp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="  ·  "
-                    android:textColor="?attr/vibicTextSecondary"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/phoneNumberText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+7 (999) 000-00-00"
-                    android:textColor="?attr/vibicTextSecondary"
-                    android:textSize="14sp"/>
+                <ImageView
+                    android:id="@+id/copyUsernameIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_copy"
+                    android:tint="?attr/vibicTextSecondary"/>
             </LinearLayout>
+
+            <!-- Телефон -->
+            <TextView
+                android:id="@+id/phoneNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+7 (999) 000-00-00"
+                android:textColor="?attr/vibicTextSecondary"
+                android:textSize="14sp"
+                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -162,11 +172,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="АККАУНТ"
-            android:textColor="?attr/vibicTextSecondary"
+            android:textColor="?attr/vibicTextTertiary"
             android:textSize="12sp"
+            android:textStyle="bold"
             android:letterSpacing="0.08"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,6 +186,57 @@
             android:background="@drawable/rounded_background"
             android:padding="4dp"
             android:layout_marginBottom="20dp">
+
+            <!-- Моя страница — временно скрыта (см. MyPageActivity/activity_my_page.xml, оставлены на будущее)
+            <LinearLayout
+                android:id="@+id/myPageRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_tile"
+                    android:layout_marginEnd="12dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_contacts"
+                        android:tint="?attr/vibicBrand"/>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Моя страница"
+                    android:textColor="?attr/vibicTextPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="?attr/vibicIcon"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/vibicDivider"
+                android:layout_marginStart="60dp"/>
+            -->
 
             <!-- Уведомления -->
             <LinearLayout
@@ -236,7 +298,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#26FFFFFF"
+                android:background="?attr/vibicDivider"
                 android:layout_marginStart="60dp"/>
 
             <!-- Конфиденциальность -->
@@ -299,7 +361,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#26FFFFFF"
+                android:background="?attr/vibicDivider"
                 android:layout_marginStart="60dp"/>
 
             <!-- Подключённые устройства -->
@@ -358,7 +420,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#26FFFFFF"
+                android:background="?attr/vibicDivider"
                 android:layout_marginStart="60dp"/>
 
             <!-- Двухфакторная защита -->
@@ -417,7 +479,70 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#26FFFFFF"
+                android:background="?attr/vibicDivider"
+                android:layout_marginStart="60dp"/>
+
+            <!-- Тема оформления -->
+            <LinearLayout
+                android:id="@+id/themeRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_tile"
+                    android:layout_marginEnd="12dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_theme"
+                        android:tint="?attr/vibicBrand"/>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Тема оформления"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Как в системе"
+                        android:textColor="?attr/vibicTextSecondary"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="?attr/vibicIcon"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/vibicDivider"
                 android:layout_marginStart="60dp"/>
 
             <!-- О приложении -->
@@ -485,11 +610,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ПОДДЕРЖКА"
-            android:textColor="?attr/vibicTextSecondary"
+            android:textColor="?attr/vibicTextTertiary"
             android:textSize="12sp"
+            android:textStyle="bold"
             android:letterSpacing="0.08"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -559,7 +685,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#26FFFFFF"
+                android:background="?attr/vibicDivider"
                 android:layout_marginStart="60dp"/>
 
             <!-- Оценить Vibic -->

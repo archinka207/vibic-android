@@ -1,5 +1,7 @@
 package com.example.vibic
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -28,6 +30,7 @@ class ProfileFragment : Fragment() {
     private lateinit var avatarText: TextView
     private lateinit var avatarImage: ImageView
     private lateinit var nicknameText: TextView
+    private lateinit var usernameRow: LinearLayout
     private lateinit var usernameText: TextView
     private lateinit var phoneText: TextView
     private lateinit var statusText: TextView                // ← статус "Доступен в Vibic"
@@ -37,10 +40,12 @@ class ProfileFragment : Fragment() {
     private lateinit var editButton: FrameLayout
 
     // Строки меню
+    // private lateinit var myPageRow: LinearLayout // временно скрыта, см. fragment_profile.xml
     private lateinit var notificationsRow: LinearLayout
     private lateinit var privacyRow: LinearLayout
     private lateinit var devicesRow: LinearLayout
     private lateinit var twoFactorRow: LinearLayout
+    private lateinit var themeRow: LinearLayout
     private lateinit var aboutRow: LinearLayout
     private lateinit var helpRow: LinearLayout
     private lateinit var rateRow: LinearLayout
@@ -63,6 +68,7 @@ class ProfileFragment : Fragment() {
         avatarText = view.findViewById(R.id.avatarText)
         avatarImage = view.findViewById(R.id.avatarImage)
         nicknameText = view.findViewById(R.id.nicknameInput)
+        usernameRow = view.findViewById(R.id.usernameRow)
         usernameText = view.findViewById(R.id.usernameText)
         phoneText = view.findViewById(R.id.phoneNumberText)
         statusText = view.findViewById(R.id.statusText)              // ← новый id
@@ -70,10 +76,12 @@ class ProfileFragment : Fragment() {
         qrButton = view.findViewById(R.id.qrButton)
         editButton = view.findViewById(R.id.editButton)
 
+        // myPageRow = view.findViewById(R.id.myPageRow) // временно скрыта, см. fragment_profile.xml
         notificationsRow = view.findViewById(R.id.notificationsRow)
         privacyRow = view.findViewById(R.id.privacyRow)
         devicesRow = view.findViewById(R.id.devicesRow)
         twoFactorRow = view.findViewById(R.id.twoFactorRow)
+        themeRow = view.findViewById(R.id.themeRow)
         aboutRow = view.findViewById(R.id.aboutRow)
         helpRow = view.findViewById(R.id.helpRow)
         rateRow = view.findViewById(R.id.rateRow)
@@ -93,6 +101,9 @@ class ProfileFragment : Fragment() {
         editButton.setOnClickListener { openEditProfileScreen() }
 
         // Строки меню — заглушки
+        // myPageRow.setOnClickListener { // временно скрыта, см. fragment_profile.xml
+        //     startActivity(Intent(requireContext(), MyPageActivity::class.java))
+        // }
         notificationsRow.setOnClickListener {
             startActivity(Intent(requireContext(), NotificationsActivity::class.java))
         }
@@ -110,6 +121,11 @@ class ProfileFragment : Fragment() {
         aboutRow.setOnClickListener {
             startActivity(Intent(requireContext(), AboutActivity::class.java))
         }
+        themeRow.setOnClickListener {
+            startActivity(Intent(requireContext(), ThemePickerActivity::class.java))
+        }
+
+        usernameRow.setOnClickListener { copyUsernameToClipboard() }
     }
 
     override fun onResume() {
@@ -162,7 +178,7 @@ class ProfileFragment : Fragment() {
             avatarText.text = "П"
         }
 
-        usernameText.text = if (!username.isNullOrBlank()) "@$username" else "@user"
+        applyUsername(username)
         phoneText.text = formatPhoneNumber(phone ?: TokenManager.getPhone() ?: "+7")
 
         applyStatus(status)
@@ -178,6 +194,27 @@ class ProfileFragment : Fragment() {
         } else {
             statusText.visibility = View.GONE
         }
+    }
+
+    /** Показывает или скрывает строку @username с иконкой копирования. */
+    private fun applyUsername(username: String?) {
+        if (!username.isNullOrBlank()) {
+            usernameText.text = "@$username"
+            usernameRow.visibility = View.VISIBLE
+        } else {
+            usernameRow.visibility = View.GONE
+        }
+    }
+
+    private fun copyUsernameToClipboard() {
+        val username = requireContext()
+            .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            .getString("user_username", null)
+        if (username.isNullOrBlank()) return
+
+        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.setPrimaryClip(ClipData.newPlainText("username", "@$username"))
+        Toast.makeText(requireContext(), "Скопировано", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadUserProfileInBackground() {

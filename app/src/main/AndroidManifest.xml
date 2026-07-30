@@ -108,6 +108,12 @@
             android:name=".ContactProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".MyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ThemePickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".GroupProfileActivity"
             android:exported="false"/>
         <activity
