@@ -129,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ИМЯ"
-                android:textColor="#88FFFFFF"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.08"
                 android:layout_marginStart="4dp"
@@ -143,7 +143,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="?attr/vibicTextPrimary"
-                android:textColorHint="#66FFFFFF"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textSize="15sp"
                 android:hint="Имя"
                 android:inputType="textCapWords"
@@ -155,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ИМЯ ПОЛЬЗОВАТЕЛЯ"
-                android:textColor="#88FFFFFF"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.08"
                 android:layout_marginTop="24dp"
@@ -170,7 +170,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="?attr/vibicTextPrimary"
-                android:textColorHint="#66FFFFFF"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textSize="15sp"
                 android:hint="@username"
                 android:inputType="text"
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="6dp"
-                android:textColor="#66FFFFFF"
+                android:textColor="?attr/vibicTextTertiary"
                 android:textSize="12sp"
                 tools:text="vibic.app/username"/>
 
@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="О СЕБЕ"
-                android:textColor="#88FFFFFF"
+                android:textColor="?attr/vibicTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.08"
                 android:layout_marginTop="24dp"
@@ -210,7 +210,7 @@
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:textColor="?attr/vibicTextPrimary"
-                android:textColorHint="#66FFFFFF"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textSize="15sp"
                 android:hint="Расскажите о себе"
                 android:inputType="textMultiLine|textCapSentences"
@@ -222,23 +222,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="end"
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Видно всем"
-                    android:textColor="#66FFFFFF"
-                    android:textSize="12sp"/>
-
-                <TextView
                     android:id="@+id/bioCounter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#66FFFFFF"
+                    android:textColor="?attr/vibicTextTertiary"
                     android:textSize="12sp"
                     tools:text="70"/>
             </LinearLayout>

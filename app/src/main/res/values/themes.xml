@@ -55,13 +55,14 @@
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
         <item name="android:backgroundDimAmount">0.6</item>
-        <item name="android:navigationBarColor">@color/dark_surface</item>
+        <item name="android:navigationBarColor">@color/light_surface</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackground">@color/dark_surface</item>
+        <item name="android:colorBackground">@color/light_surface</item>
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@color/dark_surface</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="VibicAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">

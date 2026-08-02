@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Это можно изменить позже в настройках канала."
-            android:textColor="#77FFFFFF"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="13sp"/>
 
         <!-- ПУБЛИЧНЫЙ -->
@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Любой может найти в поиске и подписаться. Постоянная ссылка."
-                    android:textColor="#88FFFFFF"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="12sp"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
@@ -132,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Только по приглашению. Ссылку можно отозвать в любой момент."
-                    android:textColor="#88FFFFFF"
+                    android:textColor="?attr/vibicTextSecondary"
                     android:textSize="12sp"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Делитесь ссылкой только с теми, кого хотите видеть в канале."
-                android:textColor="#66FFFFFF"
+                android:textColor="?attr/vibicTextTertiary"
                 android:textSize="12sp"/>
         </LinearLayout>
 

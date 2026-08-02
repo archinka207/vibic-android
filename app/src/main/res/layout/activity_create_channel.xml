@@ -85,7 +85,7 @@
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:text="1/3"
-            android:textColor="#88FFFFFF"
+            android:textColor="?attr/vibicTextSecondary"
             android:textSize="13sp"
             android:gravity="end"/>
     </LinearLayout>

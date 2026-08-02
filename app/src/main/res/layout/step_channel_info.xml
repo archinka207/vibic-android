@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Мой вайб"
-                android:textColorHint="#55FFFFFF"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textColor="?attr/vibicTextPrimary"
                 android:textSize="17sp"
                 android:background="@null"
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0/200"
-                    android:textColor="#55FFFFFF"
+                    android:textColor="?attr/vibicTextTertiary"
                     android:textSize="11sp"/>
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="О чём этот канал? Что подписчики здесь увидят?"
-                android:textColorHint="#55FFFFFF"
+                android:textColorHint="?attr/vibicTextTertiary"
                 android:textColor="?attr/vibicTextPrimary"
                 android:textSize="15sp"
                 android:background="@null"
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:text="Название и описание увидят все, кто получит ссылку на вайб."
-            android:textColor="#66FFFFFF"
+            android:textColor="?attr/vibicTextTertiary"
             android:textSize="12sp"
             android:gravity="center"/>
 
