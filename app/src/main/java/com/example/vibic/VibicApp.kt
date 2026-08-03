@@ -44,6 +44,13 @@ class VibicApp : Application() {
 
         applySavedThemeMode()
 
+        // Холодный старт — всегда открываем Чаты. onCreate() Application
+        // вызывается только тут, а не при пересоздании Activity, поэтому
+        // внутри сессии (свайп назад, смена темы) last_tab не трогается
+        // и MainFragment восстанавливает актуальную вкладку сам.
+        getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            .edit().putString("last_tab", "chats").apply()
+
         FirebaseApp.initializeApp(this)
         Log.d(TAG, "=== VibicApp onCreate ===")
 

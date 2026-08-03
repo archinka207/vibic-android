@@ -152,8 +152,25 @@ class MainFragment : Fragment() {
         observeIncomingMessages()
 
         rootView.post {
-            animateTabSelection(chatsTab, chatIcon, chatText)
-            showChatsScreen()
+            val savedTab = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                .getString("last_tab", "chats")
+            when (savedTab) {
+                "contacts" -> {
+                    animateTabSelection(contactsTab, contactsIcon, contactsText)
+                    showContactsScreen()
+                }
+                "trending" -> {
+                    showTrendingScreen()
+                }
+                "profile" -> {
+                    animateTabSelection(profileTab, profileAvatarCard, profileText)
+                    showProfileScreen()
+                }
+                else -> {
+                    animateTabSelection(chatsTab, chatIcon, chatText)
+                    showChatsScreen()
+                }
+            }
         }
     }
 
@@ -848,6 +865,11 @@ class MainFragment : Fragment() {
 
     // ── Tabs / экраны ───────────────────────────────────────────────────────────
 
+    private fun saveCurrentTab() {
+        requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            .edit().putString("last_tab", currentTab).apply()
+    }
+
     private fun setupTabs() {
         chatsTab.setOnClickListener {
             animateTabSelection(chatsTab, chatIcon, chatText)
@@ -896,6 +918,7 @@ class MainFragment : Fragment() {
 
     private fun showChatsScreen() {
         currentTab = "chats"
+        saveCurrentTab()
         childFragmentManager.fragments.forEach {
             childFragmentManager.beginTransaction().remove(it).commitAllowingStateLoss()
         }
@@ -911,6 +934,7 @@ class MainFragment : Fragment() {
 
     private fun showContactsScreen() {
         currentTab = "contacts"
+        saveCurrentTab()
         contentFrame.removeAllViews()
         recyclerViewChats.visibility = View.GONE
         searchInput.visibility = View.GONE
@@ -924,6 +948,7 @@ class MainFragment : Fragment() {
 
     private fun showTrendingScreen() {
         currentTab = "trending"
+        saveCurrentTab()
         contentFrame.removeAllViews()
         recyclerViewChats.visibility = View.GONE
         searchInput.visibility = View.GONE
@@ -937,6 +962,7 @@ class MainFragment : Fragment() {
 
     private fun showProfileScreen() {
         currentTab = "profile"
+        saveCurrentTab()
         contentFrame.removeAllViews()
         recyclerViewChats.visibility = View.GONE
         searchInput.visibility = View.GONE

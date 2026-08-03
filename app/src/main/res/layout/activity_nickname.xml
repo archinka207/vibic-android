@@ -121,7 +121,7 @@
                 android:layout_height="56dp"
                 android:text="Готово"
                 android:textSize="17sp"
-                android:textColor="#FFFF"
+                android:textColor="?attr/vibicTextOnBrand"
                 android:backgroundTint="?attr/vibicBrand"
                 app:cornerRadius="12dp"
                 android:textStyle="bold"/>

@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="+"
-                android:textColor="#000000"
+                android:textColor="?attr/vibicTextOnBrand"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:includeFontPadding="false"

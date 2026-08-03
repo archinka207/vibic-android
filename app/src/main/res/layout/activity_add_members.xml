@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Добавить"
-            android:textColor="#CCFFFFFF"
+            android:textColor="?attr/vibicTextOnBrand"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"

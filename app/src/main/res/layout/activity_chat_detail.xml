@@ -559,7 +559,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="0:00"
-                android:textColor="?attr/vibicTextPrimary"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="invisible"/>
