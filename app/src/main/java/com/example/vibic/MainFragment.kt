@@ -7,7 +7,9 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
@@ -111,6 +113,8 @@ class MainFragment : Fragment() {
     // ── Оверлей действий ───────────────────────────────────────────────────────
     private var actionsPopup: PopupWindow? = null
     private var dimView: View? = null
+    private var anchorSnapshotView: View? = null
+    private var hiddenAnchorRow: View? = null
 
     private val prefsListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         if (key == "avatar_path" || key == "user_nickname" || key == "user_first_name" || key == "user_last_name") {
@@ -534,7 +538,7 @@ class MainFragment : Fragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            setBackgroundColor(Color.parseColor("#F5060010"))
+            setBackgroundColor(Color.parseColor("#CC000000"))
             alpha = 0f
             isClickable = true
             setOnClickListener { dismissActionsOverlay() }
@@ -573,10 +577,91 @@ class MainFragment : Fragment() {
             LinearLayout.LayoutParams.MATCH_PARENT
         popupContent.addView(menu)
 
-        // 3) PopupWindow — во всю ширину экрана минус боковые отступы
+        // 3) Замеряем высоту меню ЗАРАНЕЕ — она нужна, чтобы посчитать позицию
+        // строки и меню как единой группы (см. п.4), до создания снимка строки.
         val marginX = dp(16)
         val popupWidth = activityRoot.width - marginX * 2
+        popupContent.measure(
+            View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(activityRoot.height, View.MeasureSpec.AT_MOST)
+        )
+        val contentH = popupContent.measuredHeight
 
+        // 4) Позиционирование группы "строка + меню" как единого целого:
+        // меню всегда строго под строкой (rowY + rowH + gap), без наложения.
+        // Если группа не влезает — сдвигаем ОБЕИХ вверх, а не переворачиваем
+        // меню над строкой (это и давало наложение раньше).
+        val gap = dp(8)
+        val topInset = dp(72)   // минимальный отступ строки от верха (под статус-бар)
+        val bottomSafe = activityRoot.height - dp(24)
+
+        var rowY = 0
+        var rowH = 0
+        var rowX = 0
+        val hasSnapshot = anchorRow.width > 0 && anchorRow.height > 0
+        if (hasSnapshot) {
+            val rowLocation = IntArray(2)
+            anchorRow.getLocationOnScreen(rowLocation)
+            val rootLocation = IntArray(2)
+            activityRoot.getLocationOnScreen(rootLocation)
+
+            rowX = rowLocation[0] - rootLocation[0]
+            rowY = rowLocation[1] - rootLocation[1]
+            rowH = anchorRow.height
+
+            // Мало места сверху — прижимаем строку к безопасному отступу под статус-баром
+            rowY = rowY.coerceAtLeast(topInset)
+
+            // Группа "строка + отступ + меню" не влезает целиком — сдвигаем всю
+            // группу вверх так, чтобы строка была видна целиком, а меню под ней.
+            val groupBottom = rowY + rowH + gap + contentH
+            if (groupBottom > bottomSafe) {
+                val overflow = groupBottom - bottomSafe
+                rowY = (rowY - overflow).coerceAtLeast(topInset)
+            }
+        }
+
+        val menuY = if (hasSnapshot) rowY + rowH + gap else {
+            // нет снимка (нулевые размеры anchorRow) — прежнее поведение у верха экрана
+            if (topInset + contentH <= bottomSafe) topInset
+            else (bottomSafe - contentH).coerceAtLeast(dp(24))
+        }
+
+        // 5) "Снимок" выбранной строки — рисуем её в bitmap и кладём поверх
+        // затемнения на посчитанной выше позиции (rowX/rowY), с лёгким
+        // "подъёмом" (scale + translationZ). Оригинал в RecyclerView прячем
+        // (INVISIBLE, чтобы список не сдвинулся), иначе он двоится под снимком.
+        // PopupWindow — отдельное системное окно и всегда рисуется поверх
+        // decorView, поэтому важен не порядок addView, а то, что прямоугольники
+        // снимка и меню не пересекаются (обеспечено расчётом menuY выше).
+        if (hasSnapshot) {
+            val rowBitmap = Bitmap.createBitmap(
+                anchorRow.width, anchorRow.height, Bitmap.Config.ARGB_8888
+            )
+            anchorRow.draw(Canvas(rowBitmap))
+
+            anchorRow.visibility = View.INVISIBLE
+            hiddenAnchorRow = anchorRow
+
+            val snapshot = ImageView(requireContext()).apply {
+                setImageBitmap(rowBitmap)
+                layoutParams = ViewGroup.LayoutParams(anchorRow.width, anchorRow.height)
+                x = rowX.toFloat()
+                y = rowY.toFloat()
+            }
+            anchorSnapshotView = snapshot
+            activityRoot.addView(snapshot) // добавлен после dim → лежит поверх него
+
+            // Лёгкий "подъём": чуть увеличиваем и приподнимаем по Z
+            snapshot.animate()
+                .scaleX(1.03f).scaleY(1.03f)
+                .translationZ(dp(6).toFloat())
+                .setDuration(150)
+                .start()
+        }
+
+        // 6) PopupWindow — во всю ширину экрана минус боковые отступы,
+        // строго под снимком строки (menuY посчитан в п.4)
         val popup = PopupWindow(
             popupContent,
             popupWidth,
@@ -590,22 +675,7 @@ class MainFragment : Fragment() {
         }
         actionsPopup = popup
 
-        // 4) Позиционирование: всегда фиксированно у верха экрана, как на макете
-        popupContent.measure(
-            View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.EXACTLY),
-            View.MeasureSpec.makeMeasureSpec(activityRoot.height, View.MeasureSpec.AT_MOST)
-        )
-        val contentH = popupContent.measuredHeight
-
-        val topInset = dp(72)   // отступ от верха экрана (под статус-бар)
-        val bottomSafe = activityRoot.height - dp(24)
-
-// если контент не влезает — поджимаем к безопасной зоне
-        val y = if (topInset + contentH <= bottomSafe) topInset
-        else (bottomSafe - contentH).coerceAtLeast(dp(24))
-        val x = marginX
-
-        popup.showAtLocation(activityRoot, Gravity.TOP or Gravity.START, x, y)
+        popup.showAtLocation(activityRoot, Gravity.TOP or Gravity.START, marginX, menuY)
 
         // Лёгкая анимация появления
         popupContent.alpha = 0f
@@ -626,6 +696,21 @@ class MainFragment : Fragment() {
             }.start()
         }
         dimView = null
+
+        anchorSnapshotView?.let { s ->
+            s.animate()
+                .alpha(0f)
+                .scaleX(1f).scaleY(1f)
+                .translationZ(0f)
+                .setDuration(120)
+                .withEndAction {
+                    (s.parent as? ViewGroup)?.removeView(s)
+                }.start()
+        }
+        anchorSnapshotView = null
+
+        hiddenAnchorRow?.visibility = View.VISIBLE
+        hiddenAnchorRow = null
     }
 
     private fun dismissActionsOverlay() {

@@ -5,6 +5,8 @@ import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -87,6 +89,18 @@ class GroupInfoActivity : AppCompatActivity() {
         btnSetPhoto.setOnClickListener { pickImageLauncher.launch("image/*") }
         groupAvatarContainer.setOnClickListener { pickImageLauncher.launch("image/*") }
         btnCreateGroup.setOnClickListener { createGroup() }
+
+        groupNameInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val name = s?.toString()?.trim().orEmpty()
+                groupAvatarLetter.text = if (name.isNotEmpty()) name.first().uppercase() else "?"
+                if (groupAvatarImage.visibility != View.VISIBLE) {
+                    groupAvatarLetter.visibility = View.VISIBLE
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
         updateCounterLabel(selectedPhones.size, checking = true)
         resolveRegisteredUsers()

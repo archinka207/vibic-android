@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="M"
+                android:text="?"
                 android:textColor="?attr/vibicTextPrimary"
                 android:textSize="36sp"
                 android:textStyle="bold"/>

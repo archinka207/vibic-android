@@ -106,6 +106,7 @@
 
     <!-- Кнопка Далее -->
     <FrameLayout
+        android:id="@+id/nextButtonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
