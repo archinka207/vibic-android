@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="dark_bg">#120A16</color>
+    <color name="splash_bg">#2D1766</color>
     <color name="dark_surface">#1A0F1F</color>
     <color name="dark_surface_elev">#241428</color>
     <color name="dark_divider">#241A2C</color>

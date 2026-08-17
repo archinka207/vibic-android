@@ -3,7 +3,7 @@
     android:id="@+id/splashRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_splash_gradient">
+    android:background="@color/dark_bg">
 
     <!-- Кольца-пульсы (за логотипом). Изначально невидимы, включаются кодом с задержкой -->
     <View
