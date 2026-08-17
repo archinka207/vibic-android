@@ -261,12 +261,10 @@
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>
 
-                <androidx.appcompat.widget.SwitchCompat
+                <com.example.vibic.IosSwitch
                     android:id="@+id/switchReadReceipts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:trackTint="@color/switch_track_selector"
-                    app:thumbTint="?attr/vibicTextPrimary"/>
+                    android:layout_width="51dp"
+                    android:layout_height="31dp"/>
             </LinearLayout>
 
             <!-- РАЗДЕЛ: ЗАЩИТА -->

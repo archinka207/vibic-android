@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -121,8 +122,21 @@ class ProfileFragment : Fragment() {
         aboutRow.setOnClickListener {
             startActivity(Intent(requireContext(), AboutActivity::class.java))
         }
+        helpRow.setOnClickListener {
+            startActivity(Intent(requireContext(), HelpActivity::class.java))
+        }
         themeRow.setOnClickListener {
             startActivity(Intent(requireContext(), ThemePickerActivity::class.java))
+        }
+        rateRow.setOnClickListener {
+            val pkg = requireContext().packageName
+            try {
+                val marketIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg"))
+                marketIntent.setPackage("com.android.vending")
+                startActivity(marketIntent)
+            } catch (e: android.content.ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$pkg")))
+            }
         }
 
         usernameRow.setOnClickListener { copyUsernameToClipboard() }

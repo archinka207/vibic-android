@@ -6,18 +6,17 @@ import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.WindowCompat
 
 class NotificationsActivity : AppCompatActivity() {
 
     private lateinit var backButton: ImageView
 
-    private lateinit var switchMaster: SwitchCompat
-    private lateinit var switchSound: SwitchCompat
-    private lateinit var switchVibration: SwitchCompat
-    private lateinit var switchPreview: SwitchCompat
-    private lateinit var switchGroup: SwitchCompat
+    private lateinit var switchMaster: IosSwitch
+    private lateinit var switchSound: IosSwitch
+    private lateinit var switchVibration: IosSwitch
+    private lateinit var switchPreview: IosSwitch
+    private lateinit var switchGroup: IosSwitch
 
     private val PREFS_NAME = "notifications_prefs"
 
@@ -40,15 +39,15 @@ class NotificationsActivity : AppCompatActivity() {
         loadSettings()
 
         // Главный рубильник (если выключаем, можно делать остальные неактивными)
-        switchMaster.setOnCheckedChangeListener { _, isChecked ->
+        switchMaster.setOnCheckedChangeListener { isChecked ->
             saveSetting("master", isChecked)
             toggleInnerSwitches(isChecked)
         }
 
-        switchSound.setOnCheckedChangeListener { _, isChecked -> saveSetting("sound", isChecked) }
-        switchVibration.setOnCheckedChangeListener { _, isChecked -> saveSetting("vibration", isChecked) }
-        switchPreview.setOnCheckedChangeListener { _, isChecked -> saveSetting("preview", isChecked) }
-        switchGroup.setOnCheckedChangeListener { _, isChecked -> saveSetting("group", isChecked) }
+        switchSound.setOnCheckedChangeListener { isChecked -> saveSetting("sound", isChecked) }
+        switchVibration.setOnCheckedChangeListener { isChecked -> saveSetting("vibration", isChecked) }
+        switchPreview.setOnCheckedChangeListener { isChecked -> saveSetting("preview", isChecked) }
+        switchGroup.setOnCheckedChangeListener { isChecked -> saveSetting("group", isChecked) }
     }
 
     private fun loadSettings() {

@@ -177,12 +177,10 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.example.vibic.IosSwitch
                         android:id="@+id/pinSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:thumbTint="?attr/vibicTextPrimary"
-                        android:trackTint="@drawable/track_2fa_switch"/>
+                        android:layout_width="51dp"
+                        android:layout_height="31dp"/>
                 </LinearLayout>
 
                 <View
@@ -241,12 +239,10 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.example.vibic.IosSwitch
                         android:id="@+id/biometricSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:thumbTint="?attr/vibicTextPrimary"
-                        android:trackTint="@drawable/track_2fa_switch"/>
+                        android:layout_width="51dp"
+                        android:layout_height="31dp"/>
                 </LinearLayout>
             </LinearLayout>
 

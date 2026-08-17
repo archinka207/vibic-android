@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.WindowCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -36,7 +35,7 @@ class PrivacyActivity : AppCompatActivity() {
     private lateinit var valPhoneVisibility: TextView
 
     // Переключатель
-    private lateinit var switchReadReceipts: SwitchCompat
+    private lateinit var switchReadReceipts: IosSwitch
 
     private val PREFS_NAME = "privacy_prefs"
     private val APP_PREFS_NAME = "app_prefs"
@@ -102,7 +101,7 @@ class PrivacyActivity : AppCompatActivity() {
         backButton.setOnClickListener { finish() }
 
         // Сохранение положения Switch
-        switchReadReceipts.setOnCheckedChangeListener { _, isChecked ->
+        switchReadReceipts.setOnCheckedChangeListener { isChecked ->
             getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                 .edit().putBoolean("read_receipts", isChecked).apply()
         }

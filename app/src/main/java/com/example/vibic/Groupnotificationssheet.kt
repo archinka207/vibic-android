@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.vibic.network.ApiClient
 import com.example.vibic.network.UpdateNotificationsRequest
@@ -67,9 +66,9 @@ class GroupNotificationsSheet : BottomSheetDialogFragment() {
 
         view.findViewById<TextView>(R.id.sheetSubtitle).text = chatName
 
-        val switchNotifications = view.findViewById<SwitchCompat>(R.id.switchNotifications)
-        val switchPreview = view.findViewById<SwitchCompat>(R.id.switchPreview)
-        val switchVibration = view.findViewById<SwitchCompat>(R.id.switchVibration)
+        val switchNotifications = view.findViewById<IosSwitch>(R.id.switchNotifications)
+        val switchPreview = view.findViewById<IosSwitch>(R.id.switchPreview)
+        val switchVibration = view.findViewById<IosSwitch>(R.id.switchVibration)
 
         // Восстанавливаем локальные значения (по умолчанию: вкл/вкл/выкл)
         switchNotifications.isChecked = prefs.getBoolean(key("enabled"), true)
@@ -77,16 +76,16 @@ class GroupNotificationsSheet : BottomSheetDialogFragment() {
         switchVibration.isChecked = prefs.getBoolean(key("vibration"), false)
 
         // Главный тумблер — синхронизируем с сервером
-        switchNotifications.setOnCheckedChangeListener { _, checked ->
+        switchNotifications.setOnCheckedChangeListener { checked ->
             prefs.edit().putBoolean(key("enabled"), checked).apply()
             updateServerNotifications(checked)
             onChanged?.invoke(checked)
         }
 
-        switchPreview.setOnCheckedChangeListener { _, checked ->
+        switchPreview.setOnCheckedChangeListener { checked ->
             prefs.edit().putBoolean(key("preview"), checked).apply()
         }
-        switchVibration.setOnCheckedChangeListener { _, checked ->
+        switchVibration.setOnCheckedChangeListener { checked ->
             prefs.edit().putBoolean(key("vibration"), checked).apply()
         }
 

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/vibicBackground">
+
+    <!-- Топ-бар -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="52dp"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="start|center_vertical"
+            android:src="@drawable/ic_back"
+            app:tint="?attr/vibicIcon"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="60dp"
+            android:text="Помощь"
+            android:textColor="?attr/vibicTextPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- Поиск -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/search_background">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="?attr/vibicTextTertiary"/>
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@null"
+                    android:hint="Поиск по справке"
+                    android:textColorHint="?attr/vibicTextTertiary"
+                    android:textColor="?attr/vibicTextPrimary"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"/>
+            </FrameLayout>
+
+            <!-- Популярные темы: сетка 2x2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp">
+
+                <!-- Начало работы -->
+                <LinearLayout
+                    android:id="@+id/topicGettingStarted"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_help_tile"
+                    android:padding="14dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_help_tile_icon">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info"
+                            app:tint="?attr/vibicBrand"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Начало работы"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Приватность -->
+                <LinearLayout
+                    android:id="@+id/topicPrivacy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_help_tile"
+                    android:padding="14dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_help_tile_icon">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_privacy"
+                            app:tint="?attr/vibicBrand"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Приватность"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp">
+
+                <!-- Чаты и группы -->
+                <LinearLayout
+                    android:id="@+id/topicChatsGroups"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_help_tile"
+                    android:padding="14dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_help_tile_icon">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_group"
+                            app:tint="?attr/vibicBrand"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Чаты и группы"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Подписка -->
+                <LinearLayout
+                    android:id="@+id/topicSubscription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_help_tile"
+                    android:padding="14dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_help_tile_icon">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_star"
+                            app:tint="?attr/vibicBrand"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Подписка"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- FAQ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ЧАСТЫЕ ВОПРОСЫ"
+                android:textColor="?attr/vibicTextSecondary"
+                android:textSize="12sp"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/rounded_background">
+
+                <!-- Вопрос 1 -->
+                <LinearLayout
+                    android:id="@+id/faqQuestion1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Как изменить имя контакта?"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="14.5sp"/>
+
+                    <ImageView
+                        android:id="@+id/faqChevron1"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/vibicIconMuted"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/faqAnswer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Откройте профиль контакта, нажмите карандаш редактирования, измените имя и сохраните."
+                    android:textColor="?attr/vibicTextSecondary"
+                    android:textSize="13sp"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="gone"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/vibicDivider"
+                    android:layout_marginHorizontal="16dp"/>
+
+                <!-- Вопрос 2 -->
+                <LinearLayout
+                    android:id="@+id/faqQuestion2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Как закрепить чат?"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="14.5sp"/>
+
+                    <ImageView
+                        android:id="@+id/faqChevron2"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/vibicIconMuted"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/faqAnswer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Нажмите и удерживайте чат в списке, выберите Закрепить в меню."
+                    android:textColor="?attr/vibicTextSecondary"
+                    android:textSize="13sp"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="gone"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/vibicDivider"
+                    android:layout_marginHorizontal="16dp"/>
+
+                <!-- Вопрос 3 -->
+                <LinearLayout
+                    android:id="@+id/faqQuestion3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Как сменить тему оформления?"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="14.5sp"/>
+
+                    <ImageView
+                        android:id="@+id/faqChevron3"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/vibicIconMuted"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/faqAnswer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Профиль → Тема оформления, выберите Светлую, Тёмную или Как в системе."
+                    android:textColor="?attr/vibicTextSecondary"
+                    android:textSize="13sp"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <!-- Не нашли ответ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="НЕ НАШЛИ ОТВЕТ?"
+                android:textColor="?attr/vibicTextSecondary"
+                android:textSize="12sp"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/rounded_background">
+
+                <!-- Написать в поддержку -->
+                <LinearLayout
+                    android:id="@+id/rowContactSupport"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_icon_tile"
+                        android:layout_marginEnd="14dp">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_chat"
+                            app:tint="?attr/vibicBrand"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Написать в поддержку"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/vibicIcon"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/vibicDivider"
+                    android:layout_marginStart="62dp"/>
+
+                <!-- Условия и конфиденциальность -->
+                <LinearLayout
+                    android:id="@+id/rowTermsPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <FrameLayout
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_icon_tile"
+                        android:layout_marginEnd="14dp">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info"
+                            app:tint="?attr/vibicBrand"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Условия и конфиденциальность"
+                        android:textColor="?attr/vibicTextPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/vibicIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="vibic · версия 1.0"
+                android:textColor="?attr/vibicTextTertiary"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_marginVertical="24dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

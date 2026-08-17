@@ -264,12 +264,10 @@
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.example.vibic.IosSwitch
                 android:id="@+id/switchHistory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:thumbTint="@color/sheet_switch_thumb"
-                app:trackTint="@color/sheet_switch_track"/>
+                android:layout_width="51dp"
+                android:layout_height="31dp"/>
         </LinearLayout>
 
         <!-- Удалить группу -->

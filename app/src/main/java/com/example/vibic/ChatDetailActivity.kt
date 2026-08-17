@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -199,11 +200,8 @@ class ChatDetailActivity : AppCompatActivity() {
     }
 
     // ── Launchers ──────────────────────────────────────────────────────────────
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) Toast.makeText(this, "Фото выбрано!", Toast.LENGTH_SHORT).show()
-    }
-    private val requestGalleryPermLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) openGallery() else Toast.makeText(this, "Нет доступа к галерее", Toast.LENGTH_SHORT).show()
     }
     private val requestAudioPermLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
     private val requestCameraAudioPermLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { perms ->
@@ -398,7 +396,7 @@ class ChatDetailActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun setupClickListeners() {
         backButton.setOnClickListener { finish() }
-        attachButton.setOnClickListener { checkGalleryPermissionAndOpen() }
+        attachButton.setOnClickListener { openGallery() }
         replyBarClose.setOnClickListener { clearReply() }
 
         messageInput.addTextChangedListener(object : TextWatcher {
@@ -1565,14 +1563,9 @@ class ChatDetailActivity : AppCompatActivity() {
             .showSoftInput(messageInput, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    private fun checkGalleryPermissionAndOpen() {
-        val perm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            Manifest.permission.READ_MEDIA_IMAGES else Manifest.permission.READ_EXTERNAL_STORAGE
-        if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) openGallery()
-        else requestGalleryPermLauncher.launch(perm)
-    }
-
-    private fun openGallery() = pickImageLauncher.launch("image/*")
+    private fun openGallery() = pickImageLauncher.launch(
+        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+    )
 
     private fun getCurrentTime(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())

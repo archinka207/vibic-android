@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -62,7 +61,7 @@ class EditGroupActivity : AppCompatActivity() {
     private lateinit var nameInput: EditText
     private lateinit var nameCounter: TextView
     private lateinit var descriptionInput: EditText
-    private lateinit var switchHistory: SwitchCompat
+    private lateinit var switchHistory: IosSwitch
     private lateinit var rowDeleteGroup: LinearLayout
 
     private var chatId = ""
@@ -130,7 +129,7 @@ class EditGroupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        switchHistory.setOnCheckedChangeListener { _, checked ->
+        switchHistory.setOnCheckedChangeListener { checked ->
             getSharedPreferences("group_edit_prefs", MODE_PRIVATE)
                 .edit().putBoolean("history_$chatId", checked).apply()
         }

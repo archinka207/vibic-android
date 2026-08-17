@@ -80,12 +80,10 @@
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
-                <androidx.appcompat.widget.SwitchCompat
+                <com.example.vibic.IosSwitch
                     android:id="@+id/switchMaster"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:trackTint="@color/switch_track_selector"
-                    app:thumbTint="?attr/vibicTextPrimary"/>
+                    android:layout_width="51dp"
+                    android:layout_height="31dp"/>
             </LinearLayout>
 
             <!-- СООБЩЕНИЯ -->
@@ -135,12 +133,10 @@
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.example.vibic.IosSwitch
                         android:id="@+id/switchSound"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:trackTint="@color/switch_track_selector"
-                        app:thumbTint="?attr/vibicTextPrimary"/>
+                        android:layout_width="51dp"
+                        android:layout_height="31dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#26FFFFFF" android:layout_marginStart="66dp"/>
@@ -175,12 +171,10 @@
                         android:textSize="15sp"
                         android:textStyle="bold"/>
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.example.vibic.IosSwitch
                         android:id="@+id/switchVibration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:trackTint="@color/switch_track_selector"
-                        app:thumbTint="?attr/vibicTextPrimary"/>
+                        android:layout_width="51dp"
+                        android:layout_height="31dp"/>
                 </LinearLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#26FFFFFF" android:layout_marginStart="66dp"/>
@@ -228,12 +222,10 @@
                             android:layout_marginTop="2dp"/>
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.SwitchCompat
+                    <com.example.vibic.IosSwitch
                         android:id="@+id/switchPreview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:trackTint="@color/switch_track_selector"
-                        app:thumbTint="?attr/vibicTextPrimary"/>
+                        android:layout_width="51dp"
+                        android:layout_height="31dp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -246,13 +238,15 @@
                 android:textSize="12sp"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/rounded_background">
+                android:background="@drawable/rounded_background"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,7 +256,8 @@
                     android:paddingHorizontal="16dp"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
@@ -288,7 +283,7 @@
                         app:tint="?attr/vibicIcon"/>
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#26FFFFFF" android:layout_marginHorizontal="16dp"/>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#26FFFFFF" android:layout_marginHorizontal="16dp" android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -360,18 +355,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Тихие уведомления для групп"
+                        android:text="Уведомления из групповых чатов"
                         android:textColor="?attr/vibicTextSecondary"
                         android:textSize="12sp"
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>
 
-                <androidx.appcompat.widget.SwitchCompat
+                <com.example.vibic.IosSwitch
                     android:id="@+id/switchGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:trackTint="@color/switch_track_selector"
-                    app:thumbTint="?attr/vibicTextPrimary"/>
+                    android:layout_width="51dp"
+                    android:layout_height="31dp"/>
             </LinearLayout>
 
         </LinearLayout>

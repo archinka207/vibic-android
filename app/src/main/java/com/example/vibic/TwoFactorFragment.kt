@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -32,11 +31,11 @@ class TwoFactorFragment : Fragment() {
     private lateinit var statusSubtitle: TextView
 
     private lateinit var pinRow: LinearLayout
-    private lateinit var pinSwitch: SwitchCompat
+    private lateinit var pinSwitch: IosSwitch
     private lateinit var pinSubtitle: TextView
 
     private lateinit var biometricRow: LinearLayout
-    private lateinit var biometricSwitch: SwitchCompat
+    private lateinit var biometricSwitch: IosSwitch
 
     private lateinit var backupEmailRow: LinearLayout
     private lateinit var backupEmailValue: TextView
@@ -95,8 +94,8 @@ class TwoFactorFragment : Fragment() {
         // Свитчи без срабатывания listener'а — выставляем сами.
         pinSwitch.setOnCheckedChangeListener(null)
         biometricSwitch.setOnCheckedChangeListener(null)
-        pinSwitch.isChecked       = pinEnabled
-        biometricSwitch.isChecked = biometricEnabled && pinEnabled
+        pinSwitch.setChecked(pinEnabled, animate = false)
+        biometricSwitch.setChecked(biometricEnabled && pinEnabled, animate = false)
         biometricSwitch.isEnabled = pinEnabled
 
         // Подзаголовок PIN
@@ -118,7 +117,7 @@ class TwoFactorFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        pinSwitch.setOnCheckedChangeListener { _, checked ->
+        pinSwitch.setOnCheckedChangeListener { checked ->
             val p = prefs()
             if (checked) {
                 // ЗАГЛУШКА: реально тут открыть экран ввода PIN.
@@ -142,7 +141,7 @@ class TwoFactorFragment : Fragment() {
             updateStatusBanner()
         }
 
-        biometricSwitch.setOnCheckedChangeListener { _, checked ->
+        biometricSwitch.setOnCheckedChangeListener { checked ->
             // Биометрия имеет смысл только при включённом PIN. Защита в loadState
             // (isEnabled = pinEnabled), но на всякий случай ещё раз.
             if (!pinSwitch.isChecked && checked) {

@@ -144,6 +144,7 @@
 
         <activity android:name=".AboutActivity"       android:exported="false"/>
         <activity android:name=".AboutDetailActivity" android:exported="false"/>
+        <activity android:name=".HelpActivity"        android:exported="false"/>
 
         <activity
             android:name=".CreateChannelActivity"
