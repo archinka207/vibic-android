@@ -5,14 +5,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- Шапка: отдельная карточка -->
+    <!-- Шапка: скрыта — название/статус уже видны в поднятой строке чата сверху,
+         дублировать их здесь не нужно. bindPreview() продолжает её заполнять,
+         findViewById на GONE-вью безопасен. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_preview_header"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:visibility="gone">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/previewAvatarCard"

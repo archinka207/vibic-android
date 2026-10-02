@@ -12,7 +12,10 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.RenderEffect
+import android.graphics.Shader
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -526,19 +529,33 @@ class MainFragment : Fragment() {
      * @param withPreview true для long-press по аватарке (с превью), false для строки.
      */
     private fun showChatActionsOverlay(chat: Chat, anchorRow: View, withPreview: Boolean) {
-        dismissActionsOverlay()
+        // animate=false: если предыдущий оверлей ещё не долетел до конца
+        // fade-out (120мс), убираем его СРАЗУ, а не даём ему висеть поверх
+        // нового — иначе старый снимок строки на миг остаётся видимым
+        // артефактом между новой поднятой строкой и превью.
+        dismissActionsOverlay(animate = false)
 
         val activityRoot = requireActivity().window.decorView as ViewGroup
         val density = resources.displayMetrics.density
         val dp = { v: Int -> (v * density).toInt() }
 
-        // 1) Затемнение поверх всего экрана
+        // 1) Размытие фонового контента (список чатов) + лёгкое затемнение поверх.
+        // Блюр кладём на rootView (фрагмент), а НЕ на activityRoot — dim/снимок
+        // строки/меню добавляются позже прямо в decorView и не должны размыться.
+        val useBlur = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+        if (useBlur) {
+            rootView.setRenderEffect(
+                RenderEffect.createBlurEffect(25f, 25f, Shader.TileMode.CLAMP)
+            )
+        }
         val dim = View(requireContext()).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            setBackgroundColor(Color.parseColor("#CC000000"))
+            setBackgroundColor(
+                Color.parseColor(if (useBlur) "#33000000" else "#99000010")
+            )
             alpha = 0f
             isClickable = true
             setOnClickListener { dismissActionsOverlay() }
@@ -597,7 +614,6 @@ class MainFragment : Fragment() {
 
         var rowY = 0
         var rowH = 0
-        var rowX = 0
         val hasSnapshot = anchorRow.width > 0 && anchorRow.height > 0
         if (hasSnapshot) {
             val rowLocation = IntArray(2)
@@ -605,7 +621,6 @@ class MainFragment : Fragment() {
             val rootLocation = IntArray(2)
             activityRoot.getLocationOnScreen(rootLocation)
 
-            rowX = rowLocation[0] - rootLocation[0]
             rowY = rowLocation[1] - rootLocation[1]
             rowH = anchorRow.height
 
@@ -628,7 +643,8 @@ class MainFragment : Fragment() {
         }
 
         // 5) "Снимок" выбранной строки — рисуем её в bitmap и кладём поверх
-        // затемнения на посчитанной выше позиции (rowX/rowY), с лёгким
+        // затемнения на посчитанной выше позиции (marginX/rowY — та же ширина
+        // и левый отступ, что у превью и меню), с лёгким
         // "подъёмом" (scale + translationZ). Оригинал в RecyclerView прячем
         // (INVISIBLE, чтобы список не сдвинулся), иначе он двоится под снимком.
         // PopupWindow — отдельное системное окно и всегда рисуется поверх
@@ -643,17 +659,37 @@ class MainFragment : Fragment() {
             anchorRow.visibility = View.INVISIBLE
             hiddenAnchorRow = anchorRow
 
-            val snapshot = ImageView(requireContext()).apply {
-                setImageBitmap(rowBitmap)
-                layoutParams = ViewGroup.LayoutParams(anchorRow.width, anchorRow.height)
-                x = rowX.toFloat()
-                y = rowY.toFloat()
+            // Подложка под снимком строки — карточка ТОЙ ЖЕ ширины и с теми же
+            // боковыми отступами, что у превью/меню (popupWidth/marginX), и тем
+            // же скруглением, что у bg_preview_header/bg_preview_messages и
+            // bg_message_actions_popup (22dp), а не во всю ширину экрана.
+            val snapshotPad = dp(6)
+            val snapshotCard = CardView(requireContext()).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    popupWidth,
+                    anchorRow.height + snapshotPad * 2
+                )
+                radius = dp(22).toFloat()
+                cardElevation = dp(6).toFloat()
+                setCardBackgroundColor(MaterialColors.getColor(this, R.attr.vibicSurface))
+                x = marginX.toFloat()
+                y = (rowY - snapshotPad).toFloat()
+                addView(
+                    ImageView(requireContext()).apply {
+                        setImageBitmap(rowBitmap)
+                        scaleType = ImageView.ScaleType.FIT_XY
+                    },
+                    FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        anchorRow.height
+                    ).apply { gravity = Gravity.CENTER }
+                )
             }
-            anchorSnapshotView = snapshot
-            activityRoot.addView(snapshot) // добавлен после dim → лежит поверх него
+            anchorSnapshotView = snapshotCard
+            activityRoot.addView(snapshotCard) // добавлен после dim → лежит поверх него
 
             // Лёгкий "подъём": чуть увеличиваем и приподнимаем по Z
-            snapshot.animate()
+            snapshotCard.animate()
                 .scaleX(1.03f).scaleY(1.03f)
                 .translationZ(dp(6).toFloat())
                 .setDuration(150)
@@ -689,23 +725,37 @@ class MainFragment : Fragment() {
             .start()
     }
 
-    private fun removeDim() {
+    private fun removeDim(animate: Boolean = true) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            rootView.setRenderEffect(null)
+        }
+
         dimView?.let { d ->
-            d.animate().alpha(0f).setDuration(120).withEndAction {
+            d.animate().cancel()
+            if (animate) {
+                d.animate().alpha(0f).setDuration(120).withEndAction {
+                    (d.parent as? ViewGroup)?.removeView(d)
+                }.start()
+            } else {
                 (d.parent as? ViewGroup)?.removeView(d)
-            }.start()
+            }
         }
         dimView = null
 
         anchorSnapshotView?.let { s ->
-            s.animate()
-                .alpha(0f)
-                .scaleX(1f).scaleY(1f)
-                .translationZ(0f)
-                .setDuration(120)
-                .withEndAction {
-                    (s.parent as? ViewGroup)?.removeView(s)
-                }.start()
+            s.animate().cancel()
+            if (animate) {
+                s.animate()
+                    .alpha(0f)
+                    .scaleX(1f).scaleY(1f)
+                    .translationZ(0f)
+                    .setDuration(120)
+                    .withEndAction {
+                        (s.parent as? ViewGroup)?.removeView(s)
+                    }.start()
+            } else {
+                (s.parent as? ViewGroup)?.removeView(s)
+            }
         }
         anchorSnapshotView = null
 
@@ -713,10 +763,10 @@ class MainFragment : Fragment() {
         hiddenAnchorRow = null
     }
 
-    private fun dismissActionsOverlay() {
+    private fun dismissActionsOverlay(animate: Boolean = true) {
         actionsPopup?.let { if (it.isShowing) it.dismiss() }
         actionsPopup = null
-        removeDim()
+        removeDim(animate)
     }
 
     /** Заполняет шапку и пузыри превью из локального кэша сообщений чата. */
