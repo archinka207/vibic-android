@@ -4,6 +4,9 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.BackgroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +60,39 @@ class MessageAdapter(
         private const val VIEW_TYPE_DATE_HEADER   = 7
     }
 
+    // Поиск по чату: подсвечиваем совпадения, текущее — ярче
+    private var searchQuery: String = ""
+    private var currentMatchId: String? = null
+
     // ─── Public API ───────────────────────────────────────────────────────────
+
+    fun setSearch(query: String, currentId: String?) {
+        searchQuery = query
+        currentMatchId = currentId
+        notifyDataSetChanged()
+    }
+
+    /** Позиция сообщения в списке отрисовки (с учётом разделителей дат) — для прокрутки. */
+    fun findDisplayPositionById(messageId: String?): Int {
+        if (messageId == null) return -1
+        return displayItems.indexOfFirst { it is MessageDto && it.id == messageId }
+    }
+
+    private fun highlight(message: MessageDto): CharSequence {
+        val text = message.content ?: ""
+        val q = searchQuery
+        if (q.isEmpty()) return text
+        val color = if (message.id != null && message.id == currentMatchId) 0xCCFFB300.toInt() else 0x55FFB300
+        val out = SpannableString(text)
+        var from = 0
+        while (true) {
+            val i = text.indexOf(q, from, ignoreCase = true)
+            if (i < 0) break
+            out.setSpan(BackgroundColorSpan(color), i, i + q.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            from = i + q.length
+        }
+        return out
+    }
 
     fun addMessage(message: MessageDto) {
         messages.add(message)
@@ -241,7 +276,7 @@ class MessageAdapter(
         private val replyText: TextView = itemView.findViewById(R.id.replyText)
 
         fun bind(message: MessageDto) {
-            messageText.text = message.content ?: ""
+            messageText.text = highlight(message)
             messageTime.text = formatTime(message.createdAt)
             bindReplyQuote(message, replyContainer, replySenderName, replyText)
             itemView.setOnLongClickListener {
@@ -260,7 +295,7 @@ class MessageAdapter(
         private val replyText: TextView = itemView.findViewById(R.id.replyText)
 
         fun bind(message: MessageDto) {
-            messageText.text = message.content ?: ""
+            messageText.text = highlight(message)
             messageTime.text = formatTime(message.createdAt)
             bindReplyQuote(message, replyContainer, replySenderName, replyText)
             itemView.setOnLongClickListener {

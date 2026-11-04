@@ -88,6 +88,53 @@
                         android:ellipsize="end"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Поиск по чату (вместо капсулы собеседника) -->
+            <LinearLayout
+                android:id="@+id/searchBar"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/search_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="4dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="?attr/vibicTextSecondary"/>
+
+                <EditText
+                    android:id="@+id/searchInput"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="8dp"
+                    android:background="@null"
+                    android:hint="Поиск"
+                    android:textColorHint="?attr/vibicTextSecondary"
+                    android:textColor="?attr/vibicTextPrimary"
+                    android:textSize="15sp"
+                    android:singleLine="true"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"/>
+
+                <ImageView
+                    android:id="@+id/searchClear"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_clear"
+                    app:tint="?attr/vibicTextSecondary"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:visibility="gone"/>
+            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -335,6 +382,47 @@
                         android:layout_height="match_parent"/>
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <!-- Навигация по результатам поиска -->
+            <LinearLayout
+                android:id="@+id/searchNavBar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:background="?attr/vibicBackground"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/searchCounter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/vibicTextSecondary"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:id="@+id/searchUp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:rotation="-90"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="?attr/vibicBrand"
+                    android:background="?selectableItemBackgroundBorderless"/>
+
+                <ImageView
+                    android:id="@+id/searchDown"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:padding="8dp"
+                    android:rotation="90"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="?attr/vibicBrand"
+                    android:background="?selectableItemBackgroundBorderless"/>
             </LinearLayout>
 
             <!-- Запись голосового (Свайп) -->

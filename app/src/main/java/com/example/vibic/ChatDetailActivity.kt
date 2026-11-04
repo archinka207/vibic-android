@@ -160,6 +160,18 @@ class ChatDetailActivity : AppCompatActivity() {
     private lateinit var actionDelete: LinearLayout
     private var hiddenAnchorView: View? = null
 
+    // ── Search ──
+    private lateinit var searchBar: LinearLayout
+    private lateinit var searchInput: EditText
+    private lateinit var searchClear: ImageView
+    private lateinit var searchNavBar: LinearLayout
+    private lateinit var searchCounter: TextView
+    private lateinit var searchUp: ImageView
+    private lateinit var searchDown: ImageView
+    private var isSearchMode = false
+    private var searchMatches: List<String> = emptyList()   // id сообщений, от новых к старым
+    private var searchIndex = -1
+
     // ── State ──────────────────────────────────────────────────────────────────
     private lateinit var adapter: MessageAdapter
     private var chatId = ""
@@ -190,6 +202,8 @@ class ChatDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "ChatDetailActivity"
+        /** Extra: сразу открыть поиск по чату (кнопка «Поиск» в профиле). */
+        const val EXTRA_OPEN_SEARCH = "open_search"
         /**
          * Id чата, на который сейчас реально смотрит пользователь.
          * Выставляется в onResume и сбрасывается в onPause.
@@ -276,6 +290,13 @@ class ChatDetailActivity : AppCompatActivity() {
             }
         }
         startWebSocketStatusMonitor()
+
+        if (intent.getBooleanExtra(EXTRA_OPEN_SEARCH, false)) openSearch()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (intent.getBooleanExtra(EXTRA_OPEN_SEARCH, false)) openSearch()
     }
 
     override fun onResume() {
@@ -368,6 +389,14 @@ class ChatDetailActivity : AppCompatActivity() {
         actionPin             = findViewById(R.id.actionPin)
         actionDelete          = findViewById(R.id.actionDelete)
 
+        searchBar             = findViewById(R.id.searchBar)
+        searchInput           = findViewById(R.id.searchInput)
+        searchClear           = findViewById(R.id.searchClear)
+        searchNavBar          = findViewById(R.id.searchNavBar)
+        searchCounter         = findViewById(R.id.searchCounter)
+        searchUp              = findViewById(R.id.searchUp)
+        searchDown            = findViewById(R.id.searchDown)
+
         contextMenuOverlay.setOnClickListener { hideContextMenu() }
     }
 
@@ -395,7 +424,8 @@ class ChatDetailActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupClickListeners() {
-        backButton.setOnClickListener { finish() }
+        backButton.setOnClickListener { if (isSearchMode) closeSearch() else finish() }
+        setupSearch()
         attachButton.setOnClickListener { openGallery() }
         replyBarClose.setOnClickListener { clearReply() }
 
@@ -1216,6 +1246,7 @@ class ChatDetailActivity : AppCompatActivity() {
             allMessages.add(message)
             runOnUiThread {
                 adapter.addMessage(message)
+                if (isSearchMode) runSearch(keepCurrent = true)
                 recyclerView.post { if (adapter.itemCount > 0) recyclerView.smoothScrollToPosition(adapter.itemCount - 1) }
             }
         }
@@ -1302,6 +1333,7 @@ class ChatDetailActivity : AppCompatActivity() {
                     saveMessagesToCache(allMessages)
                     runOnUiThread {
                         adapter.setMessages(allMessages)
+                        if (isSearchMode) runSearch(keepCurrent = true)
                         if (adapter.itemCount > 0 && isFirstLoad) {
                             recyclerView.scrollToPosition(adapter.itemCount - 1)
                             isFirstLoad = false
@@ -1496,6 +1528,137 @@ class ChatDetailActivity : AppCompatActivity() {
         Toast.makeText(this, "Режим редактирования (в разработке)", Toast.LENGTH_SHORT).show()
     }
 
+    // ── Search ────────────────────────────────────────────────────────────────
+
+    private fun setupSearch() {
+        searchInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                searchClear.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                if (isSearchMode) runSearch(keepCurrent = false)
+            }
+        })
+        searchInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) { hideKeyboard(); true } else false
+        }
+        searchClear.setOnClickListener { searchInput.setText("") }
+        // Вверх — к более старым совпадениям, вниз — к более новым
+        searchUp.setOnClickListener { moveSearch(+1) }
+        searchDown.setOnClickListener { moveSearch(-1) }
+    }
+
+    private fun openSearch() {
+        if (isSearchMode) { showSearchKeyboard(); return }
+        if (contextMenuOverlay.visibility == View.VISIBLE) hideContextMenu()
+        if (replyBar.visibility == View.VISIBLE) clearReply()
+        isSearchMode = true
+        chatUserCapsule.visibility = View.GONE
+        searchBar.visibility = View.VISIBLE
+        inputLayout.visibility = View.GONE
+        emojiPanelContainer.visibility = View.GONE
+        searchNavBar.visibility = View.VISIBLE
+        // Крестик у правого края: пока открыт поиск, жест «Назад» с правого края
+        // в зоне шапки отключён, иначе касание крестика срабатывает как «Назад»
+        val topBar = findViewById<View>(R.id.topBar)
+        topBar.post {
+            ViewCompat.setSystemGestureExclusionRects(
+                topBar, listOf(android.graphics.Rect(topBar.width / 2, 0, topBar.width, topBar.height))
+            )
+        }
+        searchInput.setText("")
+        runSearch(keepCurrent = false)
+        showSearchKeyboard()
+    }
+
+    // Клавиатуру можно показать только когда окно в фокусе. При возврате из профиля
+    // фокус приходит позже — тогда откроем её в onWindowFocusChanged.
+    private var pendingSearchKeyboard = false
+
+    private fun showSearchKeyboard() {
+        searchInput.requestFocus()
+        if (!hasWindowFocus()) { pendingSearchKeyboard = true; return }
+        pendingSearchKeyboard = false
+        searchInput.post {
+            WindowCompat.getInsetsController(window, searchInput).show(WindowInsetsCompat.Type.ime())
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .showSoftInput(searchInput, InputMethodManager.SHOW_IMPLICIT)
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus && pendingSearchKeyboard && isSearchMode) showSearchKeyboard()
+    }
+
+    private fun closeSearch() {
+        isSearchMode = false
+        pendingSearchKeyboard = false
+        hideKeyboard()
+        searchBar.visibility = View.GONE
+        chatUserCapsule.visibility = View.VISIBLE
+        searchNavBar.visibility = View.GONE
+        inputLayout.visibility = View.VISIBLE
+        ViewCompat.setSystemGestureExclusionRects(findViewById(R.id.topBar), emptyList())
+        searchMatches = emptyList(); searchIndex = -1
+        adapter.setSearch("", null)
+    }
+
+    private fun runSearch(keepCurrent: Boolean) {
+        val query = searchInput.text.toString().trim()
+        val prevId = searchMatches.getOrNull(searchIndex)
+        searchMatches = if (query.isEmpty()) emptyList() else allMessages
+            .filter { m ->
+                m.id != null && m.type !in listOf("audio", "audio_once", "video_note") &&
+                    m.content?.contains(query, ignoreCase = true) == true
+            }
+            .map { it.id!! }
+            .reversed()
+        searchIndex = when {
+            searchMatches.isEmpty() -> -1
+            keepCurrent && prevId != null && prevId in searchMatches -> searchMatches.indexOf(prevId)
+            else -> 0
+        }
+        applySearchState(scroll = !keepCurrent)
+    }
+
+    private fun moveSearch(delta: Int) {
+        if (searchMatches.isEmpty()) return
+        val next = searchIndex + delta
+        if (next !in searchMatches.indices) return
+        searchIndex = next
+        applySearchState(scroll = true)
+    }
+
+    private fun applySearchState(scroll: Boolean) {
+        val query = searchInput.text.toString().trim()
+        val currentId = searchMatches.getOrNull(searchIndex)
+        adapter.setSearch(query, currentId)
+
+        searchCounter.text = when {
+            query.isEmpty()         -> ""
+            searchMatches.isEmpty() -> "Ничего не найдено"
+            else                    -> "${searchIndex + 1} из ${searchMatches.size}"
+        }
+        val canUp = searchIndex in 0 until searchMatches.size - 1
+        val canDown = searchIndex > 0
+        searchUp.isEnabled = canUp;     searchUp.alpha = if (canUp) 1f else 0.3f
+        searchDown.isEnabled = canDown; searchDown.alpha = if (canDown) 1f else 0.3f
+
+        if (scroll && currentId != null) {
+            val pos = adapter.findDisplayPositionById(currentId)
+            if (pos >= 0) {
+                val lm = recyclerView.layoutManager as LinearLayoutManager
+                lm.scrollToPositionWithOffset(pos, recyclerView.height / 3)
+            }
+        }
+    }
+
+    private fun hideKeyboard() {
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(searchInput.windowToken, 0)
+    }
+
     // ── Back press ────────────────────────────────────────────────────────────
 
     override fun onBackPressed() {
@@ -1506,6 +1669,7 @@ class ChatDetailActivity : AppCompatActivity() {
                 isFlipping = false; closeVideoNoteOverlay()
             }
             contextMenuOverlay.visibility == View.VISIBLE -> hideContextMenu()
+            isSearchMode -> closeSearch()
             replyBar.visibility           == View.VISIBLE -> clearReply()
             isVoiceRecording -> { stopVoiceRecording(false); showNormalInput() }
             else -> super.onBackPressed()

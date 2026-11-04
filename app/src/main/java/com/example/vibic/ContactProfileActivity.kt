@@ -129,12 +129,15 @@ class ContactProfileActivity : AppCompatActivity() {
             )
         }
 
+        // Возвращаемся в уже открытый чат (он под профилем в стеке) и открываем поиск
         findViewById<LinearLayout>(R.id.btnSearch).setOnClickListener {
-            Toast.makeText(this, "Поиск в разработке", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<LinearLayout>(R.id.btnShare).setOnClickListener {
-            Toast.makeText(this, "Поделиться в разработке", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ChatDetailActivity::class.java).apply {
+                putExtra("chat_id", chatId)
+                putExtra("chat_name", chatName)
+                putExtra(ChatDetailActivity.EXTRA_OPEN_SEARCH, true)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            })
+            finish()
         }
 
         findViewById<LinearLayout>(R.id.btnMute).setOnClickListener {
