@@ -114,6 +114,39 @@
                 android:textColor="?attr/vibicBrand"
                 android:textSize="14sp"/>
 
+            <!-- @username (копируется по нажатию). Только для личных чатов,
+                 у вайбов и групп username нет — показываем из кода по типу чата -->
+            <LinearLayout
+                android:id="@+id/usernameRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="4dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/profileUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="username не указан"
+                    android:textColor="?attr/vibicTextSecondary"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/usernameCopyIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_copy"
+                    app:tint="?attr/vibicIcon"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/profilePhone"
                 android:layout_width="wrap_content"

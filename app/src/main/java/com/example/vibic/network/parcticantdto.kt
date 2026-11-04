@@ -19,5 +19,7 @@ data class ParticipantUserDto(
     @SerializedName("first_name") val firstName: String? = null,
     @SerializedName("last_name") val lastName: String? = null,
     @SerializedName("avatar_url") val avatarUrl: String? = null,
+    // Сервер пока не отдаёт — поле ждёт доработки бэка
+    @SerializedName("username") val username: String? = null,
     @SerializedName("online") val online: Boolean = false
 )

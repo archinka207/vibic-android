@@ -35,6 +35,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.FileOutputStream
 
 /**
@@ -334,9 +337,32 @@ class EditProfileFragment : Fragment() {
                 }
             }
             prefs.edit().putString("avatar_path", file.absolutePath).apply()
+            uploadAvatarToServer(file)
         } catch (e: Exception) {
             Log.e("EditProfileFragment", "Ошибка сохранения аватарки", e)
             Toast.makeText(requireContext(), "Ошибка сохранения", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * Отправляем аватар на сервер, чтобы его видели собеседники.
+     * Локальная копия остаётся — свой профиль показываем из неё.
+     */
+    private fun uploadAvatarToServer(file: File) {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val part = MultipartBody.Part.createFormData(
+                    "avatar", file.name, file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                )
+                val resp = ApiClient.apiService.uploadAvatar(part)
+                if (resp.isSuccessful) {
+                    Log.d("EditProfileFragment", "avatar uploaded: ${resp.body()?.avatarUrl}")
+                } else {
+                    Log.e("EditProfileFragment", "avatar upload failed: ${resp.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("EditProfileFragment", "Ошибка загрузки аватарки на сервер", e)
+            }
         }
     }
 

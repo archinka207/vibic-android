@@ -43,6 +43,12 @@ interface ApiService {
     suspend fun updateProfile(@Body request: UpdateProfileRequest): Response<Unit>
 
 
+    /** Аватар текущего пользователя. Поле формы — "avatar"; сервер сам пишет avatar_url в профиль. */
+    @Multipart
+    @POST("api/user/avatar")
+    suspend fun uploadAvatar(@Part avatar: MultipartBody.Part): Response<AvatarResponse>
+
+
     // ================= MEDIA =================
 
     @Multipart

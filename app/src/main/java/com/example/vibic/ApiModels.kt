@@ -44,6 +44,9 @@ data class UpdateProfileRequest(
 data class ErrorResponse(@SerializedName("error") val error: String)
 
 // MARK: - Media Models
+// Ответ POST api/user/avatar
+data class AvatarResponse(@SerializedName("avatar_url") val avatarUrl: String?)
+
 data class UploadResponse(
     @SerializedName("id") val id: String,
     @SerializedName("url") val url: String,

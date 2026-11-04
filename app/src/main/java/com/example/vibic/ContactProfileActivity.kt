@@ -13,6 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.vibic.network.ApiClient
+import android.graphics.drawable.Drawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import com.example.vibic.network.TokenManager
 import com.example.vibic.network.WebSocketManager
 import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.launch
@@ -26,6 +33,10 @@ class ContactProfileActivity : AppCompatActivity() {
     private lateinit var profileName: TextView
     private lateinit var profileStatus: TextView
     private lateinit var profilePhone: TextView
+    private lateinit var usernameRow: LinearLayout
+    private lateinit var profileUsername: TextView
+    private lateinit var usernameCopyIcon: ImageView
+    private var username: String? = null
     private lateinit var aboutSection: LinearLayout
     private lateinit var aboutText: TextView
     private lateinit var notifStatus: TextView
@@ -63,6 +74,9 @@ class ContactProfileActivity : AppCompatActivity() {
         profileName       = findViewById(R.id.profileName)
         profileStatus     = findViewById(R.id.profileStatus)
         profilePhone      = findViewById(R.id.profilePhone)
+        usernameRow       = findViewById(R.id.usernameRow)
+        profileUsername   = findViewById(R.id.profileUsername)
+        usernameCopyIcon  = findViewById(R.id.usernameCopyIcon)
         aboutSection      = findViewById(R.id.aboutSection)
         aboutText         = findViewById(R.id.aboutText)
         notifStatus       = findViewById(R.id.notifStatus)
@@ -88,9 +102,69 @@ class ContactProfileActivity : AppCompatActivity() {
                     profileName.text = displayName
                     avatarText.text  = displayName.take(1).uppercase()
                     setOnlineStatus(WebSocketManager.shared.isConnectedValue)
+                    // username есть только у пользователей — у вайбов и групп его нет
+                    if (chat.type == "private") {
+                        usernameRow.visibility = View.VISIBLE
+                        loadUsername()
+                    } else {
+                        usernameRow.visibility = View.GONE
+                    }
                 }
             } catch (_: Exception) { /* тихо игнорируем */ }
         }
+    }
+
+    /** username собеседника — из участников чата (второй участник, не я). */
+    private suspend fun loadUsername() {
+        try {
+            val resp = ApiClient.apiService.getParticipants(chatId)
+            if (!resp.isSuccessful) return
+            val myId = TokenManager.getUserId()
+            val other = resp.body()?.firstOrNull { it.userId != myId }?.user ?: return
+            showUsername(other.username)
+            showAvatar(other.avatarUrl)
+        } catch (_: Exception) { }
+    }
+
+    /** Фото собеседника с сервера. Не загрузилось — остаётся буква. */
+    private fun showAvatar(url: String?) {
+        if (url.isNullOrBlank()) return
+        Glide.with(this).load(url).circleCrop()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?, model: Any?, target: Target<Drawable>, isFirstResource: Boolean
+                ): Boolean = false
+
+                override fun onResourceReady(
+                    resource: Drawable, model: Any, target: Target<Drawable>?,
+                    dataSource: DataSource, isFirstResource: Boolean
+                ): Boolean {
+                    avatarImage.visibility = View.VISIBLE
+                    avatarText.visibility = View.GONE
+                    return false
+                }
+            })
+            .into(avatarImage)
+    }
+
+    private fun showUsername(raw: String?) {
+        val clean = raw?.trim()?.removePrefix("@")
+        if (clean.isNullOrEmpty()) {
+            username = null
+            profileUsername.text = "username не указан"
+            usernameCopyIcon.visibility = View.GONE
+        } else {
+            username = "@$clean"
+            profileUsername.text = username
+            usernameCopyIcon.visibility = View.VISIBLE
+        }
+    }
+
+    private fun copyUsername() {
+        val value = username ?: return
+        val cm = getSystemService(CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        cm.setPrimaryClip(android.content.ClipData.newPlainText("username", value))
+        Toast.makeText(this, "Скопировано", Toast.LENGTH_SHORT).show()
     }
 
     private fun setOnlineStatus(online: Boolean) {
@@ -116,6 +190,8 @@ class ContactProfileActivity : AppCompatActivity() {
         }
 
         backButton.setOnClickListener { finish() }
+
+        usernameRow.setOnClickListener { copyUsername() }
 
         btnMessage.setOnClickListener { finish() }
 
