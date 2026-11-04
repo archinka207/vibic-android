@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="composer_bg">#EB2A1A33</color>        <!-- #2A1A33 92%: светлее фона чата (#120A16), чтобы не сливалось -->
+    <color name="composer_shadow">#4D000000</color>    <!-- чёрный 30% -->
+    <color name="composer_plus_bg">#1AFFFFFF</color>   <!-- белый 10% -->
+    <color name="composer_muted">#7A6A88</color>
+    <color name="composer_text">#FFFFFF</color>
+    <color name="composer_accent">#B366FF</color>
+</resources>

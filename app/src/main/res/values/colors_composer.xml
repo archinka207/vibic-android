@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Поле ввода сообщения (светлая тема). Тёмная — в values-night. -->
+<resources>
+    <color name="composer_bg">#D9FFFFFF</color>        <!-- #FFFFFF 85% -->
+    <color name="composer_shadow">#1F000000</color>    <!-- чёрный 12% -->
+    <color name="composer_plus_bg">#14281440</color>   <!-- #281440 8% -->
+    <color name="composer_muted">#8F80A0</color>
+    <color name="composer_text">#20132C</color>
+    <color name="composer_accent">#B366FF</color>
+</resources>

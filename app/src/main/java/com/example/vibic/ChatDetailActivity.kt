@@ -197,8 +197,34 @@ class ChatDetailActivity : AppCompatActivity() {
     private var dotAnimator: ObjectAnimator? = null
     private var touchStartX = 0f
     private var touchStartY = 0f
-    private val CANCEL_THRESHOLD = 120f
-    private val LOCK_THRESHOLD = 100f
+    // ── Анимации записи (Telegram-style) ──
+    private enum class RecMode { VOICE, VIDEO }
+    private var recMode = RecMode.VOICE
+    /** Кнопка, которую сейчас держат: микрофон или кружок. */
+    private var activeRecButton: ImageView? = null
+    private var holdStarted = false
+    private val holdRunnable = Runnable { onHoldStart() }
+    private var isVideoHold = false
+    private var videoHoldJob: Job? = null
+    private var ampJob: Job? = null
+    private var videoFinalizeAction: ((Boolean, File) -> Unit)? = null
+    private var circleHomeX = 0f
+    private var circleHomeY = 0f
+    private var lockPillBaseY = 0f
+    private var slideArrowAnim: ObjectAnimator? = null
+    private var lockArrowAnim: ObjectAnimator? = null
+    private lateinit var recordOverlay: FrameLayout
+    private lateinit var recordCircle: RecordCircleView
+    private lateinit var lockPill: LinearLayout
+    private lateinit var lockArrow: ImageView
+    private lateinit var cancelTrash: ImageView
+    private lateinit var cancelMic: ImageView
+    private lateinit var slideArrow: TextView
+    private lateinit var videoNoteCircle: FrameLayout
+    private lateinit var videoNoteProgress: VideoProgressRingView
+    private val dpf get() = resources.displayMetrics.density
+    private val CANCEL_THRESHOLD get() = 110f * dpf
+    private val LOCK_THRESHOLD get() = 90f * dpf
 
     companion object {
         private const val TAG = "ChatDetailActivity"
@@ -219,9 +245,7 @@ class ChatDetailActivity : AppCompatActivity() {
     }
     private val requestAudioPermLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
     private val requestCameraAudioPermLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { perms ->
-        if (perms[Manifest.permission.CAMERA] == true && perms[Manifest.permission.RECORD_AUDIO] == true)
-            openVideoNoteOverlay()
-        else
+        if (perms[Manifest.permission.CAMERA] != true || perms[Manifest.permission.RECORD_AUDIO] != true)
             Toast.makeText(this, "Нужны права камеры и микрофона", Toast.LENGTH_SHORT).show()
     }
 
@@ -389,6 +413,17 @@ class ChatDetailActivity : AppCompatActivity() {
         actionPin             = findViewById(R.id.actionPin)
         actionDelete          = findViewById(R.id.actionDelete)
 
+        recordOverlay         = findViewById(R.id.recordOverlay)
+        recordCircle          = findViewById(R.id.recordCircle)
+        lockPill              = findViewById(R.id.lockPill)
+        lockArrow             = findViewById(R.id.lockArrow)
+        cancelTrash           = findViewById(R.id.cancelTrash)
+        cancelMic             = findViewById(R.id.cancelMic)
+        slideArrow            = findViewById(R.id.slideArrow)
+        videoNoteCircle       = findViewById(R.id.videoNoteCircle)
+        videoNoteProgress     = findViewById(R.id.videoNoteProgress)
+        recordCircle.setColor(MaterialColors.getColor(recordCircle, R.attr.vibicBrand))
+
         searchBar             = findViewById(R.id.searchBar)
         searchInput           = findViewById(R.id.searchInput)
         searchClear           = findViewById(R.id.searchClear)
@@ -418,6 +453,20 @@ class ChatDetailActivity : AppCompatActivity() {
         )
         recyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
         recyclerView.adapter = adapter
+
+        // Поле ввода плавает над списком: снизу у списка отступ = высота нижней зоны + 12dp,
+        // чтобы последнее сообщение не пряталось под капсулой (и при росте до 5 строк).
+        val bottomArea = findViewById<View>(R.id.bottomArea)
+        bottomArea.addOnLayoutChangeListener { _, _, top, _, bottom, _, oldTop, _, oldBottom ->
+            val h = bottom - top
+            if (h == oldBottom - oldTop && recyclerView.paddingBottom != 0) return@addOnLayoutChangeListener
+            val atEnd = !recyclerView.canScrollVertically(1)
+            val pad = h + (12 * resources.displayMetrics.density).toInt()
+            if (recyclerView.paddingBottom != pad) {
+                recyclerView.setPadding(recyclerView.paddingLeft, recyclerView.paddingTop, recyclerView.paddingRight, pad)
+                if (atEnd && adapter.itemCount > 0) recyclerView.post { recyclerView.scrollToPosition(adapter.itemCount - 1) }
+            }
+        }
     }
 
     // ── Click listeners ────────────────────────────────────────────────────────
@@ -450,9 +499,11 @@ class ChatDetailActivity : AppCompatActivity() {
             } else false
         }
 
-        micButton.setOnTouchListener { _, event -> handleMicTouch(event); true }
-        deleteRecordingButton.setOnClickListener { stopVoiceRecording(send = false); showNormalInput() }
-        sendLockedButton.setOnClickListener { stopVoiceRecording(send = true) }
+        // Две кнопки: удержание микрофона — голосовое, удержание кружка — видеосообщение
+        micButton.setOnTouchListener { _, event -> handleRecordTouch(micButton, RecMode.VOICE, event); true }
+        videoNoteButton.setOnTouchListener { _, event -> handleRecordTouch(videoNoteButton, RecMode.VIDEO, event); true }
+        deleteRecordingButton.setOnClickListener { cancelRecording() }
+        sendLockedButton.setOnClickListener { finishRecording(send = true) }
 
         // Кнопка Паузы/Продолжения ГС
         pauseRecordingButton.setOnClickListener {
@@ -477,24 +528,6 @@ class ChatDetailActivity : AppCompatActivity() {
         viewOnceButton.setOnClickListener {
             isVoiceViewOnce = !isVoiceViewOnce
             viewOnceButton.alpha = if (isVoiceViewOnce) 1.0f else 0.4f
-        }
-
-        videoNoteButton.setOnClickListener {
-            val camOk = ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED
-            val audioOk = ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.RECORD_AUDIO
-            ) == PackageManager.PERMISSION_GRANTED
-            if (camOk && audioOk) openVideoNoteOverlay()
-            else requestCameraAudioPermLauncher.launch(
-                arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.RECORD_AUDIO
-                )
-            )
         }
 
         videoNoteCancelButton.setOnClickListener {
@@ -968,6 +1001,12 @@ class ChatDetailActivity : AppCompatActivity() {
                     pending.invoke()
                     return@start
                 }
+                val finalizeAction = videoFinalizeAction
+                if (finalizeAction != null) {
+                    videoFinalizeAction = null
+                    finalizeAction(event.hasError(), fileSnapshot)
+                    return@start
+                }
                 // 2) Обычная обработка ошибки
                 if (event.hasError()) {
                     Log.e(TAG, "Ошибка записи: ${event.error}")
@@ -988,28 +1027,400 @@ class ChatDetailActivity : AppCompatActivity() {
 
     // ── Voice recording ────────────────────────────────────────────────────────
 
-    private fun handleMicTouch(event: MotionEvent) {
-        when (event.action) {
+    /**
+     * Кнопки записи как в Telegram: удержание — запись,
+     * влево — отмена, вверх — замок. Короткий тап — подсказка.
+     */
+    private fun handleRecordTouch(button: ImageView, mode: RecMode, event: MotionEvent) {
+        when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                    requestAudioPermLauncher.launch(Manifest.permission.RECORD_AUDIO); return
-                }
+                if (isRecordingActive()) return
+                activeRecButton = button
+                recMode = mode
                 touchStartX = event.rawX; touchStartY = event.rawY
-                micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
-                startVoiceRecording()
+                holdStarted = false
+                button.animate().scaleX(0.85f).scaleY(0.85f).setDuration(120).start()
+                button.postDelayed(holdRunnable, 180)
             }
             MotionEvent.ACTION_MOVE -> {
-                if (!isVoiceRecording || isLocked) return
-                val dx = event.rawX - touchStartX; val dy = event.rawY - touchStartY
-                slideToCancelLayout.alpha = (1f + dx / CANCEL_THRESHOLD).coerceIn(0f, 1f)
-                if (dx < -CANCEL_THRESHOLD) { micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS); stopVoiceRecording(false); showNormalInput() }
-                else if (dy < -LOCK_THRESHOLD) lockVoiceRecording()
+                if (activeRecButton !== button) return
+                if (!holdStarted || isLocked || !isRecordingActive()) return
+                onHoldMove(event.rawX - touchStartX, event.rawY - touchStartY)
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                if (!isVoiceRecording || isLocked) return
-                stopVoiceRecording(send = true)
+                if (activeRecButton !== button) return
+                button.removeCallbacks(holdRunnable)
+                button.animate().scaleX(1f).scaleY(1f).setDuration(120).start()
+                if (!holdStarted) {
+                    if (event.actionMasked == MotionEvent.ACTION_UP) {
+                        val hint = if (mode == RecMode.VOICE) "Удерживайте, чтобы записать голосовое"
+                                   else "Удерживайте, чтобы записать кружок"
+                        Toast.makeText(this, hint, Toast.LENGTH_SHORT).show()
+                    }
+                    return
+                }
+                if (isLocked || !isRecordingActive()) return
+                finishRecording(send = true)
             }
         }
+    }
+
+    private fun isRecordingActive() = isVoiceRecording || isVideoHold
+
+    private fun onHoldStart() {
+        holdStarted = true
+        if (recMode == RecMode.VOICE) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                requestAudioPermLauncher.launch(Manifest.permission.RECORD_AUDIO); return
+            }
+            computeCircleHome()
+            micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+            startVoiceRecording()
+            if (!isVoiceRecording) return
+            showRecordUi(R.drawable.ic_composer_mic)
+            startAmplitudeUpdates()
+        } else {
+            val camOk = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+            val audioOk = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+            if (!camOk || !audioOk) {
+                requestCameraAudioPermLauncher.launch(arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO))
+                return
+            }
+            computeCircleHome()
+            micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+            startVideoHold()
+            showRecordUi(R.drawable.ic_composer_video_note)
+            recordCircle.setAmplitude(0.15f)
+        }
+    }
+
+    /** Центр кнопки записи в координатах слоя анимаций. */
+    private fun computeCircleHome() {
+        val btn = activeRecButton ?: micButton
+        val b = IntArray(2); btn.getLocationInWindow(b)
+        val o = IntArray(2); recordOverlay.getLocationInWindow(o)
+        circleHomeX = b[0] - o[0] + btn.width / 2f
+        circleHomeY = b[1] - o[1] + btn.height / 2f
+    }
+
+    private fun placeCircle(offX: Float, offY: Float) {
+        val half = 90f * dpf
+        recordCircle.translationX = circleHomeX + offX - half
+        recordCircle.translationY = circleHomeY + offY - half
+    }
+
+    /** Круг под пальцем + замок сверху + бегущая стрелка «влево». */
+    private fun showRecordUi(iconRes: Int) {
+        recordCircle.animate().cancel()
+        recordCircle.resetAmplitude()
+        recordCircle.setIcon(iconRes, animate = false)
+        recordCircle.isClickable = false
+        recordCircle.setOnClickListener(null)
+        placeCircle(0f, 0f)
+        recordCircle.scaleX = 0.2f; recordCircle.scaleY = 0.2f; recordCircle.alpha = 1f
+        recordCircle.visibility = View.VISIBLE
+        recordCircle.animate().scaleX(1f).scaleY(1f).setDuration(260)
+            .setInterpolator(android.view.animation.OvershootInterpolator(1.6f)).start()
+
+        lockPillBaseY = circleHomeY - recordCircle.baseRadius - 28f * dpf - 72f * dpf
+        lockPill.translationX = circleHomeX - 20f * dpf
+        lockPill.translationY = lockPillBaseY + 40f * dpf
+        lockPill.alpha = 0f; lockPill.scaleX = 1f; lockPill.scaleY = 1f
+        lockPill.visibility = View.VISIBLE
+        lockArrow.alpha = 1f
+        lockPill.animate().translationY(lockPillBaseY).alpha(1f).setStartDelay(120).setDuration(220)
+            .setInterpolator(android.view.animation.DecelerateInterpolator()).start()
+
+        lockArrowAnim?.cancel()
+        lockArrowAnim = ObjectAnimator.ofFloat(lockArrow, "translationY", 0f, -5f * dpf).apply {
+            duration = 600; repeatCount = ObjectAnimator.INFINITE; repeatMode = ObjectAnimator.REVERSE; start()
+        }
+        slideArrowAnim?.cancel()
+        slideArrowAnim = ObjectAnimator.ofFloat(slideArrow, "translationX", 0f, -6f * dpf).apply {
+            duration = 700; repeatCount = ObjectAnimator.INFINITE; repeatMode = ObjectAnimator.REVERSE; start()
+        }
+    }
+
+    private fun hideRecordUi(shrinkToHome: Boolean) {
+        ampJob?.cancel(); ampJob = null
+        lockArrowAnim?.cancel(); lockArrowAnim = null
+        slideArrowAnim?.cancel(); slideArrowAnim = null
+        slideArrow.translationX = 0f
+        recordCircle.isClickable = false
+        recordCircle.setOnClickListener(null)
+        recordCircle.animate().cancel()
+        if (shrinkToHome) placeCircle(0f, 0f)
+        recordCircle.animate().scaleX(0f).scaleY(0f).alpha(0f).setDuration(180)
+            .setInterpolator(android.view.animation.AccelerateInterpolator())
+            .withEndAction { recordCircle.visibility = View.GONE }.start()
+        lockPill.animate().cancel()
+        lockPill.animate().alpha(0f).translationY(lockPillBaseY + 30f * dpf).setStartDelay(0).setDuration(150)
+            .withEndAction { lockPill.visibility = View.GONE }.start()
+    }
+
+    /** Палец ведёт круг: влево — к отмене, вверх — к замку (по доминирующей оси). */
+    private fun onHoldMove(dx: Float, dy: Float) {
+        val cdx = dx.coerceAtMost(0f)
+        val cdy = dy.coerceAtMost(0f)
+        val vertical = -cdy > -cdx
+        val offX = if (vertical) 0f else cdx
+        val offY = if (vertical) cdy else 0f
+        placeCircle(offX, offY)
+
+        slideToCancelLayout.translationX = offX * 0.5f
+        slideToCancelLayout.alpha = (1f + offX / CANCEL_THRESHOLD).coerceIn(0f, 1f)
+
+        val lockProgress = (-offY / LOCK_THRESHOLD).coerceIn(0f, 1f)
+        lockPill.translationY = lockPillBaseY + offY * 0.4f
+        lockArrow.alpha = 1f - lockProgress
+
+        when {
+            offX < -CANCEL_THRESHOLD -> cancelRecording()
+            offY < -LOCK_THRESHOLD   -> lockRecording()
+        }
+    }
+
+    /** Громкость микрофона → размер волн вокруг круга. */
+    private fun startAmplitudeUpdates() {
+        ampJob?.cancel()
+        ampJob = lifecycleScope.launch {
+            while (isVoiceRecording) {
+                val a = if (isRecordingPaused) 0 else try { mediaRecorder?.maxAmplitude ?: 0 } catch (_: Exception) { 0 }
+                recordCircle.setAmplitude(kotlin.math.sqrt((a / 16000f).coerceIn(0f, 1f)))
+                delay(70)
+            }
+        }
+    }
+
+    /** Нижняя панель записи: точка, таймер, «Влево — отмена». Выезжает справа. */
+    private fun showRecordingPanel(video: Boolean) {
+        inputLayout.visibility = View.GONE
+        lockedRecordingLayout.visibility = View.GONE
+        recordingLayout.visibility = View.VISIBLE
+        recordingLayout.alpha = 0f; recordingLayout.translationX = 40f * dpf
+        recordingLayout.animate().alpha(1f).translationX(0f).setDuration(180).start()
+        slideToCancelLayout.alpha = 1f; slideToCancelLayout.translationX = 0f
+        lockLayout.visibility = View.GONE
+        recordingTimer.alpha = 1f; recordingDot.alpha = 1f
+        recordingTimer.text = "0:00"; lockedTimer.text = "0:00"
+        viewOnceButton.visibility = if (video) View.GONE else View.VISIBLE
+        pauseRecordingButton.visibility = if (video) View.GONE else View.VISIBLE
+        dotAnimator?.cancel()
+        dotAnimator = ObjectAnimator.ofFloat(recordingDot, "alpha", 1f, 0f).apply {
+            duration = 500; repeatCount = ObjectAnimator.INFINITE; repeatMode = ObjectAnimator.REVERSE; start()
+        }
+    }
+
+    /** Замок: запись продолжается без пальца, круг становится кнопкой «Отправить». */
+    private fun lockRecording() {
+        if (isLocked || !isRecordingActive()) return
+        isLocked = true
+        micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+
+        recordingLayout.visibility = View.GONE
+        lockedRecordingLayout.visibility = View.VISIBLE
+        lockedRecordingLayout.alpha = 0f
+        lockedRecordingLayout.animate().alpha(1f).setDuration(150).start()
+        sendLockedButton.visibility = View.INVISIBLE
+        dotAnimator?.cancel()
+        dotAnimator = ObjectAnimator.ofFloat(lockedDot, "alpha", 1f, 0f).apply {
+            duration = 500; repeatCount = ObjectAnimator.INFINITE; repeatMode = ObjectAnimator.REVERSE; start()
+        }
+
+        lockArrowAnim?.cancel(); lockArrowAnim = null
+        lockPill.animate().cancel()
+        lockPill.animate().scaleX(1.15f).scaleY(1.15f).setDuration(110).withEndAction {
+            lockPill.animate().alpha(0f).scaleX(0.8f).scaleY(0.8f).translationY(lockPillBaseY + 30f * dpf)
+                .setDuration(180).withEndAction { lockPill.visibility = View.GONE }.start()
+        }.start()
+
+        recordCircle.animate().translationX(circleHomeX - 90f * dpf).translationY(circleHomeY - 90f * dpf)
+            .setDuration(200).setInterpolator(android.view.animation.DecelerateInterpolator()).start()
+        recordCircle.setIcon(R.drawable.ic_send, animate = true)
+        recordCircle.isClickable = true
+        recordCircle.setOnClickListener { finishRecording(send = true) }
+    }
+
+    /** Отпустили палец / нажали «Отправить» в замке. */
+    private fun finishRecording(send: Boolean) {
+        if (!isRecordingActive()) return
+        hideRecordUi(shrinkToHome = true)
+        if (isVideoHold) {
+            finishVideoHold(send)
+            showNormalInput()
+        } else {
+            stopVoiceRecording(send)
+        }
+    }
+
+    /** Отмена: круг исчезает, микрофон «падает» в корзину. */
+    private fun cancelRecording() {
+        if (!isRecordingActive()) return
+        micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+        val dot = if (isLocked) lockedDot else recordingDot
+        val d = IntArray(2); dot.getLocationInWindow(d)
+        val o = IntArray(2); recordOverlay.getLocationInWindow(o)
+        val x = d[0] - o[0] + dot.width / 2f
+        val y = d[1] - o[1] + dot.height / 2f
+
+        hideRecordUi(shrinkToHome = false)
+        if (isVideoHold) finishVideoHold(send = false)
+        else stopVoiceRecording(send = false, restoreInput = false)
+
+        // Гасим содержимое панели, оставляем место под корзину
+        dotAnimator?.cancel()
+        listOf<View>(recordingTimer, slideToCancelLayout, recordingDot, lockedTimer, lockedDot).forEach {
+            it.animate().alpha(0f).setDuration(150).start()
+        }
+        playTrashAnimation(x, y) { showNormalInput() }
+    }
+
+    private fun playTrashAnimation(x: Float, y: Float, onEnd: () -> Unit) {
+        val half = 12f * dpf
+        cancelTrash.apply {
+            animate().cancel()
+            translationX = x - half; translationY = y - half
+            scaleX = 0f; scaleY = 0f; alpha = 1f; rotation = 0f; visibility = View.VISIBLE
+        }
+        cancelMic.apply {
+            animate().cancel()
+            translationX = x - half; translationY = y - half
+            rotation = 0f; alpha = 1f; scaleX = 1f; scaleY = 1f; visibility = View.VISIBLE
+        }
+        cancelMic.animate().translationY(y - half - 70f * dpf).rotation(180f).setDuration(280)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
+            .withEndAction {
+                cancelTrash.animate().scaleX(1f).scaleY(1f).setDuration(160)
+                    .setInterpolator(android.view.animation.OvershootInterpolator(2f)).start()
+                cancelMic.animate().translationY(y - half).scaleX(0.6f).scaleY(0.6f).setDuration(260)
+                    .setInterpolator(android.view.animation.AccelerateInterpolator())
+                    .withEndAction {
+                        cancelMic.visibility = View.GONE
+                        cancelTrash.animate().rotation(-12f).setDuration(70).withEndAction {
+                            cancelTrash.animate().rotation(12f).setDuration(70).withEndAction {
+                                cancelTrash.animate().rotation(0f).scaleX(0f).scaleY(0f).setDuration(180)
+                                    .setStartDelay(80).withEndAction {
+                                        cancelTrash.visibility = View.GONE
+                                        cancelTrash.animate().setStartDelay(0)
+                                        onEnd()
+                                    }.start()
+                            }.start()
+                        }.start()
+                    }.start()
+            }.start()
+    }
+
+    // ── Кружок (удержание) ─────────────────────────────────────────────────────
+
+    /** Кружок «вырастает» из кнопки в центр экрана, вокруг — кольцо прогресса 60 сек. */
+    private fun startVideoHold() {
+        isVideoHold = true
+        isLocked = false
+        emojiPanelContainer.visibility = View.GONE
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(messageInput.windowToken, 0)
+        messageInput.clearFocus()
+
+        videoNoteTimer.visibility = View.GONE
+        videoNoteHint.visibility = View.GONE
+        videoNoteCancelButton.visibility = View.GONE
+        videoNoteRecordButton.visibility = View.GONE
+        videoNoteFlipButton.visibility = View.VISIBLE
+        videoNoteProgress.progress = 0f
+        videoNoteProgress.setProgressColor(MaterialColors.getColor(videoNoteProgress, R.attr.vibicBrand))
+
+        // Затемнение — только над нижней панелью, чтобы «Удалить» в замке нажимался
+        val bottomArea = recordingLayout.parent as View
+        val ba = IntArray(2); bottomArea.getLocationInWindow(ba)
+        val root = findViewById<View>(R.id.rootLayout)
+        val rl = IntArray(2); root.getLocationInWindow(rl)
+        (videoNoteOverlay.layoutParams as FrameLayout.LayoutParams).bottomMargin =
+            (root.height - (ba[1] - rl[1])).coerceAtLeast(0)
+        videoNoteOverlay.requestLayout()
+
+        videoNoteOverlay.alpha = 0f
+        videoNoteOverlay.visibility = View.VISIBLE
+        videoNoteOverlay.animate().alpha(1f).setDuration(220).start()
+        videoNoteCircle.alpha = 0f
+        videoNoteCircle.post {
+            val (dx, dy) = videoCircleOffsetToButton()
+            videoNoteCircle.translationX = dx; videoNoteCircle.translationY = dy
+            videoNoteCircle.scaleX = 0.15f; videoNoteCircle.scaleY = 0.15f
+            videoNoteCircle.alpha = 1f
+            videoNoteCircle.animate().translationX(0f).translationY(0f).scaleX(1f).scaleY(1f)
+                .setDuration(320).setInterpolator(android.view.animation.OvershootInterpolator(0.9f)).start()
+        }
+        videoNoteFlipButton.alpha = 0f
+        videoNoteFlipButton.animate().alpha(1f).setStartDelay(200).setDuration(200).start()
+
+        startCameraPreview()
+        startFrameGrabber()
+        showRecordingPanel(video = true)
+
+        videoHoldJob?.cancel()
+        videoHoldJob = lifecycleScope.launch {
+            var waited = 0
+            while (videoCapture == null && waited < 3000 && isVideoHold) { delay(50); waited += 50 }
+            if (!isVideoHold) return@launch
+            if (videoCapture == null) {
+                Toast.makeText(this@ChatDetailActivity, "Камера не готова", Toast.LENGTH_SHORT).show()
+                cancelRecording(); return@launch
+            }
+            startCameraRecording()
+            val start = System.currentTimeMillis()
+            while (isVideoHold) {
+                val elapsed = System.currentTimeMillis() - start
+                val secs = (elapsed / 1000).toInt()
+                val t = "%d:%02d".format(secs / 60, secs % 60)
+                recordingTimer.text = t; lockedTimer.text = t
+                videoNoteProgress.progress = elapsed / 60_000f
+                if (elapsed >= 60_000L) { finishRecording(send = true); break }
+                delay(50)
+            }
+        }
+    }
+
+    /** Смещение центра кружка к центру кнопки записи. */
+    private fun videoCircleOffsetToButton(): Pair<Float, Float> {
+        val c = IntArray(2); videoNoteCircle.getLocationInWindow(c)
+        val o = IntArray(2); recordOverlay.getLocationInWindow(o)
+        val cx = c[0] - o[0] - videoNoteCircle.translationX + videoNoteCircle.width / 2f
+        val cy = c[1] - o[1] - videoNoteCircle.translationY + videoNoteCircle.height / 2f
+        return Pair(circleHomeX - cx, circleHomeY - cy)
+    }
+
+    /** Остановка кружка: отправка — улетает в кнопку, отмена — схлопывается на месте. */
+    private fun finishVideoHold(send: Boolean) {
+        if (!isVideoHold) return
+        isVideoHold = false
+        isLocked = false
+        videoHoldJob?.cancel(); videoHoldJob = null
+        val wasRecording = isVideoRecording
+        isVideoRecording = false
+        val rec = activeVideoRecording
+        activeVideoRecording = null
+        videoFile = null
+        if (wasRecording && rec != null) {
+            videoFinalizeAction = { error, file ->
+                if (send && !error && file.exists() && file.length() > 500) uploadAndSendVideoNote(file)
+                else file.delete()
+            }
+            rec.stop()
+        }
+
+        videoNoteFlipButton.animate().alpha(0f).setStartDelay(0).setDuration(120).start()
+        val (dx, dy) = if (send) videoCircleOffsetToButton() else Pair(0f, 0f)
+        videoNoteCircle.animate().cancel()
+        videoNoteCircle.animate().translationX(dx).translationY(dy).scaleX(0.1f).scaleY(0.1f).alpha(0f)
+            .setDuration(240).setInterpolator(android.view.animation.AccelerateInterpolator())
+            .withEndAction {
+                closeVideoNoteOverlay()
+                (videoNoteOverlay.layoutParams as FrameLayout.LayoutParams).bottomMargin = 0
+                videoNoteOverlay.requestLayout()
+                videoNoteCircle.translationX = 0f; videoNoteCircle.translationY = 0f
+                videoNoteCircle.scaleX = 1f; videoNoteCircle.scaleY = 1f; videoNoteCircle.alpha = 1f
+                videoNoteProgress.progress = 0f
+            }.start()
     }
 
     private fun startVoiceRecording() {
@@ -1033,11 +1444,7 @@ class ChatDetailActivity : AppCompatActivity() {
         viewOnceButton.alpha = 0.4f
         pauseRecordingButton.setImageResource(android.R.drawable.ic_media_pause)
 
-        inputLayout.visibility = View.GONE; recordingLayout.visibility = View.VISIBLE
-        lockedRecordingLayout.visibility = View.GONE; slideToCancelLayout.alpha = 1f; lockLayout.visibility = View.VISIBLE
-        dotAnimator = ObjectAnimator.ofFloat(recordingDot, "alpha", 1f, 0f).apply {
-            duration = 500; repeatCount = ObjectAnimator.INFINITE; repeatMode = ObjectAnimator.REVERSE; start()
-        }
+        showRecordingPanel(video = false)
         voiceRecordingJob = lifecycleScope.launch {
             while (isVoiceRecording) {
                 delay(1000)
@@ -1051,30 +1458,29 @@ class ChatDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun lockVoiceRecording() {
-        if (!isVoiceRecording || isLocked) return
-        isLocked = true; micButton.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
-        recordingLayout.visibility = View.GONE; lockedRecordingLayout.visibility = View.VISIBLE
-        dotAnimator?.cancel()
-        dotAnimator = ObjectAnimator.ofFloat(lockedDot, "alpha", 1f, 0f).apply {
-            duration = 500; repeatCount = ObjectAnimator.INFINITE; repeatMode = ObjectAnimator.REVERSE; start()
-        }
-    }
-
-    private fun stopVoiceRecording(send: Boolean) {
+    private fun stopVoiceRecording(send: Boolean, restoreInput: Boolean = true) {
         if (!isVoiceRecording) return
-        isVoiceRecording = false; isLocked = false; voiceRecordingJob?.cancel(); dotAnimator?.cancel()
+        isVoiceRecording = false; isLocked = false; voiceRecordingJob?.cancel(); ampJob?.cancel()
+        if (restoreInput) dotAnimator?.cancel()
         try { mediaRecorder?.apply { stop(); release() }; mediaRecorder = null }
-        catch (e: Exception) { Log.e(TAG, "Ошибка остановки", e); voiceFile?.delete(); voiceFile = null; showNormalInput(); return }
+        catch (e: Exception) {
+            Log.e(TAG, "Ошибка остановки", e); mediaRecorder?.release(); mediaRecorder = null
+            voiceFile?.delete(); voiceFile = null; if (restoreInput) showNormalInput(); return
+        }
         val file = voiceFile; voiceFile = null
         if (send && file != null && file.exists() && file.length() > 500) { showNormalInput(); uploadAndSendAudio(file) }
-        else { file?.delete(); if (send) Toast.makeText(this, "Слишком короткое", Toast.LENGTH_SHORT).show(); showNormalInput() }
+        else { file?.delete(); if (send) Toast.makeText(this, "Слишком короткое", Toast.LENGTH_SHORT).show(); if (restoreInput) showNormalInput() }
     }
 
     private fun showNormalInput() {
+        dotAnimator?.cancel()
         recordingLayout.visibility = View.GONE; lockedRecordingLayout.visibility = View.GONE
         inputLayout.visibility = View.VISIBLE; recordingTimer.text = "0:00"; lockedTimer.text = "0:00"
-        recordingDot.alpha = 1f; lockedDot.alpha = 1f
+        recordingDot.alpha = 1f; lockedDot.alpha = 1f; recordingTimer.alpha = 1f; lockedTimer.alpha = 1f
+        slideToCancelLayout.alpha = 1f; slideToCancelLayout.translationX = 0f
+        sendLockedButton.visibility = View.VISIBLE
+        inputLayout.alpha = 0f
+        inputLayout.animate().alpha(1f).setDuration(160).start()
     }
 
     // ── Upload ─────────────────────────────────────────────────────────────────
@@ -1663,6 +2069,7 @@ class ChatDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         when {
+            isVideoHold || isVoiceRecording -> cancelRecording()
             videoNoteOverlay.visibility == View.VISIBLE -> {
                 isFlipping = true; activeVideoRecording?.stop(); activeVideoRecording = null
                 isVideoRecording = false; videoFile?.delete(); videoFile = null
@@ -1671,7 +2078,6 @@ class ChatDetailActivity : AppCompatActivity() {
             contextMenuOverlay.visibility == View.VISIBLE -> hideContextMenu()
             isSearchMode -> closeSearch()
             replyBar.visibility           == View.VISIBLE -> clearReply()
-            isVoiceRecording -> { stopVoiceRecording(false); showNormalInput() }
             else -> super.onBackPressed()
         }
     }

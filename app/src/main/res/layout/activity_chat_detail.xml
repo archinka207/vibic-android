@@ -142,20 +142,32 @@
             android:layout_height="0.5dp"
             android:background="?attr/vibicDivider"/>
 
-        <!-- Список сообщений -->
+        <!-- Список + плавающее поле ввода поверх него -->
+        <FrameLayout
+            android:id="@+id/chatBody"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        <!-- Список сообщений (нижний отступ под капсулу задаётся из кода) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messagesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="8dp"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="92dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"/>
 
         <!-- ═══ НИЖНЯЯ ЗОНА ═══ -->
         <FrameLayout
+            android:id="@+id/bottomArea"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
             <LinearLayout
                 android:id="@+id/inputLayout"
@@ -163,22 +175,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Плавающая капсула: 12dp по бокам, 8dp сверху, 16dp снизу -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingHorizontal="12dp"
                     android:paddingTop="8dp"
-                    android:paddingBottom="12dp"
+                    android:paddingBottom="16dp"
+                    android:clipToPadding="false"
                     android:gravity="bottom">
 
                     <LinearLayout
+                        android:id="@+id/composerCapsule"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:background="@drawable/bg_chat_input_capsule"
-                        android:minHeight="48dp">
+                        android:background="@drawable/bg_composer_capsule"
+                        android:elevation="12dp"
+                        android:outlineAmbientShadowColor="@color/composer_shadow"
+                        android:outlineSpotShadowColor="@color/composer_shadow"
+                        android:minHeight="56dp">
 
                         <LinearLayout
                             android:id="@+id/replyBar"
@@ -256,76 +274,91 @@
                             android:background="#33B366FF"
                             android:visibility="gone"/>
 
+                        <!-- «+» · текст · эмодзи · запись/отправить. Кнопки прижаты к низу,
+                             при одной строке — по центру капсулы 56dp -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:minHeight="48dp"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="4dp">
+                            android:gravity="bottom"
+                            android:minHeight="56dp"
+                            android:paddingHorizontal="12dp">
 
                             <ImageView
                                 android:id="@+id/attachButton"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_chat_add"
-                                android:background="?selectableItemBackgroundBorderless"/>
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:layout_marginBottom="11dp"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_composer_plus"
+                                app:tint="@color/composer_muted"
+                                android:background="@drawable/bg_composer_plus"/>
 
                             <EditText
                                 android:id="@+id/messageInput"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Type your message..."
-                                android:textColorHint="?attr/vibicTextTertiary"
-                                android:textColor="?attr/vibicTextPrimary"
+                                android:layout_marginStart="10dp"
+                                android:minHeight="56dp"
+                                android:hint="Сообщение"
+                                android:textColorHint="@color/composer_muted"
+                                android:textColor="@color/composer_text"
+                                android:textCursorDrawable="@drawable/composer_cursor"
                                 android:background="@null"
-                                android:paddingHorizontal="12dp"
-                                android:paddingVertical="12dp"
-                                android:maxLines="4"
+                                android:paddingHorizontal="0dp"
+                                android:paddingTop="17dp"
+                                android:paddingBottom="17dp"
+                                android:gravity="center_vertical|start"
+                                android:maxLines="5"
                                 android:inputType="textMultiLine|textCapSentences"
-                                android:textSize="15sp"/>
+                                android:textSize="16sp"/>
 
                             <ImageView
                                 android:id="@+id/emojiButton"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_chat_emoji"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:layout_marginEnd="8dp"/>
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginBottom="13dp"
+                                android:padding="3dp"
+                                android:src="@drawable/ic_composer_emoji"
+                                app:tint="@color/composer_muted"
+                                android:background="?selectableItemBackgroundBorderless"/>
 
                             <ImageView
                                 android:id="@+id/videoNoteButton"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/ic_camera"
-                                app:tint="?attr/vibicBrand"
-                                android:padding="4dp"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:layout_marginEnd="4dp"/>
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginBottom="13dp"
+                                android:padding="3dp"
+                                android:src="@drawable/ic_composer_video_note"
+                                app:tint="@color/composer_accent"
+                                android:background="?selectableItemBackgroundBorderless"/>
 
                             <FrameLayout
-                                android:layout_width="36dp"
-                                android:layout_height="36dp">
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginBottom="9dp">
 
                                 <ImageView
                                     android:id="@+id/sendButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_send"
-                                    app:tint="?attr/vibicBrand"
-                                    android:padding="6dp"
-                                    android:background="?selectableItemBackgroundBorderless"
+                                    android:layout_width="38dp"
+                                    android:layout_height="38dp"
+                                    android:padding="9dp"
+                                    android:src="@drawable/ic_composer_send"
+                                    android:background="@drawable/bg_composer_send"
                                     android:visibility="gone"/>
 
                                 <ImageView
                                     android:id="@+id/micButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_mic"
-                                    app:tint="?attr/vibicBrand"
-                                    android:padding="6dp"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:layout_gravity="center"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_composer_mic"
+                                    app:tint="@color/composer_accent"
                                     android:background="?selectableItemBackgroundBorderless"/>
                             </FrameLayout>
                         </LinearLayout>
@@ -473,19 +506,20 @@
                         android:orientation="horizontal"
                         android:gravity="center">
                         <TextView
+                            android:id="@+id/slideArrow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="◀"
-                            android:textColor="?attr/vibicTextTertiary"
-                            android:textSize="11sp"/>
+                            android:text="‹"
+                            android:textColor="?attr/vibicTextSecondary"
+                            android:textSize="22sp"/>
                         <TextView
                             android:id="@+id/slideToCancelText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
-                            android:text="Сдвиньте для отмены"
-                            android:textColor="?attr/vibicTextTertiary"
-                            android:textSize="12sp"/>
+                            android:text="Влево — отмена"
+                            android:textColor="?attr/vibicTextSecondary"
+                            android:textSize="14sp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -602,6 +636,7 @@
             </LinearLayout>
 
         </FrameLayout>
+        </FrameLayout>
     </LinearLayout>
 
     <!-- ═══ ОВЕРЛЕЙ КРУЖОЧКА ═══ -->
@@ -621,12 +656,23 @@
             android:orientation="vertical"
             android:gravity="center">
 
+            <FrameLayout
+                android:id="@+id/videoNoteCircle"
+                android:layout_width="276dp"
+                android:layout_height="276dp">
+
+            <com.example.vibic.VideoProgressRingView
+                android:id="@+id/videoNoteProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="260dp"
                 android:layout_height="260dp"
+                android:layout_gravity="center"
                 app:cardCornerRadius="130dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="@android:color/transparent">
+                app:cardBackgroundColor="#000000">
 
 
                 <androidx.camera.view.PreviewView
@@ -640,6 +686,7 @@
                     android:layout_height="match_parent"
                     android:visibility="invisible"/>
             </androidx.cardview.widget.CardView>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/videoNoteTimer"
@@ -703,6 +750,62 @@
                 android:textColor="#AAFFFFFF"
                 android:textSize="13sp"/>
         </LinearLayout>
+    </FrameLayout>
+
+    <!-- ═══ АНИМАЦИИ ЗАПИСИ (круг, замок, корзина) — позиции задаются из кода ═══ -->
+    <FrameLayout
+        android:id="@+id/recordOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false">
+
+        <LinearLayout
+            android:id="@+id/lockPill"
+            android:layout_width="40dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_lock_pill"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/lockIcon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_lock_channel"
+                app:tint="?attr/vibicTextSecondary"/>
+
+            <ImageView
+                android:id="@+id/lockArrow"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:rotation="-90"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="?attr/vibicTextSecondary"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cancelTrash"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_trash"
+            app:tint="?attr/vibicTextSecondary"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/cancelMic"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_mic"
+            app:tint="?attr/vibicDanger"
+            android:visibility="gone"/>
+
+        <com.example.vibic.RecordCircleView
+            android:id="@+id/recordCircle"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:visibility="gone"/>
     </FrameLayout>
 
     <!-- ═══ OVERLAY КОНТЕКСТНОГО МЕНЮ (Telegram-style) ═══ -->
