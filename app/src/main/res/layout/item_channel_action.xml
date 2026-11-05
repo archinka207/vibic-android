@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Капсула действия в профиле канала. Иконка и подпись ставятся из кода -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="6dp"
+    android:background="?selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true">
+
+    <FrameLayout
+        android:id="@+id/actionCapsule"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_channel_capsule">
+
+        <ImageView
+            android:id="@+id/actionIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:tint="?attr/vibicBrand"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/actionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:textColor="?attr/vibicTextSecondary"
+        android:textSize="11sp"/>
+</LinearLayout>

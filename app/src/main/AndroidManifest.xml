@@ -123,6 +123,16 @@
             android:name=".GroupAdminsActivity"
             android:exported="false"/>
         <activity
+            android:name=".ChannelProfileActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ChannelAdminsActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".AdminRightsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
             android:name=".EditProfileActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Мини-карточка статистики: значение, подпись, прирост -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:background="@drawable/bg_channel_card"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="12dp">
+
+    <TextView
+        android:id="@+id/statValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="—"
+        android:maxLines="1"
+        android:textColor="?attr/vibicTextPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/statLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="?attr/vibicTextSecondary"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/statGrowth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:textColor="@color/channel_growth"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="invisible"/>
+</LinearLayout>

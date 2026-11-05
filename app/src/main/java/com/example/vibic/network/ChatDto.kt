@@ -16,7 +16,11 @@ data class ChatDto(
     // description и participants_count приходят из GET api/chats/{chatId}
     // (бэкенд отдаёт ChatDetailResponse с этими полями).
     @SerializedName("description") val description: String? = null,
-    @SerializedName("participants_count") val participantsCount: Int? = null
+    @SerializedName("participants_count") val participantsCount: Int? = null,
+
+    // ── Поле канала ───────────────────────────────────────────────────────────
+    // @username публичного канала. Сервер пока не отдаёт — тогда канал считаем частным.
+    @SerializedName("username") val username: String? = null
 )
 
 data class LastMessage(

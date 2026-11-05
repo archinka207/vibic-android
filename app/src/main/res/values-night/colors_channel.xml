@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Профиль канала (владелец / админ), тёмная тема -->
+<resources>
+    <color name="channel_bg_start">#0D001A</color>
+    <color name="channel_bg_mid">#1A0526</color>
+    <color name="channel_bg_end">#260D33</color>
+    <color name="channel_card">#1A1A1A</color>
+    <color name="channel_danger">#FF5555</color>
+    <color name="channel_gold">#FFC85A</color>
+    <color name="channel_gold_bg">#1FFFC85A</color>      <!-- #FFC85A 12% -->
+    <color name="channel_growth">#3FD6A0</color>
+    <color name="channel_switch_off">#3A3A42</color>
+</resources>

@@ -1,6 +1,8 @@
 package com.example.vibic
 
 import android.Manifest
+import com.example.vibic.channel.ChannelAdmins
+import com.example.vibic.channel.ChannelRole
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.ClipData
@@ -608,10 +610,19 @@ class ChatDetailActivity : AppCompatActivity() {
                 } catch (_: Exception) {
                     "private"
                 }
-                val target = if (type == "group")
-                    GroupProfileActivity::class.java
-                else
-                    ContactProfileActivity::class.java
+                val target = when (type) {
+                    "group" -> GroupProfileActivity::class.java
+                    // Владелец и админ видят профиль управления, подписчик — обычный
+                    "channel" -> {
+                        val role = ChannelAdmins.loadStaff(chatId)
+                            ?.myRole(ChannelAdmins.myUserId())
+                        if (role == null || role == ChannelRole.SUBSCRIBER)
+                            ContactProfileActivity::class.java
+                        else
+                            ChannelProfileActivity::class.java
+                    }
+                    else -> ContactProfileActivity::class.java
+                }
 
                 startActivity(Intent(this@ChatDetailActivity, target).apply {
                     putExtra("chat_id", chatId)

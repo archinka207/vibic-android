@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Профиль канала (владелец / админ), светлая тема. Тёмные значения — в values-night -->
+<resources>
+    <color name="channel_bg_start">#F3EDFA</color>
+    <color name="channel_bg_mid">#EEE4F8</color>
+    <color name="channel_bg_end">#E8DAF5</color>
+    <color name="channel_card">#FFFFFF</color>
+    <color name="channel_danger">#E5484D</color>
+    <color name="channel_gold">#B7791F</color>
+    <color name="channel_gold_bg">#26FFC85A</color>
+    <color name="channel_growth">#1FA77A</color>
+    <!-- Общие для обеих тем -->
+    <color name="channel_post_start">#6A11CB</color>
+    <color name="channel_post_end">#B366FF</color>
+    <color name="channel_switch_off">#D9D2E3</color>
+</resources>

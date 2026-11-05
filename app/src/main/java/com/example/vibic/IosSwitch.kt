@@ -17,7 +17,9 @@ class IosSwitch @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : View(context, attrs) {
 
-    private val trackColorOff = MaterialColors.getColor(context, R.attr.vibicDivider, "IosSwitch")
+    /** Цвет дорожки в выключенном состоянии. По умолчанию — цвет разделителя темы. */
+    var trackColorOff: Int = MaterialColors.getColor(context, R.attr.vibicDivider, "IosSwitch")
+        set(value) { field = value; invalidate() }
     private val trackColorOn = MaterialColors.getColor(context, R.attr.vibicBrand, "IosSwitch")
 
     private val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG)

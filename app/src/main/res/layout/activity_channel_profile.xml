@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Профиль канала для владельца и админа. Подписчик видит ContactProfileActivity -->
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_channel_profile"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <!-- ───── TOP BAR ───── -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="52dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="start|center_vertical"
+                android:src="@drawable/ic_back"
+                app:tint="?attr/vibicTextPrimary"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <ImageView
+                android:id="@+id/editButton"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end|center_vertical"
+                android:padding="4dp"
+                android:src="@drawable/ic_edit_top"
+                app:tint="?attr/vibicTextPrimary"
+                android:scaleType="fitCenter"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <!-- ───── AVATAR + NAME + SUBSCRIBERS + ROLE ───── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingBottom="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="60dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <ImageView
+                    android:id="@+id/avatarImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/avatarText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_contact_avatar"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="44sp"
+                    android:textStyle="bold"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="24dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="?attr/vibicTextPrimary"
+                android:textSize="26sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/subscribersText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/vibicTextSecondary"
+                android:textSize="14sp"/>
+
+            <!-- «Вы владелец канала» / «Вы администратор · должность» -->
+            <LinearLayout
+                android:id="@+id/roleBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="24dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_channel_role_badge"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:id="@+id/roleBadgeIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/ic_crown"
+                    app:tint="@color/channel_gold"/>
+
+                <TextView
+                    android:id="@+id/roleBadgeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/channel_gold"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ───── ACTIONS: Пост / Статистика / Пригласить / Поделиться ───── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="16dp">
+
+            <include android:id="@+id/btnPost" layout="@layout/item_channel_action"/>
+            <include android:id="@+id/btnStats" layout="@layout/item_channel_action"/>
+            <include android:id="@+id/btnInvite" layout="@layout/item_channel_action"/>
+            <include android:id="@+id/btnShare" layout="@layout/item_channel_action"/>
+        </LinearLayout>
+
+        <!-- ───── STATS ───── -->
+        <LinearLayout
+            android:id="@+id/statsRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            android:showDividers="middle"
+            android:divider="@drawable/space_8dp">
+
+            <include android:id="@+id/statSubscribers" layout="@layout/item_channel_stat"/>
+            <include android:id="@+id/statReach" layout="@layout/item_channel_stat"/>
+            <include android:id="@+id/statEr" layout="@layout/item_channel_stat"/>
+        </LinearLayout>
+
+        <!-- ───── УПРАВЛЕНИЕ КАНАЛОМ ───── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="УПРАВЛЕНИЕ КАНАЛОМ"
+            android:textColor="?attr/vibicTextSecondary"
+            android:textSize="12sp"
+            android:letterSpacing="0.08"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_channel_card"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:paddingVertical="4dp"
+            android:showDividers="middle"
+            android:divider="@drawable/divider_channel_row">
+
+            <include android:id="@+id/rowAdmins" layout="@layout/item_channel_row"/>
+            <include android:id="@+id/rowSubscribers" layout="@layout/item_channel_row"/>
+            <include android:id="@+id/rowType" layout="@layout/item_channel_row"/>
+            <include android:id="@+id/rowInviteLinks" layout="@layout/item_channel_row"/>
+            <include android:id="@+id/rowComments" layout="@layout/item_channel_row"/>
+            <include android:id="@+id/rowBlacklist" layout="@layout/item_channel_row"/>
+            <include android:id="@+id/rowLog" layout="@layout/item_channel_row"/>
+        </LinearLayout>
+
+        <!-- ───── Удалить канал (владелец) / Покинуть канал (админ) ───── -->
+        <LinearLayout
+            android:id="@+id/rowDanger"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_channel_card"
+            android:foreground="?selectableItemBackground"
+            android:layout_marginHorizontal="16dp"
+            android:paddingHorizontal="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/dangerIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="14dp"
+                android:src="@drawable/ic_trash"
+                app:tint="@color/channel_danger"/>
+
+            <TextView
+                android:id="@+id/dangerText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Удалить канал"
+                android:textColor="@color/channel_danger"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
